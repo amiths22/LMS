@@ -73,8 +73,6 @@ public class LoginManager {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/mainview.fxml"));
 			scene.setRoot((Parent) loader.load());
 			
-			
-			
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
