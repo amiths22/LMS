@@ -19,9 +19,9 @@ public class LoginManager {
 	 * Callback method invoked to notify that a user has been authenticated. Will
 	 * show the main application screen.
 	 */
-	public void authenticated(String sessionID) {
+	/*public void authenticated(String sessionID) {
 		showMainView(sessionID);
-	}
+	}*/
 
 	/**
 	 * Callback method invoked to notify that a user has logged out of the main
@@ -33,21 +33,22 @@ public class LoginManager {
 
 	public void showLoginScreen() {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
+			System.out.println(loader.toString());
 			scene.setRoot((Parent) loader.load());
-			LoginController controller = loader.getController();
-			controller.initManager(this);
+			/*LoginController controller = loader.getController();
+			controller.initManager(this);*/
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 	}
 
-	private void showMainView(String sessionID) {
+	private void showMainView(/*String sessionID*/) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("mainview.fxml"));
 			scene.setRoot((Parent) loader.load());
-			MainViewController controller = loader.getController();
-			controller.initSessionID(this, sessionID);
+			//MainViewController controller = loader.getController();
+			//controller.initSessionID(this, sessionID);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
