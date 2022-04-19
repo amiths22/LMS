@@ -6,7 +6,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import controller.LoginManager;
+import model.LoginManager;
 
 /** Main application class for the login demo application */
 public class LeaveApplication extends Application {
