@@ -70,7 +70,7 @@ public class LoginManager {
 	private void showMainView() {
 		try {
 			
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/mainview.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EmployeeView.fxml"));
 			scene.setRoot((Parent) loader.load());
 			
 		} catch (IOException ex) {
