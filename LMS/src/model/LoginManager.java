@@ -9,14 +9,15 @@ import controller.LoginController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import model.DBConnect;
+
 
 /** Manages control flow for logins */
-public class LoginManager {
+public class LoginManager extends DBConnect {
 
 	private String username;
 	private String password;
 	public int role;
+	
 	public String getUsername() {
 		return username;
 	}
@@ -41,13 +42,8 @@ public class LoginManager {
 		this.role = role;
 	}
 
-	private Scene scene;
 
-	public LoginManager(Scene scene) {
-		this.scene = scene;
-		
-		
-	}
+
 
 	/**
 	 * Callback method invoked to notify that a user has been authenticated. Will
@@ -68,9 +64,8 @@ public class LoginManager {
 		}
 		else
 			showLoginScreen();*/
-		DBConnect conn=new DBConnect();
 		String query = "SELECT * FROM users WHERE email = ? and Password = ?";
-		try(PreparedStatement stmt = conn.connect().prepareStatement(query)) 
+		try(PreparedStatement stmt = conn.prepareStatement(query)) 
 		{
 			
 			stmt.setString(1, user);
@@ -99,7 +94,7 @@ public class LoginManager {
 	 * Callback method invoked to notify that a user has logged out of the main
 	 * application. Will show the login application screen.
 	 */
-	public void logout() {
+	/*public void logout() {
 		showLoginScreen();
 	}
 
@@ -122,9 +117,9 @@ public class LoginManager {
 			ex.printStackTrace();
 
 		}
-	}
+	}*/
 
-	public void showMainView() {
+	/*public void showMainView() {
 		try {
 			
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EmployeeView.fxml"));
@@ -133,5 +128,5 @@ public class LoginManager {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
-	}
+	}*/
 }

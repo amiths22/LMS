@@ -1,17 +1,27 @@
 package model;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DBConnect {
-    // Code database URL
-    static final String DB_URL =
-            "jdbc:mysql://192.168.1.19:3307/510labs?autoReconnect=true&useSSL=false";
-    // Database credentials
-    static final String USER = "asatya", PASS = "asatya";
-    public Connection connect() throws SQLException {
-        return DriverManager.getConnection(DB_URL, USER, PASS);
-    }
+	protected Connection conn;
+	public Connection getconnection() 
+	{ 
+		return conn; 
+	}
 
+	private static String url = "jdbc:mysql://192.168.1.19:3307/510labs?autoReconnect=true&useSSL=false";
+	private static String user = "asatya";
+	private static String pass = "asatya";
+
+	public DBConnect() {
+
+		try {
+			conn = DriverManager.getConnection(url, user, pass);
+		} catch (SQLException e) {
+			System.out.println("Error creating connection to database: " + e);
+			System.exit(-1);
+		}
+	}
 }

@@ -57,6 +57,8 @@ public class EmployeeViewController {
     
 	DBConnect dbConnect = null;
 	Statement Statement = null;
+	public String sUsername;
+	public String sPassword;
     
     @FXML
 	private void initialize()
