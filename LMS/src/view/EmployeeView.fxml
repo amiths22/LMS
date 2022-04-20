@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.event.ActionEvent?>
 
-<StackPane prefHeight="358.0" prefWidth="571.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController" >
+<StackPane prefHeight="358.0" prefWidth="571.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EmployeeViewController">
   <children>
     <StackPane>
       <children>
@@ -28,7 +27,6 @@
     </StackPane>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
-      <Button id="loginButton" fx:id="logoutButton" alignment="CENTER" defaultButton="true" layoutX="472.0" layoutY="298.0" mnemonicParsing="false" text="Logout" />
             <TabPane prefHeight="338.0" prefWidth="551.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="User details">
@@ -45,65 +43,34 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: lightgrey;">
                            <children>
-                              <Group layoutX="4.0" layoutY="25.260417938232422">
+                              <Group layoutX="4.0" layoutY="25.260417938232422" />
+                              <Button fx:id="applyleavebutton" layoutX="454.0" layoutY="238.0" mnemonicParsing="false" text="Apply leave" />
+                              <JFXTextArea fx:id="reasonbox" focusColor="WHITE" layoutX="151.0" layoutY="147.0" prefHeight="90.0" prefWidth="293.0" text="Enter the leave reason" unFocusColor="WHITE" />
+                              <Group layoutX="37.0" layoutY="28.0">
                                  <children>
-                                    <Group>
-                                       <children>
-                                          <Text layoutX="1.0" layoutY="4.630208969116211" strokeType="OUTSIDE" strokeWidth="0.0" text="Leave Type : " underline="true" />
-                                          <Text layoutX="1.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leave From :" underline="true" />
-                                          <DatePicker layoutX="119.0" layoutY="50.0" promptText="Select a date" />
-                                          <Text layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leave To :" underline="true" />
-                                          <DatePicker layoutX="119.0" layoutY="82.0" promptText="Select a date" />
-                                          <Text layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reason : " underline="true" />
-                                          <TextArea layoutX="109.0" layoutY="119.0" prefHeight="100.0" prefWidth="270.0" />
-                                          <RadioButton fx:id="annualleave" layoutX="124.0" layoutY="-10.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="86.0" text="Annual">
-                                             <font>
-                                                <Font size="13.0" />
-                                             </font>
-                                             <toggleGroup>
-                                                <ToggleGroup fx:id="LeaveType" />
-                                             </toggleGroup>
-                                          </RadioButton>
-                                          <RadioButton fx:id="casualleave" layoutX="212.0" layoutY="-10.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="86.0" text="Casual" toggleGroup="$LeaveType">
-                                             <font>
-                                                <Font size="13.0" />
-                                             </font>
-                                          </RadioButton>
-                                          <RadioButton fx:id="maternityleave" layoutX="306.0" layoutY="-9.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="86.0" text="Maternity" toggleGroup="$LeaveType">
-                                             <font>
-                                                <Font size="13.0" />
-                                             </font>
-                                          </RadioButton>
-                                          <RadioButton fx:id="sickleave" layoutX="124.0" layoutY="16.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="86.0" text="Sick" toggleGroup="$LeaveType">
-                                             <font>
-                                                <Font size="13.0" />
-                                             </font>
-                                          </RadioButton>
-                                          <RadioButton layoutX="212.0" layoutY="16.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="86.0" text="RadioButton" toggleGroup="$LeaveType">
-                                             <font>
-                                                <Font size="13.0" />
-                                             </font>
-                                          </RadioButton>
-                                          <RadioButton layoutX="306.0" layoutY="16.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="86.0" text="RadioButton" toggleGroup="$LeaveType">
-                                             <font>
-                                                <Font size="13.0" />
-                                             </font>
-                                          </RadioButton>
-                                          	
-                                             </children>
-                                    </Group>
-                                    <RadioButton fx:id="paternityleave" layoutX="415.0" layoutY="-11.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="86.0" text="Paternity" toggleGroup="$LeaveType">
-                                       <font>
-                                          <Font size="13.0" />
-                                       </font>
-                                    </RadioButton>
-                                 </children>
+                                    <Text layoutX="1.0" layoutY="4.630208969116211" strokeType="OUTSIDE" strokeWidth="0.0" text="Leave Type : " underline="true" />
+                                    <Text layoutX="1.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leave From :" underline="true" />
+                                    <DatePicker fx:id="leavefrom" layoutX="119.0" layoutY="35.0" prefHeight="26.0" prefWidth="209.0" promptText="Select a date" />
+                                    <Text layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leave To :" underline="true" />
+                                    <DatePicker fx:id="leaveto" layoutX="119.0" layoutY="67.0" prefHeight="26.0" prefWidth="212.0" promptText="Select a date" />
+                                    <Text layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reason : " underline="true" />
+                                    <JFXComboBox fx:id="combobox" layoutX="119.0" layoutY="-14.0" prefHeight="28.0" prefWidth="210.0" />
+                                    	
+                                                   </children>
                               </Group>
-                              <Button layoutX="213.0" layoutY="251.0" mnemonicParsing="false" text="Apply leave" />
                            </children>
                         </AnchorPane>
                   </content>
                 </Tab>
+                  <Tab text="Logout">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: lightgrey;">
+                           <children>
+                              <Button fx:id="logoutbutton" layoutX="213.0" layoutY="103.0" mnemonicParsing="false" onAction="#onlogout" prefHeight="50.0" prefWidth="127.0" text="Button" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
               </tabs>
             </TabPane>
          </children>
