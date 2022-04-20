@@ -1,19 +1,22 @@
 package model;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import controller.LoginController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import model.DBConnect;
 
 /** Manages control flow for logins */
 public class LoginManager {
 
 	private String username;
 	private String password;
-	private int role;
+	public int role;
 	public String getUsername() {
 		return username;
 	}
@@ -42,15 +45,17 @@ public class LoginManager {
 
 	public LoginManager(Scene scene) {
 		this.scene = scene;
+		
+		
 	}
 
 	/**
 	 * Callback method invoked to notify that a user has been authenticated. Will
 	 * show the main application screen.
 	 */
-	public void authenticate(String user,String pass) {
+	public boolean authenticate(String user,String pass) {
 		
-		if(user.equals("amith")&&pass.equals("1234")) {
+		/*if(user.equals("amith")&&pass.equals("1234")) {
 			System.out.println(user+"   "+pass);
 		showMainView();
 		DBConnect conn=new DBConnect();
@@ -62,24 +67,22 @@ public class LoginManager {
 		}
 		}
 		else
-			showLoginScreen();
-	}
-	
-	public Boolean getCredentials(String sUsername, String sPassword, String sUserType)
-	{
-
-		String query = "SELECT * FROM hms_login WHERE Email = ? and Password = ? and UserType = ?;";
-		try(PreparedStatement stmt = connection.prepareStatement(query)) 
+			showLoginScreen();*/
+		DBConnect conn=new DBConnect();
+		String query = "SELECT * FROM users WHERE email = ? and Password = ?";
+		try(PreparedStatement stmt = conn.connect().prepareStatement(query)) 
 		{
 			
-			stmt.setString(1, sUsername);
-			stmt.setString(2, sPassword);
-			stmt.setString(3, sUserType);
+			stmt.setString(1, user);
+			stmt.setString(2, pass);
 			ResultSet rs = stmt.executeQuery();
 			if(rs.next())
 			{ 
-				setUsername(rs.getString("Email"));
-				setPassword(rs.getString("Password"));
+				setUsername(rs.getString("email"));
+				setPassword(rs.getString("password"));
+				setRole(rs.getInt("role"));
+				System.out.println("records fetced");
+			
 				return true;
 			}
 		}
@@ -87,7 +90,10 @@ public class LoginManager {
 			e.printStackTrace();   
 		}
 		return false;
+		
+		
 	}
+	
 
 	/**
 	 * Callback method invoked to notify that a user has logged out of the main
@@ -118,7 +124,7 @@ public class LoginManager {
 		}
 	}
 
-	private void showMainView() {
+	public void showMainView() {
 		try {
 			
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EmployeeView.fxml"));

@@ -13,9 +13,10 @@ public class LoginController {
   @FXML private TextField password;
   @FXML private Button login;
   
- // public void initialize() {}
-  
+ private boolean authok = false;
+
   public void initManager(final LoginManager loginManager) {
+	  
 	  System.out.println("init manager entered");
 	   login.setOnAction((e) -> {
 	    	  String user = username.getText();
@@ -35,9 +36,36 @@ public class LoginController {
 	  			alert.setTitle("Error");
 	  			alert.setHeaderText("please enter password");
 	  			alert.showAndWait();
-	  			}else  
-	            loginManager.authenticate(user,pass);
+	  			}else {
+	           authok= loginManager.authenticate(user,pass);
+	           System.out.println(authok);
+	           
+	  			}
+	    	  if(authok) {
+	   		   System.out.println("authok entered");
+	   		   //loginManager.showMainView();
+	   		   switch(loginManager.getRole()) {
+	   		   
+	   		   case 1:loginManager.showMainView();
+	   		   break;
+	   		   case 0: loginManager.showLoginScreen();
+	   		   }
+	   		  
+	   	   }
+	    	  else {
+	    		  Alert alert = new Alert(Alert.AlertType.ERROR);
+		  			alert.setTitle("Error");
+		  			alert.setHeaderText("Username or password incorect");
+		  			alert.showAndWait();
+	    	  }
 		});
+	   
+	   if(authok) {
+		   System.out.println("authok entered");
+		   loginManager.showMainView();
+		   
+		  
+	   }
 	   
 	   
 	   
