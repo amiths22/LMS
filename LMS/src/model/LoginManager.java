@@ -11,6 +11,33 @@ import javafx.scene.Scene;
 /** Manages control flow for logins */
 public class LoginManager {
 
+	private String username;
+	private String password;
+	private int role;
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public int getRole() {
+		return role;
+	}
+
+	public void setRole(int role) {
+		this.role = role;
+	}
+
 	private Scene scene;
 
 	public LoginManager(Scene scene) {
@@ -36,6 +63,30 @@ public class LoginManager {
 		}
 		else
 			showLoginScreen();
+	}
+	
+	public Boolean getCredentials(String sUsername, String sPassword, String sUserType)
+	{
+
+		String query = "SELECT * FROM hms_login WHERE Email = ? and Password = ? and UserType = ?;";
+		try(PreparedStatement stmt = connection.prepareStatement(query)) 
+		{
+			
+			stmt.setString(1, sUsername);
+			stmt.setString(2, sPassword);
+			stmt.setString(3, sUserType);
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next())
+			{ 
+				setUsername(rs.getString("Email"));
+				setPassword(rs.getString("Password"));
+				return true;
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();   
+		}
+		return false;
 	}
 
 	/**

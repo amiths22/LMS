@@ -38,6 +38,9 @@ public class LoginController {
 	  			}else  
 	            loginManager.authenticate(user,pass);
 		});
+	   
+	   
+	   
 	 
   }
 
