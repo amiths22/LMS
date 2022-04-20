@@ -1,6 +1,6 @@
 package model;
 
-public class UserInfo {
+public class EmployeeModel {
 	
 	 	private int userId;
 	    private String userName;

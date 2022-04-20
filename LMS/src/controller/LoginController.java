@@ -12,7 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import model.LoginManager;
+import model.LoginModel;
 
 
 /** Controls the login screen */
@@ -27,12 +27,12 @@ public class LoginController {
 	private Parent root;
 	private int role;
  private boolean authok = false;
-private LoginManager loginmanager;
+private LoginModel loginmanager;
 
  
  public LoginController() 
 	{ 
-		  loginmanager = new LoginManager(); 
+		  loginmanager = new LoginModel(); 
 	}
  
  public void onclicklogin(ActionEvent event)
@@ -111,7 +111,7 @@ private LoginManager loginmanager;
 
 			if(role==1)
 			{
-				EmployeeViewController empCtrl = ((EmployeeViewController)fxmlLoader.getController());
+				EmployeeController empCtrl = ((EmployeeController)fxmlLoader.getController());
 				empCtrl.sUsername = username;
 				empCtrl.sPassword = password;
 				System.out.println("success");

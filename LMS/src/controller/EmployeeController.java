@@ -28,7 +28,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
-public class EmployeeViewController {
+public class EmployeeController {
 	
 	private Stage stage;
 	private Scene scene;

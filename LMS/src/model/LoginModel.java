@@ -12,7 +12,7 @@ import javafx.scene.Scene;
 
 
 /** Manages control flow for logins */
-public class LoginManager extends DBConnect {
+public class LoginModel extends DBConnect {
 
 	private String username;
 	private String password;

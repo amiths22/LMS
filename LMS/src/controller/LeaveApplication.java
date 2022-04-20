@@ -7,7 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import model.LoginManager;
+import model.LoginModel;
 
 public class LeaveApplication extends Application {
 	@Override
