@@ -130,8 +130,10 @@ private LoginModel loginmanager;
 			else if(role==1)
 			{
 				ManagerController manCtrl = ((ManagerController)fxmlLoader.getController());
+				System.out.println(manCtrl);
 				manCtrl.sUsername = username;
 				manCtrl.sPassword = password;
+				System.out.println("Manager authenticated");
 			}
 			else if(role == 2)
 			{
@@ -149,6 +151,7 @@ private LoginModel loginmanager;
 
 		} catch (Exception e) {
 			System.out.println("Error occured while checking credentials: " + e);
+			e.printStackTrace();
 		}
 
 	}

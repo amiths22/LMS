@@ -21,7 +21,7 @@ public class LeaveApplication extends Application {
 			stage.setTitle("Leave management System");
 			stage.setScene(scene);
 			stage.show();
-		} catch (Exception e) {
+		} catch (Exception e) { 	
 			e.printStackTrace();
 		}
 	}

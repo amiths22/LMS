@@ -28,7 +28,7 @@
     </StackPane>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
-      <Button id="loginButton" fx:id="logoutButton" alignment="CENTER" defaultButton="true" layoutX="472.0" layoutY="298.0" mnemonicParsing="false" text="Logout" />
+      <Button id="loginButton" alignment="CENTER" defaultButton="true" layoutX="472.0" layoutY="298.0" mnemonicParsing="false" text="Logout" />
             <TabPane prefHeight="338.0" prefWidth="551.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="User details">
@@ -50,7 +50,7 @@
                               <Text layoutX="37.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leave From :" />
                               <Text layoutX="37.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leave To :" />
                               <Text layoutX="41.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reason :" />
-                              <JFXComboBox layoutX="142.0" layoutY="21.0" prefHeight="26.0" prefWidth="193.0" />
+                              <JFXComboBox fx:id="combobox" layoutX="142.0" layoutY="21.0" prefHeight="26.0" prefWidth="193.0" />
                               <DatePicker layoutX="142.0" layoutY="68.0" />
                               <DatePicker layoutX="142.0" layoutY="115.0" />
                               <JFXTextArea focusColor="WHITE" layoutX="143.0" layoutY="173.0" prefHeight="82.0" prefWidth="363.0" text="Enter reason here" unFocusColor="WHITE" />
