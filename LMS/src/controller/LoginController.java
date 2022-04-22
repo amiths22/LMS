@@ -91,38 +91,43 @@ private LoginModel loginmanager;
 
 			switch(role){
 			
-			case 2: {newscene="/view/adminview.fxml";
-				width = 857;
-				height = 565;
-			}
-				break;
-			
-			case 1: {newscene="/view/EmployeeView.fxml";
+			case 0: 
+			{
+				newscene="/view/EmployeeView.fxml";
 				width = 571;
 				height = 358;
 				
 			}
-				break;
+			break;
 
-			case 0:
+			case 1:
 			{
 				newscene="/view/ManagerView.fxml";
 				width = 571;
 				height = 358;
-			} break;
 			}
+			break;
+			
+			case 2:
+			{
+				newscene="/view/adminview.fxml";
+				width = 857;
+				height = 565;
+			}
+			break;
+		}
 
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(newscene));
 			Parent root = fxmlLoader.load();
 
-			if(role==1)
+			if(role==0)
 			{
 				EmployeeController empCtrl = ((EmployeeController)fxmlLoader.getController());
 				empCtrl.sUsername = username;
 				empCtrl.sPassword = password;
 				System.out.println("success");
 			}
-			else if(role==0)
+			else if(role==1)
 			{
 				ManagerController manCtrl = ((ManagerController)fxmlLoader.getController());
 				manCtrl.sUsername = username;
