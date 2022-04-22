@@ -8,7 +8,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -16,7 +15,6 @@
 
 <StackPane prefHeight="358.0" prefWidth="571.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerController">
   <children>
-      <TextField />
     <StackPane>
       <children>
         <VBox spacing="10.0">
@@ -28,7 +26,6 @@
     </StackPane>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
-      <Button id="loginButton" alignment="CENTER" defaultButton="true" layoutX="472.0" layoutY="298.0" mnemonicParsing="false" text="Logout" />
             <TabPane prefHeight="338.0" prefWidth="551.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="User details">
@@ -37,6 +34,7 @@
                            <children>
                               <Text layoutX="14.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" />
                               <Text layoutX="60.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
+                        <Button fx:id="LogoutBtn" alignment="CENTER" defaultButton="true" layoutX="482.0" layoutY="270.0" mnemonicParsing="false" onAction="#onlogout" text="Logout" />
                            </children>
                         </AnchorPane>
                   </content>
