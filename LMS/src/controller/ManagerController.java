@@ -92,7 +92,7 @@ public class ManagerController {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/LoginView.fxml"));
 		root = fxmlLoader.load();
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		scene = new Scene(root, 400, 700);
+		scene = new Scene(root, 600, 400);
 		stage.setScene(scene);
 		stage.show();
     }

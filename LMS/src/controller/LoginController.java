@@ -91,9 +91,15 @@ private LoginModel loginmanager;
 
 			switch(role){
 			
+			case 2: {newscene="/view/adminview.fxml";
+				width = 857;
+				height = 565;
+			}
+				break;
+			
 			case 1: {newscene="/view/EmployeeView.fxml";
-				width = 455;
-				height = 435;
+				width = 571;
+				height = 358;
 				
 			}
 				break;
@@ -101,8 +107,8 @@ private LoginModel loginmanager;
 			case 0:
 			{
 				newscene="/view/ManagerView.fxml";
-				width = 455;
-				height = 435;
+				width = 571;
+				height = 358;
 			} break;
 			}
 
@@ -121,6 +127,12 @@ private LoginModel loginmanager;
 				ManagerController manCtrl = ((ManagerController)fxmlLoader.getController());
 				manCtrl.sUsername = username;
 				manCtrl.sPassword = password;
+			}
+			else if(role == 2)
+			{
+				AdminController admCtrl = ((AdminController)fxmlLoader.getController());
+				admCtrl.sUsername = username;
+				admCtrl.sPassword = password;
 			}
 			
 			Node source = (Node) event.getSource();

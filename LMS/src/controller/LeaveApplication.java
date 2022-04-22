@@ -15,7 +15,7 @@ public class LeaveApplication extends Application {
 		try {
 			System.out.println("Test");
 			 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/LoginView.fxml"));
-			 Scene scene = new Scene(fxmlLoader.load(), 800, 1000);
+			 Scene scene = new Scene(fxmlLoader.load(), 600, 400);
 
 			//scene.getStylesheets().add(getClass().getResource("Application.css").toExternalForm());
 			stage.setTitle("Leave management System");

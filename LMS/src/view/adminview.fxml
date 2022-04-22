@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="857.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="857.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminController">
    <children>
       <AnchorPane prefHeight="572.0" prefWidth="858.0" style="-fx-background-color: lightgrey; -fx-border-width: 10px;">
          <children>
@@ -80,7 +80,7 @@
                                     <Text layoutX="540.0" layoutY="299.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reports to" />
                                     <JFXComboBox fx:id="comboboxreportsto" layoutX="607.0" layoutY="282.0" prefHeight="26.0" prefWidth="209.0" />
                                     <Text layoutX="369.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date of birth" />
-                                    <DatePicker fx:id="adddob" layoutX="331.0" layoutY="135.0" />
+                                    <DatePicker fx:id="adddob" layoutX="304.0" layoutY="135.0" />
                                     <JFXButton fx:id="adduserbutton" layoutX="355.0" layoutY="345.0" prefHeight="26.0" prefWidth="95.0" style="-fx-background-color: #ffffff; -fx-border-width: 2px; -fx-border-color: #000000;" text="Add user" />
                                  </children>
                               </AnchorPane>
@@ -90,6 +90,11 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
+                                    <JFXButton fx:id="btndeleteuser" layoutX="366.0" layoutY="356.0" prefHeight="26.0" prefWidth="119.0" style="-fx-background-color: #000000;" text="Delete User" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="17.0" />
+                                       </font>
+                                    </JFXButton>
                                     <TableView fx:id="table" editable="true" layoutX="-1.0" prefHeight="356.0" prefWidth="854.0">
                                       <columns>
                                         <TableColumn fx:id="tablecoluserid" prefWidth="75.0" text="User ID" />
@@ -109,13 +114,17 @@
                   </TabPane>
                </children>
             </AnchorPane>
-            <Text layoutX="285.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADMIN PORTAL">
+            <Text layoutX="285.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADMIN PORTAL">
                <font>
                   <Font name="Bookman Old Style Bold Italic" size="36.0" />
                </font>
             </Text>
-            <FontAwesomeIconView glyphName="USER" layoutX="796.0" layoutY="76.0" scaleX="4.5" scaleY="4.5" scaleZ="4.5" />
-            <FontAwesomeIconView glyphName="PLUS" layoutX="814.0" layoutY="54.0" scaleX="2.2" scaleY="2.2" scaleZ="2.2" />
+            <FontAwesomeIconView glyphName="USER" layoutX="424.0" layoutY="104.0" scaleX="4.5" scaleY="4.5" scaleZ="4.5" />
+            <JFXButton fx:id="btndeleteuser1" layoutX="738.0" layoutY="93.0" onAction="#onlogoutfromadmin" prefHeight="26.0" prefWidth="119.0" style="-fx-background-color: #000000;" text="Logout" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </JFXButton>
          </children>
       </AnchorPane>
    </children>
