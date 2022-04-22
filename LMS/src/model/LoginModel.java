@@ -64,7 +64,7 @@ public class LoginModel extends DBConnect {
 		}
 		else
 			showLoginScreen();*/
-		String query = "SELECT * FROM users WHERE email = ? and Password = ?";
+		String query = "SELECT * FROM employees WHERE emp_id = ? and password = ?";
 		try(PreparedStatement stmt = conn.prepareStatement(query)) 
 		{
 			
