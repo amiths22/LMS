@@ -1,25 +1,43 @@
 package model;
 
-public class AdminModel {
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+public class AdminModel extends DBConnect {
 	
-	int id;
-	String fname,lname,email,phonenumber;
+	String emp_id;
+	String fname,lname,email,phone,department;
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	DBConnect dbConnect = null;
 	
-	public AdminModel(int id, String fname, String lname, String email, String phonenumber) {
-		super();
-		this.id = id;
+	/*public AdminModel(String emp_id, String fname, String lname, String email, String phone) {
+
+		this.emp_id = emp_id;
 		this.fname = fname;
 		this.lname = lname;
 		this.email = email;
-		this.phonenumber = phonenumber;
+		this.phone = phone;
+	}*/
+	
+	
+	public String getemp_id() {
+		return emp_id;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
+	public void setemp_id(String emp_id) {
+		this.emp_id = emp_id;
 	}
 
 	public String getFname() {
@@ -46,15 +64,38 @@ public class AdminModel {
 		this.email = email;
 	}
 
-	public String getPhonenumber() {
-		return phonenumber;
+	public String getphone() {
+		return phone;
 	}
 
-	public void setPhonenumber(String phonenumber) {
-		this.phonenumber = phonenumber;
+	public void setphone(String phone) {
+		this.phone = phone;
 	}
 	
-	
-	
-
+	public ObservableList<AdminModel> getdataofusers(String query){
+		ObservableList<AdminModel> userlist = FXCollections.observableArrayList();
+		System.out.println("try entered1");
+		try(PreparedStatement ps = conn.prepareStatement(query))
+		{
+			System.out.println("try entered");
+            ResultSet rs = ps.executeQuery();
+            System.out.println(ps);
+            
+            while (rs.next())
+            {
+            	AdminModel adm=new AdminModel();
+            	adm.setemp_id(rs.getString("emp_id"));
+            	adm.setFname(rs.getString("fname"));
+            	adm.setLname(rs.getString("lname"));
+            	adm.setEmail(rs.getString("email"));
+            	adm.setphone(rs.getString("phone"));
+            	adm.setDepartment(rs.getString("department"));
+            	userlist.add(adm);
+            }
+		}
+		catch(SQLException e) {
+			System.out.println("Error Displaying user details ");
+		}
+		return userlist;
+	}
 }
