@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
-<?import javafx.event.ActionEvent?>
 
 <StackPane prefHeight="358.0" prefWidth="571.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EmployeeController">
   <children>
@@ -44,7 +43,7 @@
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: lightgrey;">
                            <children>
                               <Group layoutX="4.0" layoutY="25.260417938232422" />
-                              <Button fx:id="applyleavebutton" layoutX="454.0" layoutY="238.0" mnemonicParsing="false" text="Apply leave" />
+                              <Button fx:id="applyleavebutton" layoutX="454.0" layoutY="238.0" mnemonicParsing="false" onAction="#onapplyleave" text="Apply leave" />
                               <JFXTextArea fx:id="reasonbox" focusColor="WHITE" layoutX="151.0" layoutY="147.0" prefHeight="90.0" prefWidth="293.0" text="Enter the leave reason" unFocusColor="WHITE" />
                               <Group layoutX="37.0" layoutY="28.0">
                                  <children>
