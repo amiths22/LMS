@@ -10,8 +10,41 @@ import javafx.collections.ObservableList;
 
 public class AdminModel extends DBConnect {
 	
+	DBConnect dbConnect = null;
 	String emp_id;
-	String fname,lname,email,phone,department;
+	String fname,lname,email,phone,department,designation,dob,reports_to,role;
+	public String getDesignation() {
+		return designation;
+	}
+
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
+
+	public String getDob() {
+		return dob;
+	}
+
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
+
+	public String getReportsto() {
+		return reports_to;
+	}
+
+	public void setReportsto(String reportsto) {
+		this.reports_to = reportsto;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	public String getDepartment() {
 		return department;
 	}
@@ -19,17 +52,6 @@ public class AdminModel extends DBConnect {
 	public void setDepartment(String department) {
 		this.department = department;
 	}
-
-	DBConnect dbConnect = null;
-	
-	/*public AdminModel(String emp_id, String fname, String lname, String email, String phone) {
-
-		this.emp_id = emp_id;
-		this.fname = fname;
-		this.lname = lname;
-		this.email = email;
-		this.phone = phone;
-	}*/
 	
 	
 	public String getemp_id() {
@@ -90,6 +112,11 @@ public class AdminModel extends DBConnect {
             	adm.setEmail(rs.getString("email"));
             	adm.setphone(rs.getString("phone"));
             	adm.setDepartment(rs.getString("department"));
+            	adm.setDesignation(rs.getString("designation"));
+            	adm.setDob(rs.getString("dob"));
+            	adm.setRole(rs.getString("role"));
+            	adm.setReportsto(rs.getString("reports_to"));;
+            	
             	userlist.add(adm);
             }
 		}

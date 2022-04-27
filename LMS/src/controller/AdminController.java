@@ -1,6 +1,9 @@
 package controller;
 
+import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,6 +23,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -46,7 +50,26 @@ public class AdminController {
 	//Initialize combox array
 	ObservableList<String> lstrole = FXCollections.observableArrayList("Employee", "Manager");
 	ObservableList<String> lstreportsto = FXCollections.observableArrayList("joe", "joey");
-
+	
+	ComboBox cboxreportsto = new ComboBox(lstreportsto);
+	
+	public void fillcombobox() {
+		try {
+			Connection conn = dbConnect.getconnection();
+			String query = "SELECT reports_to from employees;";
+			pst = conn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+			
+			while(rs.next()) {
+				lstreportsto.add(rs.getString("reports_to"));
+			}
+			pst.close();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
     @FXML
     private JFXTextArea adddepartment;
 
@@ -109,13 +132,84 @@ public class AdminController {
 
     @FXML
     private TableColumn<AdminModel , String> tablecoluserid;
+   
+    @FXML
+    private JFXButton updatebutton;
+
+    @FXML
+    private JFXTextArea updatedep;
+
+    @FXML
+    private JFXTextArea updatedes;
+
+    @FXML
+    private DatePicker updatedob;
+
+    @FXML
+    private JFXTextArea updateemail;
+
+    @FXML
+    private JFXTextArea updateemployeeid;
+
+    @FXML
+    private JFXTextArea updatefname;
+
+    @FXML
+    private JFXTextArea updatelname;
+
+    @FXML
+    private JFXTextArea updatepassword;
+
+    @FXML
+    private JFXTextArea updatephone;
+    
+    @FXML
+    private JFXComboBox<String> comboboxroleupdate;
+    
+    @FXML
+    private JFXComboBox<String> comboboxreportstoupdate;
+
+    @FXML
+    private TableView<AdminModel> updatetable;
+
+    @FXML
+    private TableColumn<AdminModel , String> utablecolemail;
+
+    @FXML
+    private TableColumn<AdminModel , String> utablecolempid;
+
+    @FXML
+    private TableColumn<AdminModel , String> utablecolfname;
+
+    @FXML
+    private TableColumn<AdminModel , String> utablecollname;
+
+    @FXML
+    private TableColumn<AdminModel , String> utablecolpnumber;
+    
+    @FXML
+    private TableColumn<AdminModel , String> updatecoldep;
+
+    @FXML
+    private TableColumn<AdminModel , String> updatecoldes;
+
+    @FXML
+    private TableColumn<AdminModel , String> updatecoldob;
+
+    @FXML
+    private TableColumn<AdminModel , String> updatecolreportsto;
+
+    @FXML
+    private TableColumn<AdminModel , String> updatecolrole;
     
 	DBConnect dbConnect = null;
 	Statement Statement = null;
+	PreparedStatement pst = null;
+	Connection con = null;
 	public String sUsername;
 	public String sPassword;
 	int aroleint;
-    
+    int index = -1;
   //Initialize table array
 	/*ObservableList<AdminModel> tablelist = FXCollections.observableArrayList(
 			
@@ -133,8 +227,9 @@ public class AdminController {
     @FXML
     public void initialize() {
     	dbConnect = new DBConnect();
-    	comboboxreportsto.setItems(lstreportsto);
+    	//comboboxreportsto.setItems(lstreportsto);
     	comboboxrole.setItems(lstrole);
+    	fillcombobox();
     	
     	
     	String query = "SELECT * from employees;";
@@ -149,7 +244,21 @@ public class AdminController {
     	tabcolPnumber.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("phone"));
     	tabcoldep.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("department"));
     	
+    	utablecolempid.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("emp_id"));
+    	utablecolfname.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("fname"));
+    	utablecollname.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("lname"));
+    	utablecolemail.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("email"));
+    	utablecolpnumber.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("phone"));
+    	//updatecoldep.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("fname"));
+    	updatecoldep.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("department"));
+    	updatecoldes.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("designation"));
+    	updatecoldob.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("dob"));
+    	updatecolrole.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("role"));
+    	updatecolreportsto.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("reports_to"));
+    	
+    	
     	table.setItems(userslist);
+    	updatetable.setItems(userslist);
     	
     }
     
@@ -159,14 +268,14 @@ public class AdminController {
     	
     	try {
   
-    		String aid = addemployeeid.getText();
-    		String afn = addfirstname.getText();
-    		String aln = addlastname.getText();
-    		String adep = adddepartment.getText();
-    		String ades = adddesignation.getText();
-    		String aemail = addemail.getText();
-    		String apass = addpassword.getText();
-    		String aphone = addphone.getText();
+    		String aid = addemployeeid.getText().trim();
+    		String afn = addfirstname.getText().trim();
+    		String aln = addlastname.getText().trim();
+    		String adep = adddepartment.getText().trim();
+    		String ades = adddesignation.getText().trim();
+    		String aemail = addemail.getText().trim();
+    		String apass = addpassword.getText().trim();
+    		String aphone = addphone.getText().trim();
     		String arole = comboboxrole.getValue();
     		String arepto = comboboxreportsto.getValue();
     		LocalDate adob = adddob.getValue();
@@ -191,6 +300,7 @@ public class AdminController {
 				lblerror.setText("Designation Cannot be empty or spaces");
 				return;
 			}
+    		//String regex = "/[^\s@]+@[^\s@]+\.[^\s@]+/";
     		if (aemail == null || aemail.trim().equals("")) {
 				lblerror.setText("Email Cannot be empty or spaces");
 				return;
@@ -215,7 +325,7 @@ public class AdminController {
     		Statement = dbConnect.getconnection().createStatement();
     		
     		String sql = "INSERT into employees (emp_id,fname,lname,department,role,dob,reports_to,email,password,phone,designation) VALUES"
-    				+ " (' "+aid+" ',' "+afn+" ','"+aln+"',' "+adep+" ','"+aroleint+"','"+adob+"','"+arepto+"','"+aemail+"','"+apass+"','"+aphone+"','"+ades+"' )";
+    				+ " ('"+aid+"','"+afn+"','"+aln+"','"+adep+"','"+aroleint+"','"+adob+"','"+arepto+"','"+aemail+"','"+apass+"','"+aphone+"','"+ades+"' )";
     		
     		int con = Statement.executeUpdate(sql);
 			if (con > 0) 
@@ -228,6 +338,42 @@ public class AdminController {
     	}
     	
     }
+    
+    @FXML
+    void getSelected() {
+    	index = updatetable.getSelectionModel().getSelectedIndex();
+    	if(index<= -1) {
+    		return;
+    	}
+    	updatefname.setText(utablecolfname.getCellData(index).toString());
+    	updatelname.setText(utablecollname.getCellData(index).toString());
+    	updateemail.setText(utablecolemail.getCellData(index).toString());
+    	//updatephone.setText(utablecolpnumber.getCellData(index).toString());
+    	updatedes.setText(updatecoldes.getCellData(index).toString());
+    	updatedep.setText(updatecoldep.getCellData(index).toString());
+    }
+    
+    public void deleteuser() throws SQLException {
+    	Connection conn = dbConnect.getconnection();
+    	String sql = "DELETE from employees where lname = ?;";
+    	try {
+    		pst = conn.prepareStatement(sql);
+    		pst.setString(1, tabcollname.getText().trim());
+    		pst.execute();
+    		JOptionPane.showMessageDialog(null,"Delete done");
+    		
+    	}
+    	catch(Exception e) {
+    		JOptionPane.showMessageDialog(null,e);
+    	}
+    }
+    
+    public void onrefresh() {
+    	initialize();
+    }
+    
+    
+    
     
     public void onlogoutfromadmin(ActionEvent event) throws IOException
  	{

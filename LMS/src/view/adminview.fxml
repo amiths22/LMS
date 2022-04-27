@@ -7,6 +7,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -22,7 +23,7 @@
          <children>
             <AnchorPane layoutY="131.0" prefHeight="434.0" prefWidth="857.0" style="-fx-background-color: #ffffff; -fx-border-width: 2px; -fx-border-color: #000000;">
                <children>
-                  <TabPane layoutX="14.0" layoutY="14.0" prefHeight="434.4" prefWidth="857.6" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TabPane layoutX="4.0" layoutY="-32.0" prefHeight="466.0" prefWidth="854.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="-34.0">
                     <tabs>
                       <Tab text="Add User">
                         <content>
@@ -96,7 +97,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <JFXButton fx:id="btndeleteuser" layoutX="366.0" layoutY="356.0" prefHeight="26.0" prefWidth="119.0" style="-fx-background-color: #000000;" text="Delete User" textFill="WHITE">
+                                    <JFXButton fx:id="btndeleteuser" layoutX="366.0" layoutY="356.0" onAction="#deleteuser" prefHeight="26.0" prefWidth="119.0" style="-fx-background-color: #000000;" text="Delete User" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="17.0" />
                                        </font>
@@ -117,21 +118,160 @@
                                  </children></AnchorPane>
                         </content>
                       </Tab>
+                        <Tab text="Update">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #ffff00;">
+                                 <children>
+                                    <ScrollPane layoutX="6.0" layoutY="17.0" prefHeight="404.0" prefWidth="524.0">
+                                       <content>
+                                          <AnchorPane prefHeight="598.0" prefWidth="636.0">
+                                             <children>
+                                                <TableView fx:id="updatetable" onMouseClicked="#getSelected" prefHeight="511.0" prefWidth="722.0">
+                                                  <columns>
+                                                    <TableColumn fx:id="utablecolempid" prefWidth="58.399997532367706" text="Emp ID" />
+                                                    <TableColumn fx:id="utablecolfname" prefWidth="79.20000839233398" text="First Name" />
+                                                      <TableColumn fx:id="utablecollname" prefWidth="65.5999755859375" text="Last Name" />
+                                                      <TableColumn fx:id="utablecolemail" prefWidth="64.00006103515625" text="Email" />
+                                                      <TableColumn fx:id="utablecolpnumber" prefWidth="65.60003662109375" text="Phone" />
+                                                      <TableColumn fx:id="updatecoldep" prefWidth="84.0" text="Department" />
+                                                      <TableColumn fx:id="updatecoldes" prefWidth="75.0" text="Designation" />
+                                                      <TableColumn fx:id="updatecoldob" prefWidth="75.0" text="DOB" />
+                                                      <TableColumn fx:id="updatecolrole" prefWidth="75.0" text="Role" />
+                                                      <TableColumn fx:id="updatecolreportsto" prefWidth="75.0" text="Reports To" />
+                                                  </columns>
+                                                </TableView>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </ScrollPane>
+                                    <ScrollPane layoutX="530.0" layoutY="17.0" prefHeight="406.0" prefWidth="315.0">
+                                       <content>
+                                          <AnchorPane prefHeight="804.0" prefWidth="409.0">
+                                             <children>
+                                                <JFXTextArea fx:id="updateemployeeid" layoutX="101.0" layoutY="40.0" prefHeight="42.0" prefWidth="188.0" style="-fx-background-color: #ffffff; -fx-border-width: 4px 4px 4px 4px; -fx-border-color: #000000;" AnchorPane.leftAnchor="101.0" AnchorPane.rightAnchor="123.0" />
+                                                <Text layoutX="6.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee ID" AnchorPane.leftAnchor="6.0">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Text>
+                                                <JFXTextArea fx:id="updatefname" layoutX="104.0" layoutY="100.0" prefHeight="42.0" prefWidth="188.0" style="-fx-background-color: #ffffff; -fx-border-width: 4px 4px 4px 4px; -fx-border-color: #000000;" AnchorPane.leftAnchor="103.0" AnchorPane.rightAnchor="121.0">
+                                                   <padding>
+                                                      <Insets top="2.0" />
+                                                   </padding>
+                                                </JFXTextArea>
+                                                <Text layoutX="7.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" AnchorPane.leftAnchor="6.0">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Text>
+                                                <JFXTextArea fx:id="updatelname" layoutX="105.0" layoutY="161.0" prefHeight="42.0" prefWidth="188.0" style="-fx-background-color: #ffffff; -fx-border-width: 4px 4px 4px 4px; -fx-border-color: #000000;" AnchorPane.leftAnchor="103.0" AnchorPane.rightAnchor="121.0">
+                                                   <padding>
+                                                      <Insets top="2.0" />
+                                                   </padding>
+                                                </JFXTextArea>
+                                                <Text layoutX="8.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" AnchorPane.leftAnchor="6.0">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Text>
+                                                <JFXTextArea fx:id="updatedep" layoutX="106.0" layoutY="224.0" prefHeight="42.0" prefWidth="188.0" style="-fx-background-color: #ffffff; -fx-border-width: 4px 4px 4px 4px; -fx-border-color: #000000;" AnchorPane.leftAnchor="103.0" AnchorPane.rightAnchor="121.0">
+                                                   <padding>
+                                                      <Insets top="2.0" />
+                                                   </padding>
+                                                </JFXTextArea>
+                                                <Text layoutX="9.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Department" AnchorPane.leftAnchor="6.0">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Text>
+                                                <JFXTextArea fx:id="updatedes" layoutX="108.0" layoutY="286.0" prefHeight="42.0" prefWidth="188.0" style="-fx-background-color: #ffffff; -fx-border-width: 4px 4px 4px 4px; -fx-border-color: #000000;" AnchorPane.leftAnchor="103.0" AnchorPane.rightAnchor="121.0">
+                                                   <padding>
+                                                      <Insets top="2.0" />
+                                                   </padding>
+                                                </JFXTextArea>
+                                                <Text layoutX="11.0" layoutY="312.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Designation" AnchorPane.leftAnchor="6.0">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Text>
+                                                <JFXTextArea fx:id="updateemail" layoutX="105.0" layoutY="348.0" prefHeight="42.0" prefWidth="188.0" style="-fx-background-color: #ffffff; -fx-border-width: 4px 4px 4px 4px; -fx-border-color: #000000;">
+                                                   <padding>
+                                                      <Insets top="2.0" />
+                                                   </padding>
+                                                </JFXTextArea>
+                                                <Text layoutX="8.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" AnchorPane.leftAnchor="6.0">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Text>
+                                                <JFXTextArea fx:id="updatepassword" layoutX="106.0" layoutY="411.0" prefHeight="42.0" prefWidth="188.0" style="-fx-background-color: #ffffff; -fx-border-width: 4px 4px 4px 4px; -fx-border-color: #000000;">
+                                                   <padding>
+                                                      <Insets top="2.0" />
+                                                   </padding>
+                                                </JFXTextArea>
+                                                <Text layoutX="9.0" layoutY="437.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Text>
+                                                <JFXTextArea fx:id="updatephone" layoutX="108.0" layoutY="473.0" prefHeight="42.0" prefWidth="188.0" style="-fx-background-color: #ffffff; -fx-border-width: 4px 4px 4px 4px; -fx-border-color: #000000;">
+                                                   <padding>
+                                                      <Insets top="2.0" />
+                                                   </padding>
+                                                </JFXTextArea>
+                                                <Text layoutX="9.0" layoutY="499.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Text>
+                                                <JFXComboBox fx:id="comboboxroleupdate" layoutX="113.0" layoutY="521.0" prefHeight="44.0" prefWidth="178.0" />
+                                                <Text layoutX="6.0" layoutY="571.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Role" wrappingWidth="50.79547119140625">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Text>
+                                                <JFXComboBox fx:id="comboboxreportstoupdate" layoutX="119.0" layoutY="580.0" prefHeight="44.0" prefWidth="178.0" />
+                                                <Text layoutX="24.0" layoutY="631.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reports To" AnchorPane.leftAnchor="6.0">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Text>
+                                                <DatePicker fx:id="updatedob" layoutX="117.0" layoutY="676.0" />
+                                                <Text layoutX="26.0" layoutY="700.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DOB" AnchorPane.leftAnchor="6.0">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Text>
+                                                <JFXButton fx:id="updatebutton" layoutX="105.0" layoutY="750.0" prefHeight="47.0" prefWidth="107.0" style="-fx-background-color: #000000;" text="Update" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="17.0" />
+                                                   </font>
+                                                </JFXButton>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </ScrollPane>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
                     </tabs>
                   </TabPane>
                </children>
             </AnchorPane>
-            <Text layoutX="285.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADMIN PORTAL">
+            <Text layoutX="284.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADMIN PORTAL">
                <font>
                   <Font name="Bookman Old Style Bold Italic" size="36.0" />
                </font>
             </Text>
-            <FontAwesomeIconView glyphName="USER" layoutX="424.0" layoutY="104.0" scaleX="4.5" scaleY="4.5" scaleZ="4.5" />
-            <JFXButton fx:id="btndeleteuser1" layoutX="738.0" layoutY="93.0" onAction="#onlogoutfromadmin" prefHeight="26.0" prefWidth="119.0" style="-fx-background-color: #000000;" text="Logout" textFill="WHITE">
+            <FontAwesomeIconView glyphName="USER" layoutX="423.0" layoutY="74.0" scaleX="4.5" scaleY="4.5" scaleZ="4.5" />
+            <JFXButton fx:id="btndeleteuser1" layoutX="738.0" layoutY="55.0" onAction="#onlogoutfromadmin" prefHeight="26.0" prefWidth="119.0" style="-fx-background-color: #000000;" text="Logout" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </JFXButton>
+            <FontAwesomeIconView fx:id="refreshbutton" glyphName="REFRESH" layoutX="713.0" layoutY="77.0" scaleX="2.0" scaleY="2.0" />
+            <JFXButton ellipsisString="" layoutX="703.0" layoutY="59.0" onAction="#onrefresh" prefHeight="26.0" prefWidth="30.0" text=" " />
          </children>
       </AnchorPane>
    </children>
