@@ -1,6 +1,13 @@
 package model;
 
-public class EmployeeModel {
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+public class EmployeeModel extends DBConnect {
 	
 	 	private int userId;
 	    private String userName;
@@ -38,5 +45,7 @@ public class EmployeeModel {
 	    public void setRole(String role) {
 	        this.role = role;
 	    }
+	    
+	   
 
 }

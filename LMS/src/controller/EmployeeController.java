@@ -15,7 +15,11 @@ import javax.swing.JOptionPane;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import model.AdminModel;
 import model.DBConnect;
+import model.EmployeeModel;
+import model.LeaveModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -29,8 +33,14 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.time.DayOfWeek;
 import java.time.temporal.ChronoUnit;
@@ -50,9 +60,18 @@ public class EmployeeController {
     
     @FXML
     private Button applyleavebutton;
+    
+    @FXML
+    private Label usernamelabel;
 
     @FXML
     private DatePicker leavefrom;
+    
+    @FXML
+    private Tab leavehistory;
+    
+    @FXML
+    private Tab userdetails;
 
     @FXML
     private DatePicker leaveto;
@@ -60,7 +79,22 @@ public class EmployeeController {
     @FXML
     private ComboBox<String> combobox;
     
+    @FXML
+    private TableColumn<LeaveModel , String> tabcoltype;
 
+    @FXML
+    private TableColumn<LeaveModel, Date> tabcolfrom;
+
+    @FXML
+    private TableColumn<LeaveModel , Date> tabcolto;
+
+    @FXML
+    private TableColumn<LeaveModel , String> tabcolnod;
+
+    @FXML
+    private TableView<LeaveModel> lhtable;
+   // table.setView(true);
+    
     @FXML
     private Button logoutbutton;
     
@@ -68,14 +102,70 @@ public class EmployeeController {
 	Statement Statement = null;
 	public String sUsername;
 	public String sPassword;
+    ObservableList<LeaveModel> leaveslist;
+    LeaveModel leavemodel =new LeaveModel();
+
     
     @FXML
 	private void initialize()
 	{
 		combobox.setItems(listLeaveType);
 		dbConnect = new DBConnect();
+		//usernamelabel.setText(sUsername);
+		System.out.println(sUsername);
+		
+		
 	}
-    
+    @FXML
+    void event(Event ev) {
+        if (leavehistory.isSelected()) {
+            System.out.println("Tab is Selected");
+            //Do stuff here
+        
+    	String query = "SELECT * from leaverecords where emp_id='"+sUsername+"' and approve='yes';";
+		System.out.println(query);
+    	leaveslist = leavemodel.getleavehistory(query); 
+    	System.out.println(leaveslist);
+    	
+    	//LeavehistoryTable();
+    	
+    	tabcoltype.setCellValueFactory(new PropertyValueFactory<LeaveModel,String>("type"));
+    	tabcolfrom.setCellValueFactory(new PropertyValueFactory<LeaveModel,Date>("fromdate"));
+    	/*tabcolfrom.setCellFactory(column -> {
+            TableCell<LeaveModel, Date> cell = new TableCell<LeaveModel, Date>() {
+                private SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+
+                @Override
+                protected void updateItem(Date item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if(empty) {
+                        setText(null);
+                    }
+                    else {
+                        this.setText(format.format(item));
+
+                    }
+                }
+            };
+
+            return cell;
+        });*/
+    	tabcolto.setCellValueFactory(new PropertyValueFactory<LeaveModel,Date>("todate"));
+    	tabcolnod.setCellValueFactory(new PropertyValueFactory<LeaveModel,String>("nod"));
+    	
+        lhtable.setItems(leaveslist);
+
+    	
+    }
+        
+    }
+    @FXML
+    void event1(Event ev) {   
+    if (userdetails.isSelected()) {
+		usernamelabel.setText(sUsername);
+
+    }
+    }
     public void onapplyleave(ActionEvent event) throws IOException
     {
     	try {
@@ -105,7 +195,7 @@ public class EmployeeController {
     		Statement = dbConnect.getconnection().createStatement();
     		
     		String sql = "INSERT into leaverecords (emp_id,fromdate,todate,nod,type,comments) VALUES"
-    				+ " (' "+sUsername+" ',' "+dleavefrom+" ','"+dleaveto+"',' "+nod+" ',' "+leavetypeint+" ','"+scomments+"')";
+    				+ " ('"+sUsername+"','"+dleavefrom+"','"+dleaveto+"','"+nod+"','"+leavetypeint+"','"+scomments+"')";
     		
     		int con = Statement.executeUpdate(sql);
 			if (con > 0) 
@@ -130,7 +220,30 @@ public class EmployeeController {
 		stage.show();
     }
     
+   /*void LeavehistoryTable() {
+		// TODO Auto-generated method stub
+		TableColumn<LeaveModel, String> leavetype = new TableColumn<>("type");
+		leavetype.setCellValueFactory(new PropertyValueFactory<LeaveModel, String>("type"));
     
+       // Course Title Column
+       TableColumn<LeaveModel, String> fromdate = new TableColumn<>("fromdate");
+       fromdate.setCellValueFactory(new PropertyValueFactory<LeaveModel, String>("fromdate"));
+
+       TableColumn<LeaveModel, String> todate = new TableColumn<>("todate");
+       todate.setCellValueFactory(new PropertyValueFactory<LeaveModel, String>("todate"));
+
+       TableColumn<LeaveModel, String> nod = new TableColumn<>("nod");
+       nod.setCellValueFactory(new PropertyValueFactory<LeaveModel, String>("nod"));
+            
+       lhtable.setItems(leaveslist);
+       
+       //System.out.println(availableCourseList);
+       
+       
+       lhtable.getColumns().addAll(leavetype, fromdate, todate, nod);
+       lhtable.setVisible(true);
+
+	}*/
 
     private static int countLeaveDays(final LocalDate startDate,
             final LocalDate endDate

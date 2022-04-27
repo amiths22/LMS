@@ -97,6 +97,12 @@ private LoginModel loginmanager;
 				width = 571;
 				height = 358;
 				
+				EmployeeController empCtrl = new EmployeeController();
+				System.out.println(username);
+				empCtrl.sUsername = username;
+				empCtrl.sPassword = password;
+				//FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(newscene));
+				//Parent root = fxmlLoader.load();
 			}
 			break;
 
@@ -141,7 +147,7 @@ private LoginModel loginmanager;
 				admCtrl.sUsername = username;
 				admCtrl.sPassword = password;
 			}
-			
+			 
 			Node source = (Node) event.getSource();
 			Stage stage = (Stage)source.getScene().getWindow();
 			Scene scene = new Scene(root, width, height);
