@@ -148,7 +148,7 @@
                                        <content>
                                           <AnchorPane prefHeight="804.0" prefWidth="409.0">
                                              <children>
-                                                <JFXTextArea fx:id="updateemployeeid" layoutX="101.0" layoutY="40.0" prefHeight="42.0" prefWidth="188.0" style="-fx-background-color: #ffffff; -fx-border-width: 4px 4px 4px 4px; -fx-border-color: #000000;" AnchorPane.leftAnchor="101.0" AnchorPane.rightAnchor="123.0" />
+                                                <JFXTextArea fx:id="updateemployeeid" disable="true" editable="false" layoutX="101.0" layoutY="40.0" prefHeight="42.0" prefWidth="188.0" style="-fx-background-color: #ffffff; -fx-border-width: 4px 4px 4px 4px; -fx-border-color: #000000;" AnchorPane.leftAnchor="101.0" AnchorPane.rightAnchor="123.0" />
                                                 <Text layoutX="6.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee ID" AnchorPane.leftAnchor="6.0">
                                                    <font>
                                                       <Font size="14.0" />
@@ -242,7 +242,7 @@
                                                       <Font size="14.0" />
                                                    </font>
                                                 </Text>
-                                                <JFXButton fx:id="updatebutton" layoutX="105.0" layoutY="750.0" prefHeight="47.0" prefWidth="107.0" style="-fx-background-color: #000000;" text="Update" textFill="WHITE">
+                                                <JFXButton fx:id="updatebutton" layoutX="105.0" layoutY="750.0" onAction="#UpdateTable" prefHeight="47.0" prefWidth="107.0" style="-fx-background-color: #000000;" text="Update" textFill="WHITE">
                                                    <font>
                                                       <Font name="System Bold" size="17.0" />
                                                    </font>

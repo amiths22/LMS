@@ -49,18 +49,22 @@ public class AdminController {
 	
 	//Initialize combox array
 	ObservableList<String> lstrole = FXCollections.observableArrayList("Employee", "Manager");
-	ObservableList<String> lstreportsto = FXCollections.observableArrayList("joe", "joey");
+	final ObservableList lstreportsto = FXCollections.observableArrayList("Joe","Joey");
 	
 	ComboBox cboxreportsto = new ComboBox(lstreportsto);
 	
-	public void fillcombobox() {
+	/*public void fillcombobox() {
+		System.out.println("function entered");
 		try {
 			Connection conn = dbConnect.getconnection();
 			String query = "SELECT reports_to from employees;";
+			System.out.println(query);
 			pst = conn.prepareStatement(query);
 			ResultSet rs = pst.executeQuery();
 			
+			
 			while(rs.next()) {
+				System.out.println(rs.getString("reports_to"));
 				lstreportsto.add(rs.getString("reports_to"));
 			}
 			pst.close();
@@ -68,7 +72,7 @@ public class AdminController {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
     @FXML
     private JFXTextArea adddepartment;
@@ -227,9 +231,12 @@ public class AdminController {
     @FXML
     public void initialize() {
     	dbConnect = new DBConnect();
-    	//comboboxreportsto.setItems(lstreportsto);
+    	comboboxreportsto.setItems(lstreportsto);
     	comboboxrole.setItems(lstrole);
-    	fillcombobox();
+    	comboboxroleupdate.setItems(lstrole);
+    	comboboxreportstoupdate.setItems(lstreportsto);
+    	
+    	//fillcombobox();
     	
     	
     	String query = "SELECT * from employees;";
@@ -345,20 +352,23 @@ public class AdminController {
     	if(index<= -1) {
     		return;
     	}
+    	updateemployeeid.setText(utablecolempid.getCellData(index).toString());
     	updatefname.setText(utablecolfname.getCellData(index).toString());
     	updatelname.setText(utablecollname.getCellData(index).toString());
     	updateemail.setText(utablecolemail.getCellData(index).toString());
-    	//updatephone.setText(utablecolpnumber.getCellData(index).toString());
+    	updatephone.setText(utablecolpnumber.getCellData(index).toString());
     	updatedes.setText(updatecoldes.getCellData(index).toString());
     	updatedep.setText(updatecoldep.getCellData(index).toString());
     }
     
     public void deleteuser() throws SQLException {
+    	index = table.getSelectionModel().getSelectedIndex();
+    	String idfordelete = tablecoluserid.getCellData(index).toString();
     	Connection conn = dbConnect.getconnection();
-    	String sql = "DELETE from employees where lname = ?;";
+    	String sql = "DELETE from employees where emp_id = ?;";
     	try {
     		pst = conn.prepareStatement(sql);
-    		pst.setString(1, tabcollname.getText().trim());
+    		pst.setString(1, idfordelete);
     		pst.execute();
     		JOptionPane.showMessageDialog(null,"Delete done");
     		
@@ -372,6 +382,40 @@ public class AdminController {
     	initialize();
     }
     
+    @FXML
+    public void UpdateTable() {
+    	int value5int = -1;
+    	try {
+    		Connection conn = dbConnect.getconnection();
+    		String value1 = updateemployeeid.getText();
+    		String value2 = updatefname.getText();
+    		String value3 = updatelname.getText();
+    		String value4 = updatedep.getText();
+    		String value5 = comboboxroleupdate.getValue();
+    		if(value5.equalsIgnoreCase("Manager")) {
+    			value5int = 1;
+    		}
+    		else if(value5.equalsIgnoreCase("Employee")) {
+    			value5int = 0;
+    		}
+    		LocalDate value6 = updatedob.getValue();
+    		String value7 = comboboxreportstoupdate.getValue();
+    		String value8 = updateemail.getText();
+    		String value9 = updatepassword.getText();
+    		String value10 = updatephone.getText();
+    		String value11 = updatedes.getText();
+    		
+    		String sql = "update employees set fname = '"+value2+"',lname = '"+value3+"',department = '"+value4+"',role = '"+value5int+"',dob = '"+value6+"',reports_to = '"+value7+"',email = '"+value8+"',password = '"+value9+"',phone = '"+value10+"',designation = '"+value11+"' where emp_id = '"+value1+"'; ";
+    		System.out.println(sql);
+    		pst = conn.prepareStatement(sql);
+    		pst.execute();
+    		JOptionPane.showMessageDialog(null,"Update done");
+    		onrefresh();
+    	}
+    	catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    }
     
     
     

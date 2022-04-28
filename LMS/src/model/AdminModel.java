@@ -29,11 +29,11 @@ public class AdminModel extends DBConnect {
 		this.dob = dob;
 	}
 
-	public String getReportsto() {
+	public String getReports_to() {
 		return reports_to;
 	}
 
-	public void setReportsto(String reportsto) {
+	public void setReports_to(String reportsto) {
 		this.reports_to = reportsto;
 	}
 
@@ -54,11 +54,11 @@ public class AdminModel extends DBConnect {
 	}
 	
 	
-	public String getemp_id() {
+	public String getEmp_id() {
 		return emp_id;
 	}
 
-	public void setemp_id(String emp_id) {
+	public void setEmp_id(String emp_id) {
 		this.emp_id = emp_id;
 	}
 
@@ -86,11 +86,11 @@ public class AdminModel extends DBConnect {
 		this.email = email;
 	}
 
-	public String getphone() {
+	public String getPhone() {
 		return phone;
 	}
 
-	public void setphone(String phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 	
@@ -103,19 +103,31 @@ public class AdminModel extends DBConnect {
             ResultSet rs = ps.executeQuery();
             System.out.println(ps);
             
+            
             while (rs.next())
             {
             	AdminModel adm=new AdminModel();
-            	adm.setemp_id(rs.getString("emp_id"));
+            	adm.setEmp_id(rs.getString("emp_id"));
             	adm.setFname(rs.getString("fname"));
             	adm.setLname(rs.getString("lname"));
             	adm.setEmail(rs.getString("email"));
-            	adm.setphone(rs.getString("phone"));
+            	adm.setPhone(rs.getString("phone"));
             	adm.setDepartment(rs.getString("department"));
             	adm.setDesignation(rs.getString("designation"));
             	adm.setDob(rs.getString("dob"));
-            	adm.setRole(rs.getString("role"));
-            	adm.setReportsto(rs.getString("reports_to"));;
+            	System.out.println("role = : " + rs.getString("role"));
+            	if(rs.getString("role") == "1")
+            	{
+            		adm.setRole("Manager");
+            	}
+            	else if(rs.getString("role") == "0") {
+            		adm.setRole("Employee");
+            	}
+            	else {
+            		adm.setRole("Employee");
+            	}
+            	//adm.setRole(rs.getString("role"));
+            	adm.setReports_to(rs.getString("reports_to"));;
             	
             	userlist.add(adm);
             }
