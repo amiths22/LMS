@@ -49,30 +49,33 @@ public class AdminController {
 	
 	//Initialize combox array
 	ObservableList<String> lstrole = FXCollections.observableArrayList("Employee", "Manager");
-	final ObservableList lstreportsto = FXCollections.observableArrayList("Joe","Joey");
+	final ObservableList lstreportsto = FXCollections.observableArrayList();
+	final ObservableList updateslstreportsto = FXCollections.observableArrayList();
 	
 	ComboBox cboxreportsto = new ComboBox(lstreportsto);
+	ComboBox cboxreportstoupdate = new ComboBox(updateslstreportsto);
 	
-	/*public void fillcombobox() {
+	public void fillcombobox() {
 		System.out.println("function entered");
 		try {
 			Connection conn = dbConnect.getconnection();
-			String query = "SELECT reports_to from employees;";
+			String query = "SELECT emp_id from employees where role = '1';";
 			System.out.println(query);
 			pst = conn.prepareStatement(query);
 			ResultSet rs = pst.executeQuery();
 			
 			
 			while(rs.next()) {
-				System.out.println(rs.getString("reports_to"));
-				lstreportsto.add(rs.getString("reports_to"));
+				System.out.println(rs.getString("emp_id"));
+				lstreportsto.add(rs.getString("emp_id"));
+				updateslstreportsto.add(rs.getString("emp_id"));
 			}
 			pst.close();
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-	}*/
+	}
 	
     @FXML
     private JFXTextArea adddepartment;
@@ -235,8 +238,7 @@ public class AdminController {
     	comboboxrole.setItems(lstrole);
     	comboboxroleupdate.setItems(lstrole);
     	comboboxreportstoupdate.setItems(lstreportsto);
-    	
-    	//fillcombobox();
+    	fillcombobox();
     	
     	
     	String query = "SELECT * from employees;";
@@ -371,7 +373,7 @@ public class AdminController {
     		pst.setString(1, idfordelete);
     		pst.execute();
     		JOptionPane.showMessageDialog(null,"Delete done");
-    		
+    		UpdateDeleteTable();
     	}
     	catch(Exception e) {
     		JOptionPane.showMessageDialog(null,e);
@@ -379,7 +381,8 @@ public class AdminController {
     }
     
     public void onrefresh() {
-    	initialize();
+    	UpdateDeleteTable();
+    	UpdateUTable();
     }
     
     @FXML
@@ -410,14 +413,43 @@ public class AdminController {
     		pst = conn.prepareStatement(sql);
     		pst.execute();
     		JOptionPane.showMessageDialog(null,"Update done");
-    		onrefresh();
+    		UpdateUTable();
     	}
     	catch(Exception e) {
     		e.printStackTrace();
     	}
     }
     
+    public void UpdateDeleteTable() {
+    	dbConnect = new DBConnect();
+    	tablecoluserid.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("emp_id"));
+    	tabcolfname.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("fname"));
+    	tabcollname.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("lname"));
+    	tabcolemail.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("email"));
+    	tabcolPnumber.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("phone"));
+    	tabcoldep.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("department"));
+    	String query = "SELECT * from employees;";
+    	userslist = adminmodel.getdataofusers(query);
+    	table.setItems(userslist);
+    }
     
+    public void UpdateUTable() {
+    	dbConnect = new DBConnect();
+    	utablecolempid.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("emp_id"));
+    	utablecolfname.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("fname"));
+    	utablecollname.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("lname"));
+    	utablecolemail.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("email"));
+    	utablecolpnumber.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("phone"));
+    	updatecoldep.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("department"));
+    	updatecoldes.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("designation"));
+    	updatecoldob.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("dob"));
+    	updatecolrole.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("role"));
+    	updatecolreportsto.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("reports_to"));
+    	
+    	String query = "SELECT * from employees;";
+    	userslist = adminmodel.getdataofusers(query);
+    	updatetable.setItems(userslist);
+    }
     
     public void onlogoutfromadmin(ActionEvent event) throws IOException
  	{

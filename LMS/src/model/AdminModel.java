@@ -116,15 +116,15 @@ public class AdminModel extends DBConnect {
             	adm.setDesignation(rs.getString("designation"));
             	adm.setDob(rs.getString("dob"));
             	System.out.println("role = : " + rs.getString("role"));
-            	if(rs.getString("role") == "1")
+            	if(rs.getString("role").equalsIgnoreCase("1"))
             	{
             		adm.setRole("Manager");
             	}
-            	else if(rs.getString("role") == "0") {
+            	else if(rs.getString("role").equalsIgnoreCase("0")) {
             		adm.setRole("Employee");
             	}
             	else {
-            		adm.setRole("Employee");
+            		adm.setRole("Admin");
             	}
             	//adm.setRole(rs.getString("role"));
             	adm.setReports_to(rs.getString("reports_to"));;
