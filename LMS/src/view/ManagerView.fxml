@@ -51,10 +51,10 @@
                               <Text layoutX="37.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leave To :" />
                               <Text layoutX="41.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reason :" />
                               <JFXComboBox fx:id="combobox" layoutX="142.0" layoutY="21.0" prefHeight="26.0" prefWidth="193.0" />
-                              <DatePicker layoutX="142.0" layoutY="68.0" />
-                              <DatePicker layoutX="142.0" layoutY="115.0" />
-                              <JFXTextArea focusColor="WHITE" layoutX="143.0" layoutY="173.0" prefHeight="82.0" prefWidth="363.0" text="Enter reason here" unFocusColor="WHITE" />
-                              <Button layoutX="269.0" layoutY="271.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="102.0" text="Apply Leave" />
+                              <DatePicker fx:id="leavefrom" layoutX="142.0" layoutY="68.0" />
+                              <DatePicker fx:id="leaveto" layoutX="142.0" layoutY="115.0" />
+                              <JFXTextArea fx:id="reasonbox" focusColor="WHITE" layoutX="143.0" layoutY="173.0" prefHeight="82.0" prefWidth="363.0" text="Enter reason here" unFocusColor="WHITE" />
+                              <Button fx:id="applyleavebutton" layoutX="269.0" layoutY="271.0" mnemonicParsing="false" onAction="#onApplyLeave" prefHeight="26.0" prefWidth="102.0" text="Apply Leave" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -104,20 +104,20 @@
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: lightgrey;">
                            <children>
                               <Group layoutX="4.0" layoutY="25.260417938232422" />
-                              <TableView layoutX="14.0" layoutY="45.0" prefHeight="146.0" prefWidth="526.0">
+                              <TableView layoutX="50.0" layoutY="57.0" prefHeight="146.0" prefWidth="452.0">
                                 <columns>
-                                  <TableColumn fx:id="EmployeeID" prefWidth="75.0" text="EmployeeID" />
-                                  <TableColumn fx:id="FName" prefWidth="75.0" text="FName" />
-                                    <TableColumn fx:id="LName" prefWidth="75.0" text="LName" />
-                                    <TableColumn fx:id="Email" prefWidth="75.0" text="Email" />
-                                    <TableColumn fx:id="Phone" prefWidth="75.0" text="Phone" />
-                                    <TableColumn fx:id="DateFrom" prefWidth="75.0" text="DateFrom" />
-                                    <TableColumn fx:id="DateTo" prefWidth="75.0" text="DateTo" />
+                                  <TableColumn fx:id="ATblEmployeeID" prefWidth="75.0" text="EmployeeID" />
+                                  <TableColumn fx:id="ATblLeaveType" prefWidth="75.0" text="LeaveType" />
+                                    <TableColumn fx:id="ATblDateFrom" prefWidth="75.0" text="DateFrom" />
+                                    <TableColumn fx:id="ATblDateTo" prefWidth="75.0" text="DateTo" />
+                                    <TableColumn fx:id="ATblNoOfDays" prefWidth="75.0" text="NoOfDays" />
+                                    <TableColumn fx:id="ATblReason" prefWidth="75.0" text="Reason" />
                                 </columns>
                               </TableView>
                               <Text layoutX="212.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EMPLOYEE LEAVES" wrappingWidth="101.33674621582031" />
                               <Text layoutX="24.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Action :" wrappingWidth="39.966796875" />
-                              <JFXComboBox layoutX="122.0" layoutY="204.0" prefHeight="26.0" prefWidth="133.0" />
+                              <JFXComboBox fx:id="ATblComboBoxAction" layoutX="122.0" layoutY="204.0" prefHeight="26.0" prefWidth="133.0" />
+                              <Button fx:id="ATblSubmitButton" layoutX="264.0" layoutY="262.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Submit" />
                            </children>
                         </AnchorPane>
                      </content>
