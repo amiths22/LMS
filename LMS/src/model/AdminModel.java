@@ -135,6 +135,6 @@ public class AdminModel extends DBConnect {
 		catch(SQLException e) {
 			System.out.println("Error Displaying user details ");
 		}
-		return userlist;
+		return userlist; 
 	}
 }
