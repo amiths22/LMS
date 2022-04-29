@@ -2,12 +2,16 @@ package controller;
 import java.awt.TextArea;
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -20,13 +24,21 @@ import model.AdminModel;
 import model.DBConnect;
 import model.EmployeeModel;
 import model.LeaveModel;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -40,8 +52,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+import javafx.util.converter.NumberStringConverter;
+
 import java.time.DayOfWeek;
 import java.time.temporal.ChronoUnit;
 import java.util.function.Predicate;
@@ -62,7 +78,28 @@ public class EmployeeController {
     private Button applyleavebutton;
     
     @FXML
-    private Label usernamelabel;
+    private Label empidlabel;
+    
+    @FXML
+    private Label departmentlabel;
+
+    @FXML
+    private Label designationlabel;
+
+    @FXML
+    private Label doblabel;
+    
+    @FXML
+    private Label reportstolabel;
+
+    @FXML
+    private Label emailidlabel;
+    
+    @FXML
+    private Label namelabel;
+
+    @FXML
+    private Label phonelabel;
 
     @FXML
     private DatePicker leavefrom;
@@ -83,17 +120,29 @@ public class EmployeeController {
     private TableColumn<LeaveModel , String> tabcoltype;
 
     @FXML
-    private TableColumn<LeaveModel, Date> tabcolfrom;
+    private TableColumn<LeaveModel, String> tabcolfrom;
 
     @FXML
-    private TableColumn<LeaveModel , Date> tabcolto;
+    private TableColumn<LeaveModel , String> tabcolto;
 
     @FXML
     private TableColumn<LeaveModel , String> tabcolnod;
+    
+    @FXML
+    private TableColumn<HashMap.Entry<Integer, Integer>,Integer> udtabcollt;
 
     @FXML
+    private TableColumn<HashMap.Entry<Integer, Integer>,Integer> udtabcolbal;
+    
+    @FXML
     private TableView<LeaveModel> lhtable;
+    
+    @FXML
+    private TableView<ObservableMap.Entry<Integer, Integer>> leavebalance;
    // table.setView(true);
+    
+    @FXML
+    private BarChart<String, Integer> leavechart;
     
     @FXML
     private Button logoutbutton;
@@ -130,7 +179,7 @@ public class EmployeeController {
     	//LeavehistoryTable();
     	
     	tabcoltype.setCellValueFactory(new PropertyValueFactory<LeaveModel,String>("type"));
-    	tabcolfrom.setCellValueFactory(new PropertyValueFactory<LeaveModel,Date>("fromdate"));
+    	tabcolfrom.setCellValueFactory(new PropertyValueFactory<LeaveModel,String>("fromdate"));
     	/*tabcolfrom.setCellFactory(column -> {
             TableCell<LeaveModel, Date> cell = new TableCell<LeaveModel, Date>() {
                 private SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
@@ -150,7 +199,7 @@ public class EmployeeController {
 
             return cell;
         });*/
-    	tabcolto.setCellValueFactory(new PropertyValueFactory<LeaveModel,Date>("todate"));
+    	tabcolto.setCellValueFactory(new PropertyValueFactory<LeaveModel,String>("todate"));
     	tabcolnod.setCellValueFactory(new PropertyValueFactory<LeaveModel,String>("nod"));
     	
         lhtable.setItems(leaveslist);
@@ -162,7 +211,107 @@ public class EmployeeController {
     @FXML
     void event1(Event ev) {   
     if (userdetails.isSelected()) {
-		usernamelabel.setText(sUsername);
+		empidlabel.setText(sUsername);
+			HashMap<String,Integer> map=new HashMap<String,Integer>();
+    		
+    		String sql = "SELECT * from employees where emp_id='"+sUsername+"';";
+    		EmployeeModel empmodel=new EmployeeModel();
+    		EmployeeModel em;
+    		em=empmodel.getDetails(sql);
+    		namelabel.setText(em.getFname()+" "+em.getLname());
+    		emailidlabel.setText(em.getEmail());
+    		departmentlabel.setText(em.getDepartment());
+    		doblabel.setText(em.getDob());
+    		reportstolabel.setText(em.getReports_to());
+    		designationlabel.setText(em.getDesignation());
+	        phonelabel.setText(em.getPhone());
+	        
+	        String sql1= "Select * from leaverecords where emp_id='"+sUsername+"'and approve='yes';";
+	        LeaveModel lmodel=new LeaveModel();
+	        map=lmodel.getLeaveBalances(sql1);
+	        XYChart.Series series1 = new XYChart.Series();
+
+	       // XYChart.Series<String, Integer> series1 = new XYChart.Series<>();
+	        final CategoryAxis xAxis = new CategoryAxis();
+	        final NumberAxis yAxis = new NumberAxis();
+	        xAxis.setLabel("Leave types");       
+	        yAxis.setLabel("No. of days");
+	        series1.setName("Leave balance");
+	        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+	        	String temp= entry.getKey();
+	        	String tmpString="";
+	        	switch(temp) {
+	        	case "1": tmpString = "Annual";
+	        	break;
+	        	case "2": tmpString = "Casual";
+	        	break;
+	        	case "3": tmpString = "Sick";
+	        	break;
+	        	case "4": tmpString = "Maternity";
+	        	break;
+	        	case "5": tmpString = "Paternity";
+	        	break;
+	        	}
+	            //String tmpString = entry.getKey();
+	            Integer tmpValue = entry.getValue();
+	            //XYChart.Data<String, Integer> d = new XYChart.Data<>(tmpString, tmpValue);
+	           // System.out.println(d);
+	            
+	            series1.getData().add(new XYChart.Data(tmpString, tmpValue));;
+	        }
+	        leavechart.setTitle("Leave");
+	        leavechart.getData().add(series1);
+	        //udtabcollt.setCellFactory(TextFieldTableCell.forTableColumn());
+
+	    	//udtabcollt.setCellValueFactory(new PropertyValueFactory<Map.Entry<Integer,Integer>,Integer>( map.keySet()));
+
+	        
+	        /*final ObservableMap<String, Number> obsMap = FXCollections.observableHashMap();
+	        for (int i = 0; i < 3; i++)  obsMap.put("key "+i, i*10d);
+	        
+	        //final ObservableMap<Integer, Number> obsMap = FXCollections.observableHashMap();
+	        
+	       /* final TableView<ObservableMap.Entry<String, Number>> tv = new TableView(FXCollections.observableArrayList(obsMap.entrySet()));
+	        tv.setEditable(true);
+
+	        obsMap.addListener((MapChangeListener.Change<? extends Integer, ? extends Number> change) -> {
+	            tv.setItems(FXCollections.observableArrayList(obsMap.entrySet()));
+	        });
+
+	        TableColumn<ObservableMap.Entry<String, Number>,Integer> keyCol = new TableColumn<>("key");
+	        TableColumn<ObservableMap.Entry<String, Number>,Number> priceCol = new TableColumn<>("price");
+	        tv.getColumns().addAll(keyCol,priceCol);
+
+	    //    udtabcollt.setCellValueFactory((p) -> {
+	      //      return new SimpleStringProperty(p.getValue().getKey());
+	      //  });
+
+	        udtabcollt.setCellFactory(TextFieldTableCell.forTableColumn());
+	        udtabcollt.setOnEditCommit((TableColumn.CellEditEvent<Map.Entry<String,Number>, String> t) -> {
+	            final String oldKey = t.getOldValue();
+	            final Number oldPrice = obsMap.get(oldKey);
+	            obsMap.remove(oldKey);
+	            obsMap.put(t.getNewValue(),oldPrice);
+	        });
+	        
+	     //   udtabcolbal.setCellValueFactory((p) -> {
+	      //      return new ReadOnlyObjectWrapper<>(p.getValue().getValue());
+	     //   });
+
+	        udtabcolbal.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
+	        udtabcolbal.setOnEditCommit((TableColumn.CellEditEvent<Map.Entry<String,Number>, Number> t) -> {
+	            obsMap.put(t.getTableView().getItems().get(t.getTablePosition().getRow()).getKey(),//key
+	                       t.getNewValue());//val);
+	        });
+
+	        
+	       // udtabcollt.setCellFactory((Callback<TableColumn, TableCell>) map.keySet());
+	        for (Integer i : map.keySet()) {
+			      System.out.println("key: " + i + " value: " + map.get(i));
+			    }*/
+	        
+	        
+		
 
     }
     }

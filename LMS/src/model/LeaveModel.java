@@ -5,49 +5,92 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.HashMap;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class LeaveModel extends DBConnect{
 	
-	Date dleavefrom;
-	Date dleaveto;
-	String leavetype;
-	String scomments;
+	String fromdate;
+	String todate;
+	String type;
+	String comments;
 	String nod;
-	public Date getDleavefrom() {
-		return dleavefrom;
+	
+
+	
+
+
+	public String getFromdate() {
+		return fromdate;
 	}
-	public void setDleavefrom(Date date) {
-		this.dleavefrom = date;
+
+	public void setFromdate(String fromdate) {
+		this.fromdate = fromdate;
 	}
-	public Date getDleaveto() {
-		return dleaveto;
+
+	public String getTodate() {
+		return todate;
 	}
-	public void setDleaveto(Date date) {
-		this.dleaveto = date;
+
+	public void setTodate(String todate) {
+		this.todate = todate;
 	}
-	public String getLeavetype() {
-		return leavetype;
+
+
+
+
+
+	public String getType() {
+		return type;
 	}
-	public void setLeavetype(String leavetype) {
-		this.leavetype = leavetype;
+
+
+
+
+
+	public void setType(String type) {
+		this.type = type;
 	}
-	public String getScomments() {
-		return scomments;
+
+
+
+
+
+	public String getComments() {
+		return comments;
 	}
-	public void setScomments(String scomments) {
-		this.scomments = scomments;
+
+
+
+
+
+	public void setComments(String comments) {
+		this.comments = comments;
 	}
+
+
+
+
+
 	public String getNod() {
 		return nod;
 	}
+
+
+
+
+
 	public void setNod(String nod) {
 		this.nod = nod;
 	}
 
-	 public ObservableList<LeaveModel> getleavehistory(String query){
+
+
+
+
+	public ObservableList<LeaveModel> getleavehistory(String query){
 			ObservableList<LeaveModel> leaveslist = FXCollections.observableArrayList();
 			System.out.println("try entered1");
 			try(PreparedStatement ps = conn.prepareStatement(query))
@@ -59,11 +102,11 @@ public class LeaveModel extends DBConnect{
 	            while (rs.next())
 	            {
 	            	LeaveModel leavemodel=new LeaveModel();
-	            	leavemodel.setLeavetype(rs.getString("type"));
-	            	System.out.println(leavemodel.getLeavetype());
-	            	leavemodel.setDleavefrom(rs.getDate("fromdate"));
-	            	System.out.println(leavemodel.getDleavefrom());
-	            	leavemodel.setDleaveto(rs.getDate("todate"));
+	            	leavemodel.setType(rs.getString("type"));
+	            	System.out.println(leavemodel.getType());
+	            	leavemodel.setFromdate(rs.getString("fromdate"));
+	            	System.out.println(leavemodel.getFromdate());
+	            	leavemodel.setTodate(rs.getString("todate"));
 	            	leavemodel.setNod(rs.getString("nod"));
 	            	System.out.println(leavemodel);
 	            	leaveslist.add(leavemodel);
@@ -74,4 +117,63 @@ public class LeaveModel extends DBConnect{
 			}
 			return leaveslist;
 		}
+	
+	public HashMap<String, Integer> getLeaveBalances(String query) {
+		int al,cl,sl,ml,pl;
+		int cal=0,ccl=0,csl=0,cml=0,cpl=0;
+		HashMap<String,Integer> leaves= new HashMap<String,Integer>();
+		String query1="Select * from leavetypes;";
+		try(PreparedStatement ps = conn.prepareStatement(query1))
+		{
+			ResultSet rs1=ps.executeQuery();
+			while(rs1.next()) {
+			leaves.put(rs1.getString("slno"), rs1.getInt("leave_limit"));
+			}
+			/* for (Integer i : leaves.keySet()) {
+			      System.out.println("key: " + i + " value: " + leaves.get(i));
+			    }*/
+			
+		}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try(PreparedStatement ps = conn.prepareStatement(query))
+		{
+			
+		ResultSet rs=ps.executeQuery();
+		
+		while(rs.next()) {
+			int tempnod=rs.getInt("nod");
+			String temptype=rs.getString("type");
+			leaves.replace(temptype, leaves.get(temptype)-tempnod);
+			/*switch(temptype) {
+			case "1":
+				
+				cal+=tempnod;
+			break;
+			case 2:ccl+=tempnod;
+			break;
+			case 3:csl+=tempnod;
+			break;
+			case 4:cml+=tempnod;
+			break;
+			case 5:cpl+=tempnod;
+			break;
+			}*/	
+		}
+		System.out.println("ccl"+ccl);
+		System.out.println("cal"+cal);
+		System.out.println("csl"+csl);
+		
+	/*	for (Integer i : leaves.keySet()) {
+		      System.out.println("key: " + i + " value: " + leaves.get(i));
+		    }*/
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return leaves;
+	}
 }
