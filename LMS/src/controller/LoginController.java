@@ -96,13 +96,7 @@ private LoginModel loginmanager;
 				newscene="/view/EmployeeView.fxml";
 				width = 571;
 				height = 358;
-				
-				EmployeeController empCtrl = new EmployeeController();
-				System.out.println(username);
-				empCtrl.sUsername = username;
-				empCtrl.sPassword = password;
-				//FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(newscene));
-				//Parent root = fxmlLoader.load();
+			
 			}
 			break;
 
@@ -130,7 +124,6 @@ private LoginModel loginmanager;
 			{
 				EmployeeController empCtrl = ((EmployeeController)fxmlLoader.getController());
 				empCtrl.sUsername = username;
-				empCtrl.sPassword = password;
 				System.out.println("success");
 			}
 			else if(role==1)
@@ -138,14 +131,12 @@ private LoginModel loginmanager;
 				ManagerController manCtrl = ((ManagerController)fxmlLoader.getController());
 				System.out.println(manCtrl);
 				manCtrl.sUsername = username;
-				manCtrl.sPassword = password;
 				System.out.println("Manager authenticated");
 			}
 			else if(role == 2)
 			{
 				AdminController admCtrl = ((AdminController)fxmlLoader.getController());
 				admCtrl.sUsername = username;
-				admCtrl.sPassword = password;
 			}
 			 
 			Node source = (Node) event.getSource();
