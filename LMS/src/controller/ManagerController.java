@@ -212,10 +212,9 @@ public class ManagerController {
     private void loadtable() {
     	dbConnect = new DBConnect();
     	String query = "SELECT emptbl.emp_id, emptbl.fname, lrtbl.fromdate, lrtbl.todate, lrtbl.type, lrtbl.approve, lrtbl.comments,lrtbl.nod FROM sam_employees emptbl, sam_leaverecords lrtbl WHERE (emptbl.emp_ID = lrtbl.emp_ID AND emptbl.reports_to ='"+sUsername+"') AND lrtbl.approve is null;";
-		System.out.println(query);
-		
+				
 		leavelist = managermodel.getemployeeleaves(query);
-		System.out.println(leavelist);
+
 		
 		ATblEmployeeID.setCellValueFactory(new PropertyValueFactory<ManagerModel,String>("emp_id"));
 		ATblfname.setCellValueFactory(new PropertyValueFactory<ManagerModel,String>("fname"));
@@ -237,15 +236,15 @@ public class ManagerController {
     }
     @FXML
     void event3() {
-    	System.out.println("func entered");
+
     	if (leavehistory.isSelected()) {
-            System.out.println("Tab is Selected");
+
             //Do stuff here
         
     	String query = "SELECT * from sam_leaverecords where emp_id='"+sUsername+"' and approve='yes';";
-		System.out.println(query);
+
     	leaveslistlea = leavemodel.getleavehistory(query); 
-    	System.out.println(leaveslistlea);
+
     	
     	//LeavehistoryTable();
     	
@@ -309,7 +308,7 @@ public class ManagerController {
     	            //String tmpString = entry.getKey();
     	            Integer tmpValue = entry.getValue();
     	            //XYChart.Data<String, Integer> d = new XYChart.Data<>(tmpString, tmpValue);
-    	           // System.out.println(d);
+    	          
     	            
     	            series1.getData().add(new XYChart.Data(tmpString, tmpValue));;
     	        }
@@ -348,7 +347,7 @@ public class ManagerController {
         	else {
         		sql = "UPDATE sam_leaverecords set approve='NO' where emp_id =? AND type=?;";
         	}
-    		System.out.println(sql);
+    	
         	pst = conn.prepareStatement(sql);
         	pst.setString(1, idforapprove);
         	pst.setString(2, leavetopush);
@@ -364,7 +363,7 @@ public class ManagerController {
     @FXML
     private void onpendclick() {
     	String query = "SELECT * from sam_leaverecords where emp_id ='"+sUsername+"' and approve is NULL;";
-    	System.out.println(query);
+    	
     	
     	leavelist = managermodel.getemployeeleaves(query);
     	tid.setCellValueFactory(new PropertyValueFactory<ManagerModel,String>("tid"));
@@ -385,7 +384,7 @@ public class ManagerController {
     	//String leavetypeapprove = ATblLeaveType.getCellData(index).toString();
     	try {
     		String query = "DELETE from sam_leaverecords where tid=?;";
-    		System.out.println(query);
+    		
         	pst = conn.prepareStatement(query);
         	pst.setString(1, idfordelete);
         	pst.execute();
@@ -433,14 +432,13 @@ public class ManagerController {
     		case "Paternity": leavetypeint=5;
     			break;
     		}
-    		int aa=leavebal.get(String.valueOf(leavetypeint));
-    		 System.out.println(aa);
-    		 
-    		//String stringVal=String.valueOf(intVal);//Now it will return "10"
-    		System.out.println("leavedays"+nod);
-    		System.out.println("Empid"+sUsername);
+    		int count=leavebal.get(String.valueOf(leavetypeint));
     	
-    		if(nod<=aa) {
+    		 
+    		
+    		
+    	
+    		if(nod<=count) {
     		Statement = dbConnect.getconnection().createStatement();
     		
     		String sql = "INSERT into sam_leaverecords (emp_id,fromdate,todate,nod,type,comments) VALUES"

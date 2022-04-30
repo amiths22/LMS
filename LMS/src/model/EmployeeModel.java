@@ -145,7 +145,7 @@ public class EmployeeModel extends DBConnect {
 			try(PreparedStatement ps = conn.prepareStatement(query))
 			{
 	            ResultSet rs = ps.executeQuery();
-	            System.out.println(ps);
+	       
 	            
 	            
 	            while (rs.next())

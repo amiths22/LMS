@@ -69,10 +69,8 @@ public class ManagerModel extends DBConnect {
 	
 	public ObservableList<ManagerModel> getemployeeleaves(String query){
 		ObservableList<ManagerModel> leavelist = FXCollections.observableArrayList();
-		System.out.println("try entered1");
 		try(PreparedStatement ps = conn.prepareStatement(query))
 		{
-			System.out.println("try entered");
             ResultSet rs = ps.executeQuery();
             System.out.println(ps);
             

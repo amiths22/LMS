@@ -284,7 +284,7 @@ public class EmployeeController {
     	//String leavetypeapprove = ATblLeaveType.getCellData(index).toString();
     	try {
     		String query = "DELETE from sam_leaverecords where tid=?;";
-    		System.out.println(query);
+    		
         	pst = conn.prepareStatement(query);
         	pst.setString(1, idfordelete);
         	pst.execute();
