@@ -141,7 +141,7 @@ public class EmployeeModel extends DBConnect {
 	  }
 	  public ObservableList<EmployeeModel> getemployeeleaves(String query){
 			ObservableList<EmployeeModel> leavelist = FXCollections.observableArrayList();
-			
+			System.out.println("employee model funtion entered");
 			try(PreparedStatement ps = conn.prepareStatement(query))
 			{
 	            ResultSet rs = ps.executeQuery();

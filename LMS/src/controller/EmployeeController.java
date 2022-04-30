@@ -187,6 +187,7 @@ public class EmployeeController {
     ObservableList<LeaveModel> leaveslist;
     LeaveModel leavemodel =new LeaveModel();
     EmployeeModel empmodel;
+    ObservableList<EmployeeModel> leavelistemp;
 
     
     @FXML
@@ -298,13 +299,16 @@ public class EmployeeController {
     	}
     	
     }
-    ObservableList<EmployeeModel> leavelistemp;
+    
     @FXML
     private void onpendclick() {
     	String query = "SELECT * from leaverecords where emp_id ='"+sUsername+"' and approve is NULL;";
-    	System.out.println(query);
     	
+        empmodel=new EmployeeModel();
+
     	leavelistemp = empmodel.getemployeeleaves(query);
+    	
+    	
     	tid.setCellValueFactory(new PropertyValueFactory<EmployeeModel,String>("tid"));
     	MEditTableLeaveType.setCellValueFactory(new PropertyValueFactory<EmployeeModel,String>("type"));
     	MEditTableLeaveFrom.setCellValueFactory(new PropertyValueFactory<EmployeeModel,String>("fromdate"));
