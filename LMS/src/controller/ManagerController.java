@@ -314,6 +314,7 @@ public class ManagerController {
     	            series1.getData().add(new XYChart.Data(tmpString, tmpValue));;
     	        }
     	        leavechart.setTitle("Leave");
+    	        leavechart.getData().clear();
     	        leavechart.getData().add(series1);
     	        
         }

@@ -1,6 +1,7 @@
 package controller;
 import java.awt.TextArea;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,6 +26,7 @@ import model.AdminModel;
 import model.DBConnect;
 import model.EmployeeModel;
 import model.LeaveModel;
+import model.ManagerModel;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -149,14 +151,42 @@ public class EmployeeController {
     private BarChart<String, Integer> leavechart;
     
     @FXML
+    private Button revokeleave;
+    
+
+    @FXML
+    private TableColumn<EmployeeModel, String> MEditTableLeaveComments;
+
+    @FXML
+    private TableColumn<EmployeeModel, String> MEditTableLeaveFrom;
+
+    @FXML
+    private TableColumn<EmployeeModel, String> MEditTableLeaveTo;
+
+    @FXML
+    private TableColumn<EmployeeModel, String> MEditTableLeaveType;
+
+    @FXML
+    private TableColumn<EmployeeModel, String> MEditTableNod;
+    
+    @FXML
+    private TableColumn<EmployeeModel, String> tid;
+    
+    @FXML
+    private TableView<EmployeeModel> leavemodifytable;
+    
+    @FXML
     private Button logoutbutton;
     
 	DBConnect dbConnect = null;
 	Statement Statement = null;
 	public String sUsername;
 	public String sPassword;
+	int index = -1;
+	PreparedStatement pst = null;	
     ObservableList<LeaveModel> leaveslist;
     LeaveModel leavemodel =new LeaveModel();
+    EmployeeModel empmodel;
 
     
     @FXML
@@ -164,10 +194,7 @@ public class EmployeeController {
 	{
 		combobox.setItems(listLeaveType);
 		dbConnect = new DBConnect();
-		//usernamelabel.setText(sUsername);
-		System.out.println(sUsername);
-		
-		
+	
 	}
     @FXML
     void event(Event ev) {
@@ -180,17 +207,13 @@ public class EmployeeController {
     	leaveslist = leavemodel.getleavehistory(query); 
     	System.out.println(leaveslist);
     	
-    	//LeavehistoryTable();
-    	
     	tabcoltype.setCellValueFactory(new PropertyValueFactory<LeaveModel,String>("type"));
     	tabcolfrom.setCellValueFactory(new PropertyValueFactory<LeaveModel,String>("fromdate"));
-    	
     	tabcolto.setCellValueFactory(new PropertyValueFactory<LeaveModel,String>("todate"));
     	tabcolnod.setCellValueFactory(new PropertyValueFactory<LeaveModel,String>("nod"));
     	
         lhtable.setItems(leaveslist);
 
-    	
     }
         
     }
@@ -201,7 +224,7 @@ public class EmployeeController {
 			HashMap<String,Integer> map=new HashMap<String,Integer>();
     		
     		String sql = "SELECT * from employees where emp_id='"+sUsername+"';";
-    		EmployeeModel empmodel=new EmployeeModel();
+    		empmodel=new EmployeeModel();
     		EmployeeModel em;
     		em=empmodel.getDetails(sql);
     		namelabel.setText(em.getFname()+" "+em.getLname());
@@ -252,12 +275,44 @@ public class EmployeeController {
 	        leavechart.getData().clear();
 	        leavechart.getData().add(series1);
 	        
-	            }
-
-	        
-	    
-	        
+    	}
+    }
     
+    @FXML
+    private void deleteleave() {
+    	index = leavemodifytable.getSelectionModel().getSelectedIndex();
+    	String idfordelete = tid.getCellData(index).toString();
+    	Connection conn = dbConnect.getconnection();
+    	//String leavetypeapprove = ATblLeaveType.getCellData(index).toString();
+    	try {
+    		String query = "DELETE from leaverecords where tid=?;";
+    		System.out.println(query);
+        	pst = conn.prepareStatement(query);
+        	pst.setString(1, idfordelete);
+        	pst.execute();
+    		JOptionPane.showMessageDialog(null,"Delete done");
+    		onpendclick();
+    	}
+    	catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    }
+    ObservableList<EmployeeModel> leavelistemp;
+    @FXML
+    private void onpendclick() {
+    	String query = "SELECT * from leaverecords where emp_id ='"+sUsername+"' and approve is NULL;";
+    	System.out.println(query);
+    	
+    	leavelistemp = empmodel.getemployeeleaves(query);
+    	tid.setCellValueFactory(new PropertyValueFactory<EmployeeModel,String>("tid"));
+    	MEditTableLeaveType.setCellValueFactory(new PropertyValueFactory<EmployeeModel,String>("type"));
+    	MEditTableLeaveFrom.setCellValueFactory(new PropertyValueFactory<EmployeeModel,String>("fromdate"));
+    	MEditTableLeaveTo.setCellValueFactory(new PropertyValueFactory<EmployeeModel,String>("todate"));
+    	MEditTableNod.setCellValueFactory(new PropertyValueFactory<EmployeeModel,String>("nod"));
+    	MEditTableLeaveComments.setCellValueFactory(new PropertyValueFactory<EmployeeModel,String>("comments"));
+    	
+    	leavemodifytable.setItems(leavelistemp);
     }
     public void onapplyleave(ActionEvent event) throws IOException
     {
@@ -340,6 +395,7 @@ public class EmployeeController {
 		stage.setScene(scene);
 		stage.show();
     }
+   
     
    /*void LeavehistoryTable() {
 		// TODO Auto-generated method stub

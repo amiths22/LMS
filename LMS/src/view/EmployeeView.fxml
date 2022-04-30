@@ -162,6 +162,26 @@
                         </AnchorPane>
                   </content>
                 </Tab>
+                  <Tab fx:id="pendingrequests" onSelectionChanged="#onpendclick" text="Pending Requests">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: lightgrey;">
+                           <children>
+                              <Group layoutX="4.0" layoutY="25.260417938232422" />
+                              <Button fx:id="revokeleave" layoutX="246.0" layoutY="234.0" mnemonicParsing="false" onAction="#deleteleave" prefHeight="26.0" prefWidth="102.0" text="Revoke Leave" />
+                              <TableView fx:id="leavemodifytable" layoutX="7.0" layoutY="5.0" prefHeight="190.0" prefWidth="551.0">
+                                 <columns>
+                                    <TableColumn fx:id="tid" prefWidth="75.0" text="Leave ID" />
+                                    <TableColumn fx:id="MEditTableLeaveType" prefWidth="75.0" text="Leave Type" />
+                                    <TableColumn fx:id="MEditTableLeaveFrom" prefWidth="75.0" text="Leave From" />
+                                    <TableColumn fx:id="MEditTableLeaveTo" prefWidth="75.0" text="Leave To" />
+                                    <TableColumn fx:id="MEditTableNod" prefWidth="108.0" text="Number of Days" />
+                                    <TableColumn fx:id="MEditTableLeaveComments" prefWidth="169.59991455078125" text="Reason" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
                   <Tab fx:id="leavehistory" onSelectionChanged="#event" text="Leave History">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">

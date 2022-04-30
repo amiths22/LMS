@@ -12,6 +12,43 @@ public class EmployeeModel extends DBConnect {
 	 
 	    private String emp_id;
 		private String fname,lname,email,phone,department,designation,dob,reports_to,role;
+		private String fromdate,todate,type,comments,nod,tid;
+		public String getFromdate() {
+			return fromdate;
+		}
+		public void setFromdate(String fromdate) {
+			this.fromdate = fromdate;
+		}
+		public String getTodate() {
+			return todate;
+		}
+		public void setTodate(String todate) {
+			this.todate = todate;
+		}
+		public String getType() {
+			return type;
+		}
+		public void setType(String type) {
+			this.type = type;
+		}
+		public String getComments() {
+			return comments;
+		}
+		public void setComments(String comments) {
+			this.comments = comments;
+		}
+		public String getNod() {
+			return nod;
+		}
+		public void setNod(String nod) {
+			this.nod = nod;
+		}
+		public String getTid() {
+			return tid;
+		}
+		public void setTid(String tid) {
+			this.tid = tid;
+		}
 		public String getEmp_id() {
 			return emp_id;
 		}
@@ -102,4 +139,46 @@ public class EmployeeModel extends DBConnect {
 		}
 		return null;
 	  }
+	  public ObservableList<EmployeeModel> getemployeeleaves(String query){
+			ObservableList<EmployeeModel> leavelist = FXCollections.observableArrayList();
+			
+			try(PreparedStatement ps = conn.prepareStatement(query))
+			{
+	            ResultSet rs = ps.executeQuery();
+	            System.out.println(ps);
+	            
+	            
+	            while (rs.next())
+	            {
+	            	EmployeeModel emp=new EmployeeModel();
+	            	emp.setEmp_id(rs.getString("emp_id"));
+	            	emp.setNod(rs.getString("nod"));
+	            	emp.setFromdate(rs.getString("fromdate"));
+	            	emp.setTodate(rs.getString("todate"));
+	            	if(rs.getString("type").equalsIgnoreCase("1"))
+	            	{
+	            		emp.setType("Annual");
+	            	}
+	            	else if(rs.getString("type").equalsIgnoreCase("2"))
+	            	{
+	            		emp.setType("Casual");
+	            	}
+	            	else if(rs.getString("type").equalsIgnoreCase("3"))
+	            	{
+	            		emp.setType("Sick");
+	            	}
+	            	else {
+	            		emp.setType("Other");
+	            	}
+	            	emp.setComments(rs.getString("comments"));
+	            	emp.setTid(rs.getString("tid"));
+	            	leavelist.add(emp);
+	            }
+			}
+	        catch(Exception e) {
+	        	e.printStackTrace();
+	        	System.out.println("Error Displaying user details ");
+	        }
+			return leavelist;
+		}
 }

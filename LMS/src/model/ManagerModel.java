@@ -100,7 +100,6 @@ public class ManagerModel extends DBConnect {
             		man.setType("Other");
             	}
             	man.setComments(rs.getString("comments"));
-            	//man.setFname(rs.getString("fname"));
             	man.setTid(rs.getString("tid"));
             	leavelist.add(man);
             }
