@@ -48,7 +48,7 @@ public class AdminController {
 	
 	
 	//Initialize combox array
-	ObservableList<String> lstrole = FXCollections.observableArrayList("Employee", "Manager");
+	ObservableList<String> lstrole = FXCollections.observableArrayList("Employee", "Manager","Admin");
 	final ObservableList lstreportsto = FXCollections.observableArrayList();
 	final ObservableList updateslstreportsto = FXCollections.observableArrayList();
 	
@@ -290,38 +290,42 @@ public class AdminController {
     		LocalDate adob = adddob.getValue();
     		
     		if (aid == null || aid.trim().equals("")) {
-				lblerror.setText("ID Cannot be empty or spaces");
+				lblerror.setText("Please enter a Employee ID s");
 				return;
 			}
     		if (afn == null || afn.trim().equals("")) {
-				lblerror.setText("First Name Cannot be empty or spaces");
+				lblerror.setText("Please enter a First Name ");
 				return;
 			}
     		if (aln == null || aln.trim().equals("")) {
-				lblerror.setText("Last Name Cannot be empty or spaces");
+				lblerror.setText("Please enter a Last Name ");
 				return;
 			}
     		if (adep == null || adep.trim().equals("")) {
-				lblerror.setText("Department Cannot be empty or spaces");
+				lblerror.setText("Please enter a Department ");
 				return;
 			}
     		if (ades == null || ades.trim().equals("")) {
-				lblerror.setText("Designation Cannot be empty or spaces");
+				lblerror.setText("Please enter a Designation ");
 				return;
 			}
     		//String regex = "/[^\s@]+@[^\s@]+\.[^\s@]+/";
     		if (aemail == null || aemail.trim().equals("")) {
-				lblerror.setText("Email Cannot be empty or spaces");
+				lblerror.setText("Please enter a Email ");
 				return;
 			}
     		if (apass == null || apass.trim().equals("")) {
-				lblerror.setText("Password Cannot be empty or spaces");
+				lblerror.setText("Please enter a Password ");
 				return;
 			}
     		if (aphone == null || aphone.trim().equals("")) {
-				lblerror.setText("Phone number Cannot be empty or spaces");
+				lblerror.setText("Please enter a Phone number ");
 				return;
 			}
+    		if(adob == null) {
+    			lblerror.setText("Please enter a date of birth");
+				return;
+    		}
     		
     		if(arole.equalsIgnoreCase("Manager")) {
     			aroleint = 1;
@@ -337,6 +341,8 @@ public class AdminController {
     				+ " ('"+aid+"','"+afn+"','"+aln+"','"+adep+"','"+aroleint+"','"+adob+"','"+arepto+"','"+aemail+"','"+apass+"','"+aphone+"','"+ades+"' )";
     		
     		int con = Statement.executeUpdate(sql);
+    		UpdateDeleteTable();
+    		UpdateUTable();
 			if (con > 0) 
 			{
 				JOptionPane.showMessageDialog(null,"User added successfully");
@@ -428,6 +434,7 @@ public class AdminController {
     	tabcolemail.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("email"));
     	tabcolPnumber.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("phone"));
     	tabcoldep.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("department"));
+    	
     	String query = "SELECT * from employees;";
     	userslist = adminmodel.getdataofusers(query);
     	table.setItems(userslist);

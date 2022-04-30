@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <StackPane prefHeight="358.0" prefWidth="571.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerController">
@@ -99,14 +100,15 @@
                         </AnchorPane>
                      </content>
                   </Tab>
-                  <Tab text="Approve">
+                  <Tab fx:id="ApproveTab" onSelectionChanged="#loadtable" text="Approve">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: lightgrey;">
                            <children>
                               <Group layoutX="4.0" layoutY="25.260417938232422" />
-                              <TableView layoutX="50.0" layoutY="57.0" prefHeight="146.0" prefWidth="452.0">
+                              <TableView fx:id="approvetable" layoutX="5.0" layoutY="37.0" prefHeight="186.0" prefWidth="542.0">
                                 <columns>
-                                  <TableColumn fx:id="ATblEmployeeID" prefWidth="75.0" text="EmployeeID" />
+                                  <TableColumn fx:id="ATblEmployeeID" prefWidth="75.0" text="EMP ID" />
+                                    <TableColumn fx:id="ATblfname" prefWidth="75.0" text="FNAME" />
                                   <TableColumn fx:id="ATblLeaveType" prefWidth="75.0" text="LeaveType" />
                                     <TableColumn fx:id="ATblDateFrom" prefWidth="75.0" text="DateFrom" />
                                     <TableColumn fx:id="ATblDateTo" prefWidth="75.0" text="DateTo" />
@@ -114,10 +116,13 @@
                                     <TableColumn fx:id="ATblReason" prefWidth="75.0" text="Reason" />
                                 </columns>
                               </TableView>
-                              <Text layoutX="212.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EMPLOYEE LEAVES" wrappingWidth="101.33674621582031" />
-                              <Text layoutX="24.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Action :" wrappingWidth="39.966796875" />
-                              <JFXComboBox fx:id="ATblComboBoxAction" layoutX="122.0" layoutY="204.0" prefHeight="26.0" prefWidth="133.0" />
-                              <Button fx:id="ATblSubmitButton" layoutX="264.0" layoutY="262.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Submit" />
+                              <Text layoutX="200.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EMPLOYEE LEAVES" wrappingWidth="150.13673400878906">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font></Text>
+                              <Text layoutX="19.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Action :" wrappingWidth="61.5667724609375" />
+                              <JFXComboBox fx:id="ATblComboBoxAction" layoutX="87.0" layoutY="225.0" prefHeight="26.0" prefWidth="133.0" />
+                              <Button fx:id="ATblSubmitButton" layoutX="443.0" layoutY="269.0" mnemonicParsing="false" onAction="#onApprove" prefHeight="26.0" prefWidth="86.0" text="Submit" />
                            </children>
                         </AnchorPane>
                      </content>

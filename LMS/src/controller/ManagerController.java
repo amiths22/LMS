@@ -1,11 +1,15 @@
 package controller;
 import java.awt.TextArea;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -14,9 +18,12 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 
+import model.AdminModel;
 import model.DBConnect;
+import model.ManagerModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,12 +38,22 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class ManagerController {
 
+	 ManagerModel managermodel;
+	 public ManagerController() 
+		{ 
+			  managermodel = new ManagerModel(); 
+		}
+	
 	public String sUsername;
 	public String sPassword;
 	
@@ -45,6 +62,8 @@ public class ManagerController {
 	private Parent root;
 	
 	ObservableList<String> lstUserType = FXCollections.observableArrayList("Annual", "Casual", "Sick", "Maternity", "Paternity");
+	ObservableList<String> lstactions = FXCollections.observableArrayList("Approve","Deny");
+	
 
     @FXML
     private JFXTextArea reasonbox;
@@ -61,20 +80,128 @@ public class ManagerController {
     @FXML
     private ComboBox<String> combobox;
     
+    @FXML
+    private JFXComboBox<String> ATblComboBoxAction;
+    
+    @FXML
+    private TableView<ManagerModel> approvetable;
+    
+    @FXML
+    private TableColumn<ManagerModel, String> ATblDateFrom;
+
+    @FXML
+    private TableColumn<ManagerModel, String> ATblDateTo;
+
+    @FXML
+    private TableColumn<ManagerModel, String> ATblEmployeeID;
+
+    @FXML
+    private TableColumn<ManagerModel, String> ATblLeaveType;
+
+    @FXML
+    private TableColumn<ManagerModel, String> ATblNoOfDays;
+
+    @FXML
+    private TableColumn<ManagerModel, String> ATblReason;
+    
+    @FXML
+    private TableColumn<ManagerModel, String> ATblfname;
+    
+    @FXML
+    private JFXTextArea employeeidfetch;
+    
 
     @FXML
     private Button logoutbutton;
     
 	DBConnect dbConnect = null;
 	Statement Statement = null;
-	
+	ObservableList<ManagerModel> leavelist;
+	int index = -1;
+	String emp_id,sql;
+	PreparedStatement pst = null;	
     
     @FXML
 	private void initialize()
 	{
 		combobox.setItems(lstUserType);
 		dbConnect = new DBConnect();
+		ATblComboBoxAction.setItems(lstactions);
+		
 	}
+    
+    @FXML
+    private void loadtable() {
+    	dbConnect = new DBConnect();
+    	String query = "SELECT emptbl.emp_id, emptbl.fname, lrtbl.fromdate, lrtbl.todate, lrtbl.type, lrtbl.approve, lrtbl.comments,lrtbl.nod FROM employees emptbl, leaverecords lrtbl WHERE (emptbl.emp_ID = lrtbl.emp_ID AND emptbl.reports_to ='"+sUsername+"') AND lrtbl.approve is null;";
+		System.out.println(query);
+		
+		leavelist = managermodel.getemployeeleaves(query);
+		System.out.println(leavelist);
+		
+		ATblEmployeeID.setCellValueFactory(new PropertyValueFactory<ManagerModel,String>("emp_id"));
+		ATblfname.setCellValueFactory(new PropertyValueFactory<ManagerModel,String>("fname"));
+		ATblLeaveType.setCellValueFactory(new PropertyValueFactory<ManagerModel,String>("type"));
+		ATblDateFrom.setCellValueFactory(new PropertyValueFactory<ManagerModel,String>("fromdate"));
+		ATblDateTo.setCellValueFactory(new PropertyValueFactory<ManagerModel,String>("todate"));
+		ATblNoOfDays.setCellValueFactory(new PropertyValueFactory<ManagerModel,String>("nod"));
+		ATblReason.setCellValueFactory(new PropertyValueFactory<ManagerModel,String>("comments"));
+		
+		approvetable.setItems(leavelist);
+    }
+    @FXML
+    private void getselected() {
+    	index = approvetable.getSelectionModel().getSelectedIndex();
+    	if(index<= -1) {
+    		return;
+    	}
+    	employeeidfetch.setText(ATblEmployeeID.getCellData(index).toString());
+    }
+    
+    @FXML
+    public void onApprove() {
+    	index = approvetable.getSelectionModel().getSelectedIndex();
+    	String idforapprove = ATblEmployeeID.getCellData(index).toString();
+    	String leavetypeapprove = ATblLeaveType.getCellData(index).toString();
+    	String leavetopush;
+    	if(leavetypeapprove.equalsIgnoreCase("Annual")) {
+    		leavetopush = "1";
+    	}
+    	else if(leavetypeapprove.equalsIgnoreCase("Casual")) {
+    		leavetopush = "2";
+    	}
+    	else if(leavetypeapprove.equalsIgnoreCase("Sick")) {
+    		leavetopush = "3";
+    	}
+    	else if(leavetypeapprove.equalsIgnoreCase("Maternity")) {
+    		leavetopush = "4";
+    	}
+    	else {
+    		leavetopush = "5";
+    	}
+    	Connection conn = dbConnect.getconnection();
+    	try {
+    		emp_id = employeeidfetch.getText().toString();
+    		if(ATblComboBoxAction.getValue() == "Approve") {
+        		sql = "UPDATE leaverecords set approve='YES' where emp_id=? AND type=?;";
+        	}
+        	else {
+        		sql = "UPDATE leaverecords set approve='NO' where emp_id =? AND type=?;";
+        	}
+    		System.out.println(sql);
+        	pst = conn.prepareStatement(sql);
+        	pst.setString(1, idforapprove);
+        	pst.setString(2, leavetopush);
+    		pst.execute();
+    		JOptionPane.showMessageDialog(null,"Update done");
+    	}
+    	catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    }
+    
+    
     @FXML
   private void onApplyLeave(ActionEvent event) throws IOException
     {
