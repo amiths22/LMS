@@ -11,7 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 
-/** Manages control flow for logins */
+/** Login Model to authenticate user and get roles */
 public class LoginModel extends DBConnect {
 
 	private String username;
@@ -42,28 +42,8 @@ public class LoginModel extends DBConnect {
 		this.role = role;
 	}
 
-
-
-
-	/**
-	 * Callback method invoked to notify that a user has been authenticated. Will
-	 * show the main application screen.
-	 */
 	public boolean authenticate(String user,String pass) {
 		
-		/*if(user.equals("amith")&&pass.equals("1234")) {
-			System.out.println(user+"   "+pass);
-		showMainView();
-		DBConnect conn=new DBConnect();
-		try {
-			System.out.println(conn.connect());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		}
-		else
-			showLoginScreen();*/
 		String query = "SELECT * FROM employees WHERE emp_id = ? and password = ?";
 		try(PreparedStatement stmt = conn.prepareStatement(query)) 
 		{
@@ -89,44 +69,7 @@ public class LoginModel extends DBConnect {
 		
 	}
 	
+	
 
-	/**
-	 * Callback method invoked to notify that a user has logged out of the main
-	 * application. Will show the login application screen.
-	 */
-	/*public void logout() {
-		showLoginScreen();
-	}
-
-	public void showLoginScreen() {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LoginView.fxml"));
-			System.out.println(loader.toString());
-			scene.setRoot((Parent) loader.load());
-			System.out.println("hi");
-			LoginController controlle = loader.getController();
-			System.out.println("hqqq"+controlle);
-			System.out.println(this);
-			controlle.initManager(this);
-		} catch (IOException ex) {
-			System.out.println("hello"+ex.getMessage());
-			ex.printStackTrace();
-		}
-		catch (NullPointerException ex) {
-			System.out.println("hello"+ex.getMessage());
-			ex.printStackTrace();
-
-		}
-	}*/
-
-	/*public void showMainView() {
-		try {
-			
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EmployeeView.fxml"));
-			scene.setRoot((Parent) loader.load());
-			
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-	}*/
+	
 }

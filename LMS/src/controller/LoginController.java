@@ -1,7 +1,6 @@
 package controller;
 
 
-//import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
@@ -22,11 +21,11 @@ public class LoginController {
   @FXML private TextField password;
   @FXML private Button login;
   
-  private Stage stage;
-	private Scene scene;
-	private Parent root;
-	private int role;
- private boolean authok = false;
+ private Stage stage;
+private Scene scene;
+private Parent root;
+private int role;
+
 private LoginModel loginmanager;
 
  
@@ -65,9 +64,7 @@ private LoginModel loginmanager;
 		
 		
  public void checkCredentials(String username, String password, ActionEvent event) {
-		
-		//String sUserType = ((RadioButton) UserType.getSelectedToggle()).getText();
-	 
+			 
 		
 		Boolean isValid = loginmanager.authenticate(username, password);
 		System.out.println("authentication success");
@@ -124,14 +121,13 @@ private LoginModel loginmanager;
 			{
 				EmployeeController empCtrl = ((EmployeeController)fxmlLoader.getController());
 				empCtrl.sUsername = username;
-				System.out.println("success");
+			
 			}
 			else if(role==1)
 			{
 				ManagerController manCtrl = ((ManagerController)fxmlLoader.getController());
-				System.out.println(manCtrl);
 				manCtrl.sUsername = username;
-				System.out.println("Manager authenticated");
+				
 			}
 			else if(role == 2)
 			{
@@ -142,7 +138,6 @@ private LoginModel loginmanager;
 			Node source = (Node) event.getSource();
 			Stage stage = (Stage)source.getScene().getWindow();
 			Scene scene = new Scene(root, width, height);
-			//scene.getStylesheets().add(getClass().getResource("/application/Application.css").toExternalForm());
 			stage.setScene(scene);
 			stage.show();
 
@@ -151,73 +146,5 @@ private LoginModel loginmanager;
 			e.printStackTrace();
 		}
 
-	}
-
-  /*public void initManager(final LoginManager loginManager) {
-	  
-	  System.out.println("init manager entered");
-	   login.setOnAction((e) -> {
-	    	  String user = username.getText();
-	    	  String pass = password.getText();
-	    	  if (user.equalsIgnoreCase("") && pass.equalsIgnoreCase("")) {
-	  			Alert alert = new Alert(Alert.AlertType.ERROR);
-	  			alert.setTitle("Error");
-	  			alert.setHeaderText("please enter username and password");
-	  			alert.showAndWait();
-	  		} else if (user.equalsIgnoreCase("")) {
-	  			Alert alert = new Alert(Alert.AlertType.ERROR);
-	  			alert.setTitle("Error");
-	  			alert.setHeaderText("please enter username");
-	  			alert.showAndWait();
-	  		} else if (pass.equalsIgnoreCase("")) {
-	  			Alert alert = new Alert(Alert.AlertType.ERROR);
-	  			alert.setTitle("Error");
-	  			alert.setHeaderText("please enter password");
-	  			alert.showAndWait();
-	  			}else {
-	           authok= loginManager.authenticate(user,pass);
-	           System.out.println(authok);
-	           
-	  			}
-	    	  if(authok) {
-	   		   System.out.println("authok entered");
-	   		   //loginManager.showMainView();
-	   		   switch(loginManager.getRole()) {
-	   		   
-	   		   case 1:loginManager.showMainView();
-	   		   break;
-	   		   case 0: loginManager.showLoginScreen();
-	   		   }
-	   		  
-	   	   }
-	    	  else {
-	    		  Alert alert = new Alert(Alert.AlertType.ERROR);
-		  			alert.setTitle("Error");
-		  			alert.setHeaderText("Username or password incorect");
-		  			alert.showAndWait();
-	    	  }
-		});
-	   
-	   if(authok) {
-		   System.out.println("authok entered");
-		   loginManager.showMainView();
-		   
-		  
-	   }
-	   
-	   
-	   
-	 
-  }*/
-
-  /**
-   * Check authorization credentials.
-   * 
-   * If accepted, return a sessionID for the authorized session
-   * otherwise, return null.
-   */   
-  
-  
-
-  
+	}  
 }
