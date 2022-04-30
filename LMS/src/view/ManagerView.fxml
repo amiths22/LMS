@@ -14,6 +14,8 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -39,28 +41,33 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="559.0" style="-fx-background-color: lightgrey;">
                            <children>
+                              <ImageView fitHeight="328.0" fitWidth="601.0" layoutX="120.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/537-5370961_employee-assistance-programs-work-cartoon-clipart.png" />
+                                 </image>
+                              </ImageView>
                               <Group layoutX="4.0" layoutY="25.260417938232422" />
-                              <Text fill="#8e8eed" layoutX="38.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leave Type :">
+                              <Text fill="#8e8eed" layoutX="1.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leave Type :">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font></Text>
-                              <Text fill="#8e8eed" layoutX="37.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leave From :">
+                              <Text fill="#8e8eed" layoutX="-1.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leave From :">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font></Text>
-                              <Text fill="#8e8eed" layoutX="37.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leave To :">
+                              <Text fill="#8e8eed" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leave To :">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font></Text>
-                              <Text fill="#8e8eed" layoutX="41.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reason :">
+                              <Text fill="#8e8eed" layoutX="5.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reason :">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font></Text>
-                              <JFXComboBox fx:id="combobox" layoutX="142.0" layoutY="21.0" prefHeight="26.0" prefWidth="193.0" />
-                              <DatePicker fx:id="leavefrom" layoutX="142.0" layoutY="68.0" />
-                              <DatePicker fx:id="leaveto" layoutX="142.0" layoutY="115.0" />
-                              <JFXTextArea fx:id="reasonbox" focusColor="WHITE" layoutX="143.0" layoutY="173.0" prefHeight="62.0" prefWidth="363.0" text="Enter reason here" unFocusColor="WHITE" />
-                              <Button fx:id="applyleavebutton" layoutX="269.0" layoutY="271.0" mnemonicParsing="false" onAction="#onApplyLeave" prefHeight="26.0" prefWidth="102.0" text="Apply Leave" />
+                              <JFXComboBox fx:id="combobox" layoutX="94.0" layoutY="34.0" prefHeight="26.0" prefWidth="177.0" />
+                              <DatePicker fx:id="leavefrom" layoutX="95.0" layoutY="67.0" />
+                              <DatePicker fx:id="leaveto" layoutX="95.0" layoutY="109.0" />
+                              <JFXTextArea fx:id="reasonbox" focusColor="WHITE" layoutX="97.0" layoutY="161.0" prefHeight="62.0" prefWidth="170.0" text="Enter reason here" unFocusColor="WHITE" />
+                              <Button fx:id="applyleavebutton" layoutX="131.0" layoutY="277.0" mnemonicParsing="false" onAction="#onApplyLeave" prefHeight="26.0" prefWidth="102.0" text="Apply Leave" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -220,7 +227,7 @@
                                  </font></Text>
                               <Text fill="#8e8eed" layoutX="19.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Action :" wrappingWidth="61.5667724609375" />
                               <JFXComboBox fx:id="ATblComboBoxAction" layoutX="87.0" layoutY="189.0" prefHeight="26.0" prefWidth="133.0" />
-                              <Button fx:id="ATblSubmitButton" layoutX="443.0" layoutY="219.0" mnemonicParsing="false" onAction="#onApprove" prefHeight="26.0" prefWidth="86.0" text="Submit" textFill="#8e8eed">
+                              <Button fx:id="ATblSubmitButton" layoutX="252.0" layoutY="277.0" mnemonicParsing="false" onAction="#onApprove" prefHeight="26.0" prefWidth="86.0" text="Submit" textFill="#8e8eed">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Button>
@@ -232,9 +239,9 @@
             </TabPane>
             <AnchorPane prefHeight="58.0" prefWidth="590.0" style="-fx-background-color: #8e8eed; -fx-border-width: 10Px;">
                <children>
-                  <Text fill="WHITE" layoutX="191.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MANAGER VIEW" wrappingWidth="169.61050415039062">
+                  <Text fill="WHITE" layoutX="187.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MANAGER VIEW" wrappingWidth="229.61051177978516">
                      <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="System Bold" size="24.0" />
                      </font>
                   </Text>
             <Button fx:id="LogoutBtn" alignment="CENTER" defaultButton="true" layoutX="511.0" layoutY="17.0" mnemonicParsing="false" onAction="#onlogout" prefHeight="40.0" prefWidth="78.0" text="Logout" />
