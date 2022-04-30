@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -333,12 +334,13 @@ public class AdminController {
     		else if(arole.equalsIgnoreCase("Employee")) {
     			aroleint = 0;
     		}
-    		
-    		
+    		    		
+    		String hashpass = doHashing(apass);
+
     		Statement = dbConnect.getconnection().createStatement();
     		
     		String sql = "INSERT into employees (emp_id,fname,lname,department,role,dob,reports_to,email,password,phone,designation) VALUES"
-    				+ " ('"+aid+"','"+afn+"','"+aln+"','"+adep+"','"+aroleint+"','"+adob+"','"+arepto+"','"+aemail+"','"+apass+"','"+aphone+"','"+ades+"' )";
+    				+ " ('"+aid+"','"+afn+"','"+aln+"','"+adep+"','"+aroleint+"','"+adob+"','"+arepto+"','"+aemail+"','"+hashpass+"','"+aphone+"','"+ades+"' )";
     		
     		int con = Statement.executeUpdate(sql);
     		UpdateDeleteTable();
@@ -353,6 +355,24 @@ public class AdminController {
     	}
     	
     }
+    
+    private static String doHashing(String apass) {
+		try {
+			MessageDigest mdg = MessageDigest.getInstance("MD5");
+			
+			mdg.update(apass.getBytes());
+			byte[] rba = mdg.digest();
+			StringBuilder sb = new StringBuilder();
+			for(byte b: rba) {
+				sb.append(String.format("%02x", b));
+			}
+			return sb.toString();
+		}
+		catch(Exception e){
+    		e.printStackTrace();
+    	}
+		return "";
+	}
     
     @FXML
     void getSelected() {

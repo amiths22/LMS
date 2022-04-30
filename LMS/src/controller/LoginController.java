@@ -2,6 +2,7 @@ package controller;
 
 
 import java.io.IOException;
+import java.security.MessageDigest;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,6 +40,8 @@ private LoginModel loginmanager;
 	 System.out.println("Login clicked");
 		String username = this.username.getText();
 		String password = this.password.getText();
+		
+		String checkpassword = doHashing(password);
 
 		// Validations
 		if (username.equalsIgnoreCase("") && password.equalsIgnoreCase("")) {
@@ -57,10 +60,28 @@ private LoginModel loginmanager;
   			alert.setHeaderText("please enter password");
   			alert.showAndWait();
   			}
-		checkCredentials(username, password, event);
+		checkCredentials(username, checkpassword, event);
   			}
 
 		// authentication check
+ 
+ private static String doHashing(String apass) {
+		try {
+			MessageDigest mdg = MessageDigest.getInstance("MD5");
+			
+			mdg.update(apass.getBytes());
+			byte[] rba = mdg.digest();
+			StringBuilder sb = new StringBuilder();
+			for(byte b: rba) {
+				sb.append(String.format("%02x", b));
+			}
+			return sb.toString();
+		}
+		catch(Exception e){
+ 		e.printStackTrace();
+ 	}
+		return "";
+	}
 		
 		
  public void checkCredentials(String username, String password, ActionEvent event) {
