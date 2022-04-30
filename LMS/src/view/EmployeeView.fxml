@@ -197,15 +197,6 @@
                         </AnchorPane>
                     </content>
                   </Tab>
-                  <Tab text="Logout">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: lightgrey;">
-                           <children>
-                              <Button fx:id="logoutbutton" layoutX="213.0" layoutY="103.0" mnemonicParsing="false" onAction="#onlogout" prefHeight="50.0" prefWidth="127.0" text="Button" />
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
               </tabs>
             </TabPane>
             <AnchorPane prefHeight="49.0" prefWidth="551.0" style="-fx-background-color: #8e8eed; -fx-border-width: 10px;">
@@ -230,6 +221,7 @@
                         <Font size="20.0" />
                      </font>
                       </FontAwesomeIconView>
+                  <Button fx:id="logoutbutton" layoutX="464.0" layoutY="18.0" mnemonicParsing="false" onAction="#onlogout" prefHeight="24.0" prefWidth="58.0" text="Logout" />
                </children>
             </AnchorPane>
          </children>
