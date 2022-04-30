@@ -88,7 +88,6 @@ private LoginModel loginmanager;
 			 
 		
 		Boolean isValid = loginmanager.authenticate(username, password);
-		System.out.println("authentication success");
 		if (!isValid) 
 		{
 			Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -99,7 +98,6 @@ private LoginModel loginmanager;
 		}
 		else {
 			 role=loginmanager.getRole();
-			 System.out.println("role"+role);
 		}
 		try 
 		{
