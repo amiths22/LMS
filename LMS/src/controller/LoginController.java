@@ -75,7 +75,7 @@ private LoginModel loginmanager;
 		{
 			Alert alert = new Alert(Alert.AlertType.ERROR);
   			alert.setTitle("Error");
-  			alert.setHeaderText("User does not exist");
+  			alert.setHeaderText("Incorrect username or password");
   			alert.showAndWait();
 			return;
 		}

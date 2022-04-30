@@ -152,7 +152,7 @@
                               <Label alignment="CENTER" layoutX="276.0" layoutY="22.0" prefHeight="18.0" prefWidth="201.0" text="Leave Balances" />
                               <BarChart fx:id="leavechart" layoutX="184.0" prefHeight="287.0" prefWidth="358.0">
                                 <xAxis>
-                                  <CategoryAxis prefHeight="21.0" prefWidth="302.0" side="BOTTOM" />
+                                  <CategoryAxis animated="false" prefHeight="21.0" prefWidth="302.0" side="BOTTOM" />
                                 </xAxis>
                                 <yAxis>
                                   <NumberAxis side="LEFT" />

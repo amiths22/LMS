@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,10 +36,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.Axis;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Data;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -180,25 +184,7 @@ public class EmployeeController {
     	
     	tabcoltype.setCellValueFactory(new PropertyValueFactory<LeaveModel,String>("type"));
     	tabcolfrom.setCellValueFactory(new PropertyValueFactory<LeaveModel,String>("fromdate"));
-    	/*tabcolfrom.setCellFactory(column -> {
-            TableCell<LeaveModel, Date> cell = new TableCell<LeaveModel, Date>() {
-                private SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-
-                @Override
-                protected void updateItem(Date item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if(empty) {
-                        setText(null);
-                    }
-                    else {
-                        this.setText(format.format(item));
-
-                    }
-                }
-            };
-
-            return cell;
-        });*/
+    	
     	tabcolto.setCellValueFactory(new PropertyValueFactory<LeaveModel,String>("todate"));
     	tabcolnod.setCellValueFactory(new PropertyValueFactory<LeaveModel,String>("nod"));
     	
@@ -229,11 +215,14 @@ public class EmployeeController {
 	        String sql1= "Select * from leaverecords where emp_id='"+sUsername+"'and approve='yes';";
 	        LeaveModel lmodel=new LeaveModel();
 	        map=lmodel.getLeaveBalances(sql1);
-	        XYChart.Series series1 = new XYChart.Series();
+	       // XYChart.Series series1 = new XYChart.Series();
 
-	       // XYChart.Series<String, Integer> series1 = new XYChart.Series<>();
+	       XYChart.Series<String, Integer> series1 = new XYChart.Series<>();
+	       
 	        final CategoryAxis xAxis = new CategoryAxis();
 	        final NumberAxis yAxis = new NumberAxis();
+	        
+	       xAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList("Annual", "Casual", "Sick", "Maternity", "Paternity")));
 	        xAxis.setLabel("Leave types");       
 	        yAxis.setLabel("No. of days");
 	        series1.setName("Leave balance");
@@ -254,66 +243,21 @@ public class EmployeeController {
 	        	}
 	            //String tmpString = entry.getKey();
 	            Integer tmpValue = entry.getValue();
-	            //XYChart.Data<String, Integer> d = new XYChart.Data<>(tmpString, tmpValue);
+	            XYChart.Data<String, Integer> d = new XYChart.Data<>(tmpString, tmpValue);
 	           // System.out.println(d);
 	            
 	            series1.getData().add(new XYChart.Data(tmpString, tmpValue));;
 	        }
 	        leavechart.setTitle("Leave");
+	        leavechart.getData().clear();
 	        leavechart.getData().add(series1);
-	        //udtabcollt.setCellFactory(TextFieldTableCell.forTableColumn());
-
-	    	//udtabcollt.setCellValueFactory(new PropertyValueFactory<Map.Entry<Integer,Integer>,Integer>( map.keySet()));
+	        
+	            }
 
 	        
-	        /*final ObservableMap<String, Number> obsMap = FXCollections.observableHashMap();
-	        for (int i = 0; i < 3; i++)  obsMap.put("key "+i, i*10d);
+	    
 	        
-	        //final ObservableMap<Integer, Number> obsMap = FXCollections.observableHashMap();
-	        
-	       /* final TableView<ObservableMap.Entry<String, Number>> tv = new TableView(FXCollections.observableArrayList(obsMap.entrySet()));
-	        tv.setEditable(true);
-
-	        obsMap.addListener((MapChangeListener.Change<? extends Integer, ? extends Number> change) -> {
-	            tv.setItems(FXCollections.observableArrayList(obsMap.entrySet()));
-	        });
-
-	        TableColumn<ObservableMap.Entry<String, Number>,Integer> keyCol = new TableColumn<>("key");
-	        TableColumn<ObservableMap.Entry<String, Number>,Number> priceCol = new TableColumn<>("price");
-	        tv.getColumns().addAll(keyCol,priceCol);
-
-	    //    udtabcollt.setCellValueFactory((p) -> {
-	      //      return new SimpleStringProperty(p.getValue().getKey());
-	      //  });
-
-	        udtabcollt.setCellFactory(TextFieldTableCell.forTableColumn());
-	        udtabcollt.setOnEditCommit((TableColumn.CellEditEvent<Map.Entry<String,Number>, String> t) -> {
-	            final String oldKey = t.getOldValue();
-	            final Number oldPrice = obsMap.get(oldKey);
-	            obsMap.remove(oldKey);
-	            obsMap.put(t.getNewValue(),oldPrice);
-	        });
-	        
-	     //   udtabcolbal.setCellValueFactory((p) -> {
-	      //      return new ReadOnlyObjectWrapper<>(p.getValue().getValue());
-	     //   });
-
-	        udtabcolbal.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
-	        udtabcolbal.setOnEditCommit((TableColumn.CellEditEvent<Map.Entry<String,Number>, Number> t) -> {
-	            obsMap.put(t.getTableView().getItems().get(t.getTablePosition().getRow()).getKey(),//key
-	                       t.getNewValue());//val);
-	        });
-
-	        
-	       // udtabcollt.setCellFactory((Callback<TableColumn, TableCell>) map.keySet());
-	        for (Integer i : map.keySet()) {
-			      System.out.println("key: " + i + " value: " + map.get(i));
-			    }*/
-	        
-	        
-		
-
-    }
+    
     }
     public void onapplyleave(ActionEvent event) throws IOException
     {
@@ -324,6 +268,17 @@ public class EmployeeController {
     		String scomments = reasonbox.getText();
     		int nod=countLeaveDays(dleavefrom,dleaveto);
     		int leavetypeint=-1;
+    		String leaveconflict;
+    		LeaveModel lm=new LeaveModel();
+    		Map<String,Integer> leavebal=new HashMap<String,Integer>();
+	        String sql1= "Select * from leaverecords where emp_id='"+sUsername+"';";
+	        String sql2= "Select * from leaverecords where( fromdate='"+dleavefrom+"'or todate='"+dleaveto+"' ) and (approve='YES' or approve is null) and emp_id='"+sUsername+"';";
+    		
+	        leaveconflict=lm.checkLeaveDateConflict(sql2);
+	        
+	        if(leaveconflict.equalsIgnoreCase("no")) {
+	        leavebal=lm.getLeaveBalances(sql1);
+    		
     		
     		switch(leavetype) {
     		case "Annual": leavetypeint=1;
@@ -337,10 +292,20 @@ public class EmployeeController {
     		case "Paternity": leavetypeint=5;
     			break;
     		}
-    		
+    		int aa=leavebal.get(String.valueOf(leavetypeint));
+    		 System.out.println(aa);
+    		 
+    		//String stringVal=String.valueOf(intVal);//Now it will return "10"
     		System.out.println("leavedays"+nod);
     		System.out.println("Empid"+sUsername);
-    		
+    		/*Map<String,Integer> leatyp = new HashMap<String,Integer>();
+    		leatyp.put("Annual",1);
+    		leatyp.put("Casual",2);
+    		leatyp.put("Sick",3);
+    		leatyp.put("Maternity",4);
+    		leatyp.put("Paternity",5);
+    		int a=leatyp.get(variable);*/
+    		if(nod<=aa) {
     		Statement = dbConnect.getconnection().createStatement();
     		
     		String sql = "INSERT into leaverecords (emp_id,fromdate,todate,nod,type,comments) VALUES"
@@ -351,7 +316,14 @@ public class EmployeeController {
 			{
 				JOptionPane.showMessageDialog(null,"Leave applied for "+nod+" days");
 			}
-    		
+    		}
+    		else {
+    			JOptionPane.showMessageDialog(null,"Insufficient leave balance");
+    		}
+	        }
+	        else {
+	        	JOptionPane.showMessageDialog(null,leaveconflict);
+	        }
     	}
     	catch(SQLException e) {
     		e.printStackTrace();
@@ -422,5 +394,6 @@ public class EmployeeController {
                 .collect(Collectors.toList()).size()+1;
         
     }
+
 
 }

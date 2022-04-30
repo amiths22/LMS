@@ -1,5 +1,5 @@
 package controller;
-import java.awt.TextArea;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,6 +23,8 @@ import com.jfoenix.controls.JFXTextArea;
 
 import model.AdminModel;
 import model.DBConnect;
+import model.EmployeeModel;
+import model.LeaveModel;
 import model.ManagerModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,12 +34,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
@@ -73,9 +80,6 @@ public class ManagerController {
 
     @FXML
     private DatePicker leavefrom;
-
-    @FXML
-    private DatePicker leaveto;
     
     @FXML
     private ComboBox<String> combobox;
@@ -110,6 +114,57 @@ public class ManagerController {
     @FXML
     private JFXTextArea employeeidfetch;
     
+    @FXML
+    private Label departmentlabel;
+
+    @FXML
+    private Label designationlabel;
+
+    @FXML
+    private Label doblabel;
+
+    @FXML
+    private Label emailidlabel;
+
+    @FXML
+    private Label empidlabel;
+
+    @FXML
+    private BarChart<String, Integer> leavechart;
+
+    @FXML
+    private Tab leavehistory;
+
+    @FXML
+    private DatePicker leaveto;
+
+    @FXML
+    private TableView<LeaveModel> lhtable;
+
+    @FXML
+    private Label namelabel;
+
+    @FXML
+    private Label phonelabel;
+
+
+    @FXML
+    private Label reportstolabel;
+
+    @FXML
+    private TableColumn<LeaveModel , String> tabcoltype;
+
+    @FXML
+    private TableColumn<LeaveModel, String> tabcolfrom;
+
+    @FXML
+    private TableColumn<LeaveModel , String> tabcolto;
+
+    @FXML
+    private TableColumn<LeaveModel , String> tabcolnod;
+
+    @FXML
+    private Tab userdetails;
 
     @FXML
     private Button logoutbutton;
@@ -120,6 +175,8 @@ public class ManagerController {
 	int index = -1;
 	String emp_id,sql;
 	PreparedStatement pst = null;	
+	ObservableList<LeaveModel> leaveslistlea;
+    LeaveModel leavemodel =new LeaveModel();
     
     @FXML
 	private void initialize()
@@ -157,7 +214,89 @@ public class ManagerController {
     	}
     	employeeidfetch.setText(ATblEmployeeID.getCellData(index).toString());
     }
-    
+    @FXML
+    void event3() {
+    	System.out.println("func entered");
+    	if (leavehistory.isSelected()) {
+            System.out.println("Tab is Selected");
+            //Do stuff here
+        
+    	String query = "SELECT * from leaverecords where emp_id='"+sUsername+"' and approve='yes';";
+		System.out.println(query);
+    	leaveslistlea = leavemodel.getleavehistory(query); 
+    	System.out.println(leaveslistlea);
+    	
+    	//LeavehistoryTable();
+    	
+    	tabcoltype.setCellValueFactory(new PropertyValueFactory<LeaveModel,String>("type"));
+    	tabcolfrom.setCellValueFactory(new PropertyValueFactory<LeaveModel,String>("fromdate"));
+    	tabcolto.setCellValueFactory(new PropertyValueFactory<LeaveModel,String>("todate"));
+    	tabcolnod.setCellValueFactory(new PropertyValueFactory<LeaveModel,String>("nod"));
+    	
+        lhtable.setItems(leaveslistlea);
+
+    	
+    }
+    }
+
+    @FXML
+    void event1() {
+        if (userdetails.isSelected()) {
+    		empidlabel.setText(sUsername);
+    			HashMap<String,Integer> map=new HashMap<String,Integer>();
+        		
+        		String sql = "SELECT * from employees where emp_id='"+sUsername+"';";
+        		EmployeeModel empmodel=new EmployeeModel();
+        		EmployeeModel em;
+        		em=empmodel.getDetails(sql);
+        		namelabel.setText(em.getFname()+" "+em.getLname());
+        		emailidlabel.setText(em.getEmail());
+        		departmentlabel.setText(em.getDepartment());
+        		doblabel.setText(em.getDob());
+        		reportstolabel.setText(em.getReports_to());
+        		designationlabel.setText(em.getDesignation());
+    	        phonelabel.setText(em.getPhone());
+    	        
+    	        String sql1= "Select * from leaverecords where emp_id='"+sUsername+"'and approve='yes';";
+    	        LeaveModel lmodel=new LeaveModel();
+    	        map=lmodel.getLeaveBalances(sql1);
+    	        XYChart.Series series1 = new XYChart.Series();
+
+    	       // XYChart.Series<String, Integer> series1 = new XYChart.Series<>();
+    	       
+    	        final CategoryAxis xAxis = new CategoryAxis();
+    	        final NumberAxis yAxis = new NumberAxis();
+    	      //  xAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList("Annual", "Casual", "Sick", "Maternity", "Paternity")));
+    	        xAxis.setLabel("Leave types");       
+    	        yAxis.setLabel("No. of days");
+    	        series1.setName("Leave balance");
+    	        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+    	        	String temp= entry.getKey();
+    	        	String tmpString="";
+    	        	switch(temp) {
+    	        	case "1": tmpString = "Annual";
+    	        	break;
+    	        	case "2": tmpString = "Casual";
+    	        	break;
+    	        	case "3": tmpString = "Sick";
+    	        	break;
+    	        	case "4": tmpString = "Maternity";
+    	        	break;
+    	        	case "5": tmpString = "Paternity";
+    	        	break;
+    	        	}
+    	            //String tmpString = entry.getKey();
+    	            Integer tmpValue = entry.getValue();
+    	            //XYChart.Data<String, Integer> d = new XYChart.Data<>(tmpString, tmpValue);
+    	           // System.out.println(d);
+    	            
+    	            series1.getData().add(new XYChart.Data(tmpString, tmpValue));;
+    	        }
+    	        leavechart.setTitle("Leave");
+    	        leavechart.getData().add(series1);
+    	        
+        }
+    }
     @FXML
     public void onApprove() {
     	index = approvetable.getSelectionModel().getSelectedIndex();
@@ -209,9 +348,20 @@ public class ManagerController {
     		LocalDate dleavefrom = leavefrom.getValue();
     		LocalDate dleaveto = leaveto.getValue();
     		String leavetype = combobox.getValue();
-    		String sreason = reasonbox.getText();
-    		int nod = countLeaveDays(dleavefrom,dleaveto);
+    		String scomments = reasonbox.getText();
+    		int nod=countLeaveDays(dleavefrom,dleaveto);
     		int leavetypeint=-1;
+    		String leaveconflict;
+    		LeaveModel lm=new LeaveModel();
+    		Map<String,Integer> leavebal=new HashMap<String,Integer>();
+	        String sql1= "Select * from leaverecords where emp_id='"+sUsername+"';";
+	        String sql2= "Select * from leaverecords where( fromdate='"+dleavefrom+"'or todate='"+dleaveto+"' ) and (approve='YES' or approve is null) and emp_id='"+sUsername+"';";
+    		
+	        leaveconflict=lm.checkLeaveDateConflict(sql2);
+	        
+	        if(leaveconflict.equalsIgnoreCase("no")) {
+	        leavebal=lm.getLeaveBalances(sql1);
+    		
     		
     		switch(leavetype) {
     		case "Annual": leavetypeint=1;
@@ -225,26 +375,38 @@ public class ManagerController {
     		case "Paternity": leavetypeint=5;
     			break;
     		}
-
+    		int aa=leavebal.get(String.valueOf(leavetypeint));
+    		 System.out.println(aa);
+    		 
+    		//String stringVal=String.valueOf(intVal);//Now it will return "10"
+    		System.out.println("leavedays"+nod);
+    		System.out.println("Empid"+sUsername);
+    	
+    		if(nod<=aa) {
     		Statement = dbConnect.getconnection().createStatement();
     		
     		String sql = "INSERT into leaverecords (emp_id,fromdate,todate,nod,type,comments) VALUES"
-    				+ " ('"+sUsername+"','"+dleavefrom+"','"+dleaveto+"','"+nod+"','"+leavetypeint+"','"+sreason+"')";
+    				+ " ('"+sUsername+"','"+dleavefrom+"','"+dleaveto+"','"+nod+"','"+leavetypeint+"','"+scomments+"')";
     		
     		int con = Statement.executeUpdate(sql);
 			if (con > 0) 
 			{
 				JOptionPane.showMessageDialog(null,"Leave applied for "+nod+" days");
 			}
-    		
+    		}
+    		else {
+    			JOptionPane.showMessageDialog(null,"Insufficient leave balance");
+    		}
+	        }
+	        else {
+	        	JOptionPane.showMessageDialog(null,leaveconflict);
+	        }
     	}
     	catch(SQLException e) {
     		e.printStackTrace();
     	}
     	
-    	
-    	
-    }
+        }
   
   private static int countLeaveDays(final LocalDate startDate,final LocalDate endDate)
   {
