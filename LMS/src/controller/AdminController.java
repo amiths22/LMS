@@ -57,17 +57,14 @@ public class AdminController {
 	ComboBox cboxreportstoupdate = new ComboBox(updateslstreportsto);
 	
 	public void fillcombobox() {
-		System.out.println("function entered");
 		try {
 			Connection conn = dbConnect.getconnection();
 			String query = "SELECT emp_id from sam_employees where role = '1';";
-			System.out.println(query);
 			pst = conn.prepareStatement(query);
 			ResultSet rs = pst.executeQuery();
 			
 			
 			while(rs.next()) {
-				System.out.println(rs.getString("emp_id"));
 				lstreportsto.add(rs.getString("emp_id"));
 				updateslstreportsto.add(rs.getString("emp_id"));
 			}
@@ -236,7 +233,6 @@ public class AdminController {
     	String query = "SELECT * from sam_employees;";
     	
     	userslist = adminmodel.getdataofusers(query); 
-    	System.out.println(userslist);
     	
     	tablecoluserid.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("emp_id"));
     	tabcolfname.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("fname"));
@@ -265,7 +261,6 @@ public class AdminController {
     
     @FXML
     void adduser(ActionEvent event) throws IOException {
-    	System.out.println("Button clicked");
     	
     	try {
   
@@ -425,8 +420,46 @@ public class AdminController {
     		String value10 = updatephone.getText();
     		String value11 = updatedes.getText();
     		
-    		String sql = "update sam_employees set fname = '"+value2+"',lname = '"+value3+"',department = '"+value4+"',role = '"+value5int+"',dob = '"+value6+"',reports_to = '"+value7+"',email = '"+value8+"',password = '"+value9+"',phone = '"+value10+"',designation = '"+value11+"' where emp_id = '"+value1+"'; ";
-    		System.out.println(sql);
+    		if (value1 == null || value1.trim().equals("")) {
+				lblerror.setText("Please enter a Employee ID s");
+				return;
+			}
+    		if (value2 == null || value2.trim().equals("")) {
+				lblerror.setText("Please enter a First Name ");
+				return;
+			}
+    		if (value3 == null || value3.trim().equals("")) {
+				lblerror.setText("Please enter a Last Name ");
+				return;
+			}
+    		if (value4 == null || value4.trim().equals("")) {
+				lblerror.setText("Please enter a Department ");
+				return;
+			}
+    		if (value11 == null || value11.trim().equals("")) {
+				lblerror.setText("Please enter a Designation ");
+				return;
+			}
+    		//String regex = "/[^\s@]+@[^\s@]+\.[^\s@]+/";
+    		if (value8 == null || value8.trim().equals("")) {
+				lblerror.setText("Please enter a Email ");
+				return;
+			}
+    		if (value9 == null || value9.trim().equals("")) {
+				lblerror.setText("Please enter a Password ");
+				return;
+			}
+    		if (value10 == null || value10.trim().equals("")) {
+				lblerror.setText("Please enter a Phone number ");
+				return;
+			}
+    		if(value6 == null) {
+    			lblerror.setText("Please enter a date of birth");
+				return;
+    		}
+    		String updatepasshash = doHashing(value9);
+    		
+    		String sql = "update sam_employees set fname = '"+value2+"',lname = '"+value3+"',department = '"+value4+"',role = '"+value5int+"',dob = '"+value6+"',reports_to = '"+value7+"',email = '"+value8+"',password = '"+updatepasshash+"',phone = '"+value10+"',designation = '"+value11+"' where emp_id = '"+value1+"'; ";
     		pst = conn.prepareStatement(sql);
     		pst.execute();
     		JOptionPane.showMessageDialog(null,"Update done");
