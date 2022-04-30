@@ -169,6 +169,27 @@ public class ManagerController {
     @FXML
     private Button logoutbutton;
     
+    @FXML
+    private TableColumn<ManagerModel, String> MEditTableLeaveComments;
+
+    @FXML
+    private TableColumn<ManagerModel, String> MEditTableLeaveFrom;
+
+    @FXML
+    private TableColumn<ManagerModel, String> MEditTableLeaveTo;
+
+    @FXML
+    private TableColumn<ManagerModel, String> MEditTableLeaveType;
+
+    @FXML
+    private TableColumn<ManagerModel, String> MEditTableNod;
+    
+    @FXML
+    private TableColumn<ManagerModel, String> tid;
+    
+    @FXML
+    private TableView<ManagerModel> leavemodifytable;
+    
 	DBConnect dbConnect = null;
 	Statement Statement = null;
 	ObservableList<ManagerModel> leavelist;
@@ -320,7 +341,6 @@ public class ManagerController {
     	}
     	Connection conn = dbConnect.getconnection();
     	try {
-    		emp_id = employeeidfetch.getText().toString();
     		if(ATblComboBoxAction.getValue() == "Approve") {
         		sql = "UPDATE leaverecords set approve='YES' where emp_id=? AND type=?;";
         	}
@@ -333,6 +353,43 @@ public class ManagerController {
         	pst.setString(2, leavetopush);
     		pst.execute();
     		JOptionPane.showMessageDialog(null,"Update done");
+    	}
+    	catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    }
+    
+    @FXML
+    private void onpendclick() {
+    	String query = "SELECT * from leaverecords where emp_id ='"+sUsername+"' and approve is NULL;";
+    	System.out.println(query);
+    	
+    	leavelist = managermodel.getemployeeleaves(query);
+    	tid.setCellValueFactory(new PropertyValueFactory<ManagerModel,String>("tid"));
+    	MEditTableLeaveType.setCellValueFactory(new PropertyValueFactory<ManagerModel,String>("type"));
+    	MEditTableLeaveFrom.setCellValueFactory(new PropertyValueFactory<ManagerModel,String>("fromdate"));
+    	MEditTableLeaveTo.setCellValueFactory(new PropertyValueFactory<ManagerModel,String>("todate"));
+    	MEditTableNod.setCellValueFactory(new PropertyValueFactory<ManagerModel,String>("nod"));
+    	MEditTableLeaveComments.setCellValueFactory(new PropertyValueFactory<ManagerModel,String>("comments"));
+    	
+    	leavemodifytable.setItems(leavelist);
+    }
+    
+    @FXML
+    private void deleteleave() {
+    	index = leavemodifytable.getSelectionModel().getSelectedIndex();
+    	String idfordelete = tid.getCellData(index).toString();
+    	Connection conn = dbConnect.getconnection();
+    	//String leavetypeapprove = ATblLeaveType.getCellData(index).toString();
+    	try {
+    		String query = "DELETE from leaverecords where tid=?;";
+    		System.out.println(query);
+        	pst = conn.prepareStatement(query);
+        	pst.setString(1, idfordelete);
+        	pst.execute();
+    		JOptionPane.showMessageDialog(null,"Delete done");
+    		onpendclick();
     	}
     	catch(Exception e) {
     		e.printStackTrace();

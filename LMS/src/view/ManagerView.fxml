@@ -162,32 +162,22 @@
                         </AnchorPane>
                      </content>
                   </Tab>
-                  <Tab text="Modify">
+                  <Tab fx:id="pendingrequests" onSelectionChanged="#onpendclick" text="Pending Requests">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: lightgrey;">
                            <children>
                               <Group layoutX="4.0" layoutY="25.260417938232422" />
-                              <Text fill="#8e8eed" layoutX="38.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leave Type :">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font></Text>
-                              <Text fill="#8e8eed" layoutX="37.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leave From :">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font></Text>
-                              <Text fill="#8e8eed" layoutX="37.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leave To :">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font></Text>
-                              <Text fill="#8e8eed" layoutX="41.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reason :">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font></Text>
-                              <JFXComboBox fx:id="combobox1" layoutX="142.0" layoutY="21.0" prefHeight="26.0" prefWidth="193.0" />
-                              <DatePicker layoutX="142.0" layoutY="68.0" />
-                              <DatePicker layoutX="142.0" layoutY="115.0" />
-                              <JFXTextArea focusColor="WHITE" layoutX="143.0" layoutY="173.0" prefHeight="82.0" prefWidth="363.0" text="Enter reason here" unFocusColor="WHITE" />
-                              <Button layoutX="269.0" layoutY="271.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="102.0" text="Apply Leave" />
+                              <Button fx:id="revokeleave" layoutX="246.0" layoutY="248.0" mnemonicParsing="false" onAction="#deleteleave" prefHeight="26.0" prefWidth="102.0" text="Revoke Leave" />
+                              <TableView fx:id="leavemodifytable" layoutX="7.0" layoutY="5.0" prefHeight="190.0" prefWidth="580.0">
+                                <columns>
+                                    <TableColumn fx:id="tid" prefWidth="75.0" text="Leave ID" />
+                                  <TableColumn fx:id="MEditTableLeaveType" prefWidth="75.0" text="Leave Type" />
+                                  <TableColumn fx:id="MEditTableLeaveFrom" prefWidth="75.0" text="Leave From" />
+                                    <TableColumn fx:id="MEditTableLeaveTo" prefWidth="75.0" text="Leave To" />
+                                    <TableColumn fx:id="MEditTableNod" prefWidth="108.0" text="Number of Days" />
+                                    <TableColumn fx:id="MEditTableLeaveComments" prefWidth="169.59991455078125" text="Reason" />
+                                </columns>
+                              </TableView>
                            </children>
                         </AnchorPane>
                      </content>
@@ -247,7 +237,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Text>
-            <Button fx:id="LogoutBtn" alignment="CENTER" defaultButton="true" layoutX="457.0" layoutY="9.0" mnemonicParsing="false" onAction="#onlogout" prefHeight="40.0" prefWidth="78.0" text="Logout" />
+            <Button fx:id="LogoutBtn" alignment="CENTER" defaultButton="true" layoutX="511.0" layoutY="17.0" mnemonicParsing="false" onAction="#onlogout" prefHeight="40.0" prefWidth="78.0" text="Logout" />
                </children>
             </AnchorPane>
          </children>

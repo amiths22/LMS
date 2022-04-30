@@ -9,7 +9,13 @@ import javafx.collections.ObservableList;
 public class ManagerModel extends DBConnect {
 	
 	DBConnect dbConnect = null;
-	String emp_id,reports_to,fromdate,todate,type,comments,nod,fname;
+	String emp_id,reports_to,fromdate,todate,type,comments,nod,fname,tid;
+	public String getTid() {
+		return tid;
+	}
+	public void setTid(String tid) {
+		this.tid = tid;
+	}
 	public String getFname() {
 		return fname;
 	}
@@ -94,7 +100,8 @@ public class ManagerModel extends DBConnect {
             		man.setType("Other");
             	}
             	man.setComments(rs.getString("comments"));
-            	man.setFname(rs.getString("fname"));
+            	//man.setFname(rs.getString("fname"));
+            	man.setTid(rs.getString("tid"));
             	leavelist.add(man);
             }
 		}
