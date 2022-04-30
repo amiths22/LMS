@@ -200,14 +200,12 @@ public class EmployeeController {
     @FXML
     void event(Event ev) {
         if (leavehistory.isSelected()) {
-            System.out.println("Tab is Selected");
+         
             //Do stuff here
         
-    	String query = "SELECT * from leaverecords where emp_id='"+sUsername+"' and approve='yes';";
-		System.out.println(query);
+    	String query = "SELECT * from sam_leaverecords where emp_id='"+sUsername+"' and approve='yes';";
     	leaveslist = leavemodel.getleavehistory(query); 
-    	System.out.println(leaveslist);
-    	
+  
     	tabcoltype.setCellValueFactory(new PropertyValueFactory<LeaveModel,String>("type"));
     	tabcolfrom.setCellValueFactory(new PropertyValueFactory<LeaveModel,String>("fromdate"));
     	tabcolto.setCellValueFactory(new PropertyValueFactory<LeaveModel,String>("todate"));
@@ -224,7 +222,7 @@ public class EmployeeController {
 		empidlabel.setText(sUsername);
 			HashMap<String,Integer> map=new HashMap<String,Integer>();
     		
-    		String sql = "SELECT * from employees where emp_id='"+sUsername+"';";
+    		String sql = "SELECT * from sam_employees where emp_id='"+sUsername+"';";
     		empmodel=new EmployeeModel();
     		EmployeeModel em;
     		em=empmodel.getDetails(sql);
@@ -236,7 +234,7 @@ public class EmployeeController {
     		designationlabel.setText(em.getDesignation());
 	        phonelabel.setText(em.getPhone());
 	        
-	        String sql1= "Select * from leaverecords where emp_id='"+sUsername+"'and approve='yes';";
+	        String sql1= "Select * from sam_leaverecords where emp_id='"+sUsername+"'and approve='yes';";
 	        LeaveModel lmodel=new LeaveModel();
 	        map=lmodel.getLeaveBalances(sql1);
 	       // XYChart.Series series1 = new XYChart.Series();
@@ -268,7 +266,6 @@ public class EmployeeController {
 	            //String tmpString = entry.getKey();
 	            Integer tmpValue = entry.getValue();
 	            XYChart.Data<String, Integer> d = new XYChart.Data<>(tmpString, tmpValue);
-	           // System.out.println(d);
 	            
 	            series1.getData().add(new XYChart.Data(tmpString, tmpValue));;
 	        }
@@ -286,7 +283,7 @@ public class EmployeeController {
     	Connection conn = dbConnect.getconnection();
     	//String leavetypeapprove = ATblLeaveType.getCellData(index).toString();
     	try {
-    		String query = "DELETE from leaverecords where tid=?;";
+    		String query = "DELETE from sam_leaverecords where tid=?;";
     		System.out.println(query);
         	pst = conn.prepareStatement(query);
         	pst.setString(1, idfordelete);
@@ -302,7 +299,7 @@ public class EmployeeController {
     
     @FXML
     private void onpendclick() {
-    	String query = "SELECT * from leaverecords where emp_id ='"+sUsername+"' and approve is NULL;";
+    	String query = "SELECT * from sam_leaverecords where emp_id ='"+sUsername+"' and approve is NULL;";
     	
         empmodel=new EmployeeModel();
 
@@ -330,8 +327,8 @@ public class EmployeeController {
     		String leaveconflict;
     		LeaveModel lm=new LeaveModel();
     		Map<String,Integer> leavebal=new HashMap<String,Integer>();
-	        String sql1= "Select * from leaverecords where emp_id='"+sUsername+"';";
-	        String sql2= "Select * from leaverecords where( fromdate='"+dleavefrom+"'or todate='"+dleaveto+"' ) and (approve='YES' or approve is null) and emp_id='"+sUsername+"';";
+	        String sql1= "Select * from sam_leaverecords where emp_id='"+sUsername+"';";
+	        String sql2= "Select * from sam_leaverecords where( fromdate='"+dleavefrom+"'or todate='"+dleaveto+"' ) and (approve='YES' or approve is null) and emp_id='"+sUsername+"';";
     		
 	        leaveconflict=lm.checkLeaveDateConflict(sql2);
 	        
@@ -352,22 +349,11 @@ public class EmployeeController {
     			break;
     		}
     		int aa=leavebal.get(String.valueOf(leavetypeint));
-    		 System.out.println(aa);
-    		 
-    		//String stringVal=String.valueOf(intVal);//Now it will return "10"
-    		System.out.println("leavedays"+nod);
-    		System.out.println("Empid"+sUsername);
-    		/*Map<String,Integer> leatyp = new HashMap<String,Integer>();
-    		leatyp.put("Annual",1);
-    		leatyp.put("Casual",2);
-    		leatyp.put("Sick",3);
-    		leatyp.put("Maternity",4);
-    		leatyp.put("Paternity",5);
-    		int a=leatyp.get(variable);*/
+    		
     		if(nod<=aa) {
     		Statement = dbConnect.getconnection().createStatement();
     		
-    		String sql = "INSERT into leaverecords (emp_id,fromdate,todate,nod,type,comments) VALUES"
+    		String sql = "INSERT into sam_leaverecords (emp_id,fromdate,todate,nod,type,comments) VALUES"
     				+ " ('"+sUsername+"','"+dleavefrom+"','"+dleaveto+"','"+nod+"','"+leavetypeint+"','"+scomments+"')";
     		
     		int con = Statement.executeUpdate(sql);
@@ -401,45 +387,16 @@ public class EmployeeController {
     }
    
     
-   /*void LeavehistoryTable() {
-		// TODO Auto-generated method stub
-		TableColumn<LeaveModel, String> leavetype = new TableColumn<>("type");
-		leavetype.setCellValueFactory(new PropertyValueFactory<LeaveModel, String>("type"));
-    
-       // Course Title Column
-       TableColumn<LeaveModel, String> fromdate = new TableColumn<>("fromdate");
-       fromdate.setCellValueFactory(new PropertyValueFactory<LeaveModel, String>("fromdate"));
-
-       TableColumn<LeaveModel, String> todate = new TableColumn<>("todate");
-       todate.setCellValueFactory(new PropertyValueFactory<LeaveModel, String>("todate"));
-
-       TableColumn<LeaveModel, String> nod = new TableColumn<>("nod");
-       nod.setCellValueFactory(new PropertyValueFactory<LeaveModel, String>("nod"));
-            
-       lhtable.setItems(leaveslist);
-       
-       //System.out.println(availableCourseList);
-       
-       
-       lhtable.getColumns().addAll(leavetype, fromdate, todate, nod);
-       lhtable.setVisible(true);
-
-	}*/
-
     private static int countLeaveDays(final LocalDate startDate,
             final LocalDate endDate
             )
     {
-        // Validate method arguments
+        
         if (startDate == null || endDate == null) {
             throw new IllegalArgumentException("Invalid method argument(s) to countBusinessDaysBetween (" + startDate+ "," + endDate + ")");
         }
 
-        // Predicate 1: Is a given date is a holiday
-       // Predicate<LocalDate> isHoliday = date -> holidays.isPresent() 
-             //   && holidays.get().contains(date);
-
-        // Predicate 2: Is a given date is a weekday
+       
         Predicate<LocalDate> isWeekend = date -> date.getDayOfWeek() == DayOfWeek.SATURDAY
                 || date.getDayOfWeek() == DayOfWeek.SUNDAY;
 
@@ -447,7 +404,6 @@ public class EmployeeController {
         long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
 
         // Iterate over stream of all dates and check each day against any weekday or
-        // holiday
         return Stream.iterate(startDate, date -> date.plusDays(1))
                 .limit(daysBetween)
                 .filter(isWeekend.negate())

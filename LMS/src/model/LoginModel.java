@@ -44,7 +44,7 @@ public class LoginModel extends DBConnect {
 
 	public boolean authenticate(String user,String pass) {
 		
-		String query = "SELECT * FROM employees WHERE emp_id = ? and password = ?";
+		String query = "SELECT * FROM sam_employees WHERE emp_id = ? and password = ?";
 		try(PreparedStatement stmt = conn.prepareStatement(query)) 
 		{
 			

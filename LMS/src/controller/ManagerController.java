@@ -211,7 +211,7 @@ public class ManagerController {
     @FXML
     private void loadtable() {
     	dbConnect = new DBConnect();
-    	String query = "SELECT emptbl.emp_id, emptbl.fname, lrtbl.fromdate, lrtbl.todate, lrtbl.type, lrtbl.approve, lrtbl.comments,lrtbl.nod FROM employees emptbl, leaverecords lrtbl WHERE (emptbl.emp_ID = lrtbl.emp_ID AND emptbl.reports_to ='"+sUsername+"') AND lrtbl.approve is null;";
+    	String query = "SELECT emptbl.emp_id, emptbl.fname, lrtbl.fromdate, lrtbl.todate, lrtbl.type, lrtbl.approve, lrtbl.comments,lrtbl.nod FROM sam_employees emptbl, sam_leaverecords lrtbl WHERE (emptbl.emp_ID = lrtbl.emp_ID AND emptbl.reports_to ='"+sUsername+"') AND lrtbl.approve is null;";
 		System.out.println(query);
 		
 		leavelist = managermodel.getemployeeleaves(query);
@@ -242,7 +242,7 @@ public class ManagerController {
             System.out.println("Tab is Selected");
             //Do stuff here
         
-    	String query = "SELECT * from leaverecords where emp_id='"+sUsername+"' and approve='yes';";
+    	String query = "SELECT * from sam_leaverecords where emp_id='"+sUsername+"' and approve='yes';";
 		System.out.println(query);
     	leaveslistlea = leavemodel.getleavehistory(query); 
     	System.out.println(leaveslistlea);
@@ -266,7 +266,7 @@ public class ManagerController {
     		empidlabel.setText(sUsername);
     			HashMap<String,Integer> map=new HashMap<String,Integer>();
         		
-        		String sql = "SELECT * from employees where emp_id='"+sUsername+"';";
+        		String sql = "SELECT * from sam_employees where emp_id='"+sUsername+"';";
         		EmployeeModel empmodel=new EmployeeModel();
         		EmployeeModel em;
         		em=empmodel.getDetails(sql);
@@ -278,7 +278,7 @@ public class ManagerController {
         		designationlabel.setText(em.getDesignation());
     	        phonelabel.setText(em.getPhone());
     	        
-    	        String sql1= "Select * from leaverecords where emp_id='"+sUsername+"'and approve='yes';";
+    	        String sql1= "Select * from sam_leaverecords where emp_id='"+sUsername+"'and approve='yes';";
     	        LeaveModel lmodel=new LeaveModel();
     	        map=lmodel.getLeaveBalances(sql1);
     	        XYChart.Series series1 = new XYChart.Series();
@@ -343,10 +343,10 @@ public class ManagerController {
     	Connection conn = dbConnect.getconnection();
     	try {
     		if(ATblComboBoxAction.getValue() == "Approve") {
-        		sql = "UPDATE leaverecords set approve='YES' where emp_id=? AND type=?;";
+        		sql = "UPDATE sam_leaverecords set approve='YES' where emp_id=? AND type=?;";
         	}
         	else {
-        		sql = "UPDATE leaverecords set approve='NO' where emp_id =? AND type=?;";
+        		sql = "UPDATE sam_leaverecords set approve='NO' where emp_id =? AND type=?;";
         	}
     		System.out.println(sql);
         	pst = conn.prepareStatement(sql);
@@ -363,7 +363,7 @@ public class ManagerController {
     
     @FXML
     private void onpendclick() {
-    	String query = "SELECT * from leaverecords where emp_id ='"+sUsername+"' and approve is NULL;";
+    	String query = "SELECT * from sam_leaverecords where emp_id ='"+sUsername+"' and approve is NULL;";
     	System.out.println(query);
     	
     	leavelist = managermodel.getemployeeleaves(query);
@@ -384,7 +384,7 @@ public class ManagerController {
     	Connection conn = dbConnect.getconnection();
     	//String leavetypeapprove = ATblLeaveType.getCellData(index).toString();
     	try {
-    		String query = "DELETE from leaverecords where tid=?;";
+    		String query = "DELETE from sam_leaverecords where tid=?;";
     		System.out.println(query);
         	pst = conn.prepareStatement(query);
         	pst.setString(1, idfordelete);
@@ -412,8 +412,8 @@ public class ManagerController {
     		String leaveconflict;
     		LeaveModel lm=new LeaveModel();
     		Map<String,Integer> leavebal=new HashMap<String,Integer>();
-	        String sql1= "Select * from leaverecords where emp_id='"+sUsername+"';";
-	        String sql2= "Select * from leaverecords where( fromdate='"+dleavefrom+"'or todate='"+dleaveto+"' ) and (approve='YES' or approve is null) and emp_id='"+sUsername+"';";
+	        String sql1= "Select * from sam_leaverecords where emp_id='"+sUsername+"';";
+	        String sql2= "Select * from sam_leaverecords where( fromdate='"+dleavefrom+"'or todate='"+dleaveto+"' ) and (approve='YES' or approve is null) and emp_id='"+sUsername+"';";
     		
 	        leaveconflict=lm.checkLeaveDateConflict(sql2);
 	        
@@ -443,7 +443,7 @@ public class ManagerController {
     		if(nod<=aa) {
     		Statement = dbConnect.getconnection().createStatement();
     		
-    		String sql = "INSERT into leaverecords (emp_id,fromdate,todate,nod,type,comments) VALUES"
+    		String sql = "INSERT into sam_leaverecords (emp_id,fromdate,todate,nod,type,comments) VALUES"
     				+ " ('"+sUsername+"','"+dleavefrom+"','"+dleaveto+"','"+nod+"','"+leavetypeint+"','"+scomments+"')";
     		
     		int con = Statement.executeUpdate(sql);

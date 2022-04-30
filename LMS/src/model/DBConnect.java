@@ -11,9 +11,9 @@ public class DBConnect {
 		return conn; 
 	}
 
-	private static String url = "jdbc:mysql://192.168.1.19:3307/510labs?autoReconnect=true&useSSL=false";
-	private static String user = "asatya";
-	private static String pass = "asatya";
+	private static String url = "jdbc:mysql://papademas.net:3307/510fp?autoReconnect=true&useSSL=false";
+	private static String user = "fp510";
+	private static String pass = "510";
 
 	public DBConnect() {
 

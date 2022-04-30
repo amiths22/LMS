@@ -135,7 +135,7 @@ public class LeaveModel extends DBConnect{
 	}
 	public HashMap<String, Integer> getLeaveBalances(String query) {
 		HashMap<String,Integer> leaves= new HashMap<String,Integer>();
-		String query1="Select * from leavetypes;";
+		String query1="Select * from sam_leavetypes;";
 		try(PreparedStatement ps = conn.prepareStatement(query1))
 		{
 			ResultSet rs1=ps.executeQuery();

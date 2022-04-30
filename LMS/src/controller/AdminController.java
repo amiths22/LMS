@@ -60,7 +60,7 @@ public class AdminController {
 		System.out.println("function entered");
 		try {
 			Connection conn = dbConnect.getconnection();
-			String query = "SELECT emp_id from employees where role = '1';";
+			String query = "SELECT emp_id from sam_employees where role = '1';";
 			System.out.println(query);
 			pst = conn.prepareStatement(query);
 			ResultSet rs = pst.executeQuery();
@@ -219,16 +219,7 @@ public class AdminController {
 	int aroleint;
     int index = -1;
   //Initialize table array
-	/*ObservableList<AdminModel> tablelist = FXCollections.observableArrayList(
-			
-			new AdminModel(1, "Joe","Joey","test@test.com","8792"),
-			new AdminModel(2, "Joe","Joey","test@test.com","8792"),
-			new AdminModel(3, "Joe","Joey","test@test.com","8792"),
-			new AdminModel(4, "Joe","Joey","test@test.com","8792"),
-			new AdminModel(5, "Joe","Joey","test@test.com","8792")
-			
-			
-			);*/
+	
     ObservableList<AdminModel> userslist;
     ResultSet rs = null;
 	
@@ -242,7 +233,7 @@ public class AdminController {
     	fillcombobox();
     	
     	
-    	String query = "SELECT * from employees;";
+    	String query = "SELECT * from sam_employees;";
     	
     	userslist = adminmodel.getdataofusers(query); 
     	System.out.println(userslist);
@@ -339,7 +330,7 @@ public class AdminController {
 
     		Statement = dbConnect.getconnection().createStatement();
     		
-    		String sql = "INSERT into employees (emp_id,fname,lname,department,role,dob,reports_to,email,password,phone,designation) VALUES"
+    		String sql = "INSERT into sam_employees (emp_id,fname,lname,department,role,dob,reports_to,email,password,phone,designation) VALUES"
     				+ " ('"+aid+"','"+afn+"','"+aln+"','"+adep+"','"+aroleint+"','"+adob+"','"+arepto+"','"+aemail+"','"+hashpass+"','"+aphone+"','"+ades+"' )";
     		
     		int con = Statement.executeUpdate(sql);
@@ -393,7 +384,7 @@ public class AdminController {
     	index = table.getSelectionModel().getSelectedIndex();
     	String idfordelete = tablecoluserid.getCellData(index).toString();
     	Connection conn = dbConnect.getconnection();
-    	String sql = "DELETE from employees where emp_id = ?;";
+    	String sql = "DELETE from sam_employees where emp_id = ?;";
     	try {
     		pst = conn.prepareStatement(sql);
     		pst.setString(1, idfordelete);
@@ -434,7 +425,7 @@ public class AdminController {
     		String value10 = updatephone.getText();
     		String value11 = updatedes.getText();
     		
-    		String sql = "update employees set fname = '"+value2+"',lname = '"+value3+"',department = '"+value4+"',role = '"+value5int+"',dob = '"+value6+"',reports_to = '"+value7+"',email = '"+value8+"',password = '"+value9+"',phone = '"+value10+"',designation = '"+value11+"' where emp_id = '"+value1+"'; ";
+    		String sql = "update sam_employees set fname = '"+value2+"',lname = '"+value3+"',department = '"+value4+"',role = '"+value5int+"',dob = '"+value6+"',reports_to = '"+value7+"',email = '"+value8+"',password = '"+value9+"',phone = '"+value10+"',designation = '"+value11+"' where emp_id = '"+value1+"'; ";
     		System.out.println(sql);
     		pst = conn.prepareStatement(sql);
     		pst.execute();
@@ -455,7 +446,7 @@ public class AdminController {
     	tabcolPnumber.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("phone"));
     	tabcoldep.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("department"));
     	
-    	String query = "SELECT * from employees;";
+    	String query = "SELECT * from sam_employees;";
     	userslist = adminmodel.getdataofusers(query);
     	table.setItems(userslist);
     }
@@ -473,7 +464,7 @@ public class AdminController {
     	updatecolrole.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("role"));
     	updatecolreportsto.setCellValueFactory(new PropertyValueFactory<AdminModel,String>("reports_to"));
     	
-    	String query = "SELECT * from employees;";
+    	String query = "SELECT * from sam_employees;";
     	userslist = adminmodel.getdataofusers(query);
     	updatetable.setItems(userslist);
     }
