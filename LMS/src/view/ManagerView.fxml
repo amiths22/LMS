@@ -43,7 +43,7 @@
                            <children>
                               <ImageView fitHeight="328.0" fitWidth="601.0" layoutX="362.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../img/537-5370961_employee-assistance-programs-work-cartoon-clipart.png" />
+                                    <Image url="@../537-5370961_employee-assistance-programs-work-cartoon-clipart.png" />
                                  </image>
                               </ImageView>
                               <Group layoutX="4.0" layoutY="25.260417938232422" />
@@ -66,7 +66,7 @@
                               <JFXComboBox fx:id="combobox" layoutX="94.0" layoutY="50.0" prefHeight="26.0" prefWidth="252.0" />
                               <DatePicker fx:id="leavefrom" layoutX="95.0" layoutY="98.0" prefHeight="26.0" prefWidth="254.0" />
                               <DatePicker fx:id="leaveto" layoutX="95.0" layoutY="146.0" prefHeight="26.0" prefWidth="258.0" />
-                              <JFXTextArea fx:id="reasonbox" focusColor="WHITE" layoutX="97.0" layoutY="194.0" prefHeight="110.0" prefWidth="264.0" style="-fx-background-color: #ffffff;" text="Enter reason here" unFocusColor="WHITE" />
+                              <JFXTextArea fx:id="reasonbox" focusColor="WHITE" layoutX="97.0" layoutY="194.0" prefHeight="110.0" prefWidth="264.0" style="-fx-background-color: #ffffff;" unFocusColor="WHITE" />
                               <Button fx:id="applyleavebutton" layoutX="95.0" layoutY="336.0" mnemonicParsing="false" onAction="#onApplyLeave" prefHeight="26.0" prefWidth="194.0" text="Apply Leave" />
                            </children>
                         </AnchorPane>

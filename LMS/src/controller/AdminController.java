@@ -440,7 +440,6 @@ public class AdminController {
 				lblerror.setText("Please enter a Designation ");
 				return;
 			}
-    		//String regex = "/[^\s@]+@[^\s@]+\.[^\s@]+/";
     		if (value8 == null || value8.trim().equals("")) {
 				lblerror.setText("Please enter a Email ");
 				return;

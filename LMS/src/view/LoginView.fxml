@@ -16,7 +16,7 @@
          <children>
             <ImageView fitHeight="214.0" fitWidth="412.0" layoutY="189.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../img/leave-management-system.png" />
+                  <Image url="@../leave-management-system.png" />
                </image>
             </ImageView>
             <Text fill="#8e8eed" layoutX="47.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LEAVE MANAGEMENT SYSTEM" wrappingWidth="265.8535461425781">

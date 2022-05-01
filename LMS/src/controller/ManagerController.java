@@ -242,15 +242,10 @@ public class ManagerController {
 
     	if (leavehistory.isSelected()) {
 
-            //Do stuff here
-        
     	String query = "SELECT * from sam_leaverecords where emp_id='"+sUsername+"' and approve='yes';";
 
     	leaveslistlea = leavemodel.getleavehistory(query); 
 
-    	
-    	//LeavehistoryTable();
-    	
     	tabcoltype.setCellValueFactory(new PropertyValueFactory<LeaveModel,String>("type"));
     	tabcolfrom.setCellValueFactory(new PropertyValueFactory<LeaveModel,String>("fromdate"));
     	tabcolto.setCellValueFactory(new PropertyValueFactory<LeaveModel,String>("todate"));
@@ -308,10 +303,7 @@ public class ManagerController {
     	        	case "5": tmpString = "Paternity";
     	        	break;
     	        	}
-    	            //String tmpString = entry.getKey();
-    	            Integer tmpValue = entry.getValue();
-    	            //XYChart.Data<String, Integer> d = new XYChart.Data<>(tmpString, tmpValue);
-    	          
+    	            Integer tmpValue = entry.getValue();    	          
     	            
     	            series1.getData().add(new XYChart.Data(tmpString, tmpValue));;
     	        }
@@ -385,7 +377,6 @@ public class ManagerController {
     	index = leavemodifytable.getSelectionModel().getSelectedIndex();
     	String idfordelete = tid.getCellData(index).toString();
     	Connection conn = dbConnect.getconnection();
-    	//String leavetypeapprove = ATblLeaveType.getCellData(index).toString();
     	try {
     		String query = "DELETE from sam_leaverecords where tid=?;";
     		

@@ -74,7 +74,7 @@
                               <JFXTextArea fx:id="reasonbox" focusColor="WHITE" layoutX="130.0" layoutY="206.0" prefHeight="119.0" prefWidth="275.0" style="-fx-border-color: #8e8eed; -fx-background-color: #ffffff;" text="Enter the leave reason" unFocusColor="WHITE" />
                               <ImageView fitHeight="423.0" fitWidth="400.0" layoutX="424.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../img/Screenshot%202022-04-29%20203029.png" />
+                                    <Image url="@../Screenshot%202022-04-29%20203029.png" />
                                  </image>
                               </ImageView>
                            </children>

@@ -33,7 +33,7 @@
                                  <children>
                                     <ImageView fitHeight="423.0" fitWidth="842.0" layoutX="4.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../img/creative-reward-ideas-featured.png" />
+                                          <Image url="@../creative-reward-ideas-featured.png" />
                                        </image>
                                     </ImageView>
                                     <Text fill="#8e8eed" layoutX="7.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User ID" AnchorPane.leftAnchor="9.0">

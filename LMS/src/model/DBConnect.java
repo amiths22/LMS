@@ -10,10 +10,9 @@ public class DBConnect {
 	{ 
 		return conn; 
 	}
-
-	private static String url = "jdbc:mysql://papademas.net:3307/510fp?autoReconnect=true&useSSL=false";
-	private static String user = "fp510";
-	private static String pass = "510";
+public static String url = "jdbc:mysql://papademas.net:3307/510fp?autoReconnect=true&useSSL=false";
+public static String user = "fp510";
+public static String pass = "510";
 
 	public DBConnect() {
 
