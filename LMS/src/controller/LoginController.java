@@ -59,7 +59,7 @@ private LoginModel loginmanager;
   			alert.setTitle("Error");
   			alert.setHeaderText("please enter password");
   			alert.showAndWait();
-  			}
+  			}else
 		checkCredentials(username, checkpassword, event);
   			}
 
@@ -88,6 +88,7 @@ private LoginModel loginmanager;
 			 
 		
 		Boolean isValid = loginmanager.authenticate(username, password);
+		System.out.println(isValid);
 		if (!isValid) 
 		{
 			Alert alert = new Alert(Alert.AlertType.ERROR);

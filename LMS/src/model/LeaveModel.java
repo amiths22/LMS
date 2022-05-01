@@ -120,7 +120,7 @@ public class LeaveModel extends DBConnect{
 		while(rs.next()) {
 		
 			 temp=rs.getInt("type");
-			 return "You have already applied "+leatyp.get(temp)+" for the given dates";
+			 return "You have already applied "+leatyp.get(temp)+" leave for the given dates";
 		
 		} 
 		
