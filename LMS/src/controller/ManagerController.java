@@ -186,6 +186,8 @@ public class ManagerController {
     
     @FXML
     private TableColumn<ManagerModel, String> tid;
+    @FXML
+    private TableColumn<ManagerModel, String> approvetid;
     
     @FXML
     private TableView<ManagerModel> leavemodifytable;
@@ -211,7 +213,7 @@ public class ManagerController {
     @FXML
     private void loadtable() {
     	dbConnect = new DBConnect();
-    	String query = "SELECT emptbl.emp_id, emptbl.fname, lrtbl.fromdate, lrtbl.todate, lrtbl.type, lrtbl.approve, lrtbl.comments,lrtbl.nod FROM sam_employees emptbl, sam_leaverecords lrtbl WHERE (emptbl.emp_ID = lrtbl.emp_ID AND emptbl.reports_to ='"+sUsername+"') AND lrtbl.approve is null;";
+    	String query = "SELECT emptbl.emp_id, emptbl.fname, lrtbl.fromdate, lrtbl.todate, lrtbl.type, lrtbl.approve, lrtbl.comments,lrtbl.nod,lrtbl.tid FROM sam_employees emptbl, sam_leaverecords lrtbl WHERE (emptbl.emp_ID = lrtbl.emp_ID AND emptbl.reports_to ='"+sUsername+"') AND lrtbl.approve is null;";
 				
 		leavelist = managermodel.getemployeeleaves(query);
 
@@ -223,6 +225,7 @@ public class ManagerController {
 		ATblDateTo.setCellValueFactory(new PropertyValueFactory<ManagerModel,String>("todate"));
 		ATblNoOfDays.setCellValueFactory(new PropertyValueFactory<ManagerModel,String>("nod"));
 		ATblReason.setCellValueFactory(new PropertyValueFactory<ManagerModel,String>("comments"));
+		approvetid.setCellValueFactory(new PropertyValueFactory<ManagerModel,String>("tid"));
 		
 		approvetable.setItems(leavelist);
     }
@@ -353,6 +356,7 @@ public class ManagerController {
         	pst.setString(2, leavetopush);
     		pst.execute();
     		JOptionPane.showMessageDialog(null,"Update done");
+    		loadtable();
     	}
     	catch(Exception e) {
     		e.printStackTrace();

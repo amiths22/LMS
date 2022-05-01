@@ -110,8 +110,8 @@ private LoginModel loginmanager;
 			case 0: 
 			{
 				newscene="/view/EmployeeView.fxml";
-				width = 571;
-				height = 358;
+				width = 857;
+				height = 565;
 			
 			}
 			break;
@@ -119,8 +119,8 @@ private LoginModel loginmanager;
 			case 1:
 			{
 				newscene="/view/ManagerView.fxml";
-				width = 571;
-				height = 358;
+				width = 857;
+				height = 565;
 			}
 			break;
 			

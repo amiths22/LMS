@@ -22,7 +22,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane prefHeight="422.0" prefWidth="609.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerController">
+<StackPane prefHeight="565.0" prefWidth="857.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerController">
   <children>
     <StackPane prefHeight="424.0" prefWidth="569.0">
       <children>
@@ -35,39 +35,39 @@
     </StackPane>
       <AnchorPane prefHeight="434.0" prefWidth="593.0">
          <children>
-            <TabPane layoutX="-3.0" layoutY="58.0" prefHeight="347.0" prefWidth="590.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane layoutX="-3.0" layoutY="58.0" prefHeight="488.0" prefWidth="838.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="Apply">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="559.0" style="-fx-background-color: lightgrey;">
                            <children>
-                              <ImageView fitHeight="328.0" fitWidth="601.0" layoutX="120.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="328.0" fitWidth="601.0" layoutX="362.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../img/537-5370961_employee-assistance-programs-work-cartoon-clipart.png" />
                                  </image>
                               </ImageView>
                               <Group layoutX="4.0" layoutY="25.260417938232422" />
-                              <Text fill="#8e8eed" layoutX="1.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leave Type :">
+                              <Text fill="#8e8eed" layoutX="1.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leave Type :">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font></Text>
-                              <Text fill="#8e8eed" layoutX="-1.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leave From :">
+                              <Text fill="#8e8eed" layoutX="-1.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leave From :">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font></Text>
-                              <Text fill="#8e8eed" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leave To :">
+                              <Text fill="#8e8eed" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leave To :">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font></Text>
-                              <Text fill="#8e8eed" layoutX="5.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reason :">
+                              <Text fill="#8e8eed" layoutX="5.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reason :">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font></Text>
-                              <JFXComboBox fx:id="combobox" layoutX="94.0" layoutY="34.0" prefHeight="26.0" prefWidth="177.0" />
-                              <DatePicker fx:id="leavefrom" layoutX="95.0" layoutY="67.0" />
-                              <DatePicker fx:id="leaveto" layoutX="95.0" layoutY="109.0" />
-                              <JFXTextArea fx:id="reasonbox" focusColor="WHITE" layoutX="97.0" layoutY="161.0" prefHeight="62.0" prefWidth="170.0" text="Enter reason here" unFocusColor="WHITE" />
-                              <Button fx:id="applyleavebutton" layoutX="131.0" layoutY="277.0" mnemonicParsing="false" onAction="#onApplyLeave" prefHeight="26.0" prefWidth="102.0" text="Apply Leave" />
+                              <JFXComboBox fx:id="combobox" layoutX="94.0" layoutY="50.0" prefHeight="26.0" prefWidth="252.0" />
+                              <DatePicker fx:id="leavefrom" layoutX="95.0" layoutY="98.0" prefHeight="26.0" prefWidth="254.0" />
+                              <DatePicker fx:id="leaveto" layoutX="95.0" layoutY="146.0" prefHeight="26.0" prefWidth="258.0" />
+                              <JFXTextArea fx:id="reasonbox" focusColor="WHITE" layoutX="97.0" layoutY="194.0" prefHeight="110.0" prefWidth="264.0" style="-fx-background-color: #ffffff;" text="Enter reason here" unFocusColor="WHITE" />
+                              <Button fx:id="applyleavebutton" layoutX="95.0" layoutY="336.0" mnemonicParsing="false" onAction="#onApplyLeave" prefHeight="26.0" prefWidth="194.0" text="Apply Leave" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -76,88 +76,88 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: lightgrey;">
                            <children>
-                              <Label layoutX="18.0" layoutY="33.0" text="User ID:" textFill="#8e8eed">
+                              <Label layoutX="56.0" layoutY="118.0" text="User ID:" textFill="#8e8eed">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="empidlabel" layoutX="111.0" layoutY="31.0" text="Label" textFill="#8e8eed">
+                              <Label fx:id="empidlabel" layoutX="149.0" layoutY="116.0" text="Label" textFill="#8e8eed">
                                  <font>
                                     <Font name="System Italic" size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="19.0" layoutY="62.0" text="Name: " textFill="#8e8eed">
+                              <Label layoutX="57.0" layoutY="147.0" text="Name: " textFill="#8e8eed">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="namelabel" layoutX="111.0" layoutY="62.0" text="Label" textFill="#8e8eed">
+                              <Label fx:id="namelabel" layoutX="149.0" layoutY="147.0" text="Label" textFill="#8e8eed">
                                  <font>
                                     <Font name="System Italic" size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="18.0" layoutY="91.0" text="Email ID:" textFill="#8e8eed">
+                              <Label layoutX="56.0" layoutY="176.0" text="Email ID:" textFill="#8e8eed">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="emailidlabel" layoutX="110.0" layoutY="91.0" text="Label" textFill="#8e8eed">
+                              <Label fx:id="emailidlabel" layoutX="148.0" layoutY="176.0" text="Label" textFill="#8e8eed">
                                  <font>
                                     <Font name="System Italic" size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="20.0" layoutY="117.0" text="Department" textFill="#8e8eed">
+                              <Label layoutX="58.0" layoutY="202.0" text="Department" textFill="#8e8eed">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="departmentlabel" layoutX="110.0" layoutY="117.0" text="Label" textFill="#8e8eed">
+                              <Label fx:id="departmentlabel" layoutX="148.0" layoutY="202.0" text="Label" textFill="#8e8eed">
                                  <font>
                                     <Font name="System Italic" size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="21.0" layoutY="146.0" text="DOB:" textFill="#8e8eed">
+                              <Label layoutX="59.0" layoutY="231.0" text="DOB:" textFill="#8e8eed">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="doblabel" layoutX="111.0" layoutY="146.0" text="Label" textFill="#8e8eed">
+                              <Label fx:id="doblabel" layoutX="149.0" layoutY="231.0" text="Label" textFill="#8e8eed">
                                  <font>
                                     <Font name="System Italic" size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="21.0" layoutY="175.0" text="Reports to:" textFill="#8e8eed">
+                              <Label layoutX="59.0" layoutY="260.0" text="Reports to:" textFill="#8e8eed">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="reportstolabel" layoutX="110.0" layoutY="175.0" text="Label" textFill="#8e8eed">
+                              <Label fx:id="reportstolabel" layoutX="148.0" layoutY="260.0" text="Label" textFill="#8e8eed">
                                  <font>
                                     <Font name="System Italic" size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="21.0" layoutY="210.0" text="Designation:" textFill="#8e8eed">
+                              <Label layoutX="59.0" layoutY="295.0" text="Designation:" textFill="#8e8eed">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="designationlabel" layoutX="110.0" layoutY="210.0" text="Label" textFill="#8e8eed">
+                              <Label fx:id="designationlabel" layoutX="148.0" layoutY="295.0" text="Label" textFill="#8e8eed">
                                  <font>
                                     <Font name="System Italic" size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="23.0" layoutY="239.0" text="Phone:" textFill="#8e8eed">
+                              <Label layoutX="61.0" layoutY="324.0" text="Phone:" textFill="#8e8eed">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="phonelabel" layoutX="111.0" layoutY="239.0" text="Label" textFill="#8e8eed">
+                              <Label fx:id="phonelabel" layoutX="149.0" layoutY="324.0" text="Label" textFill="#8e8eed">
                                  <font>
                                     <Font name="System Italic" size="12.0" />
                                  </font>
                               </Label>
                               <Label alignment="CENTER" layoutX="276.0" layoutY="22.0" prefHeight="18.0" prefWidth="201.0" text="Leave Balances" />
-                              <BarChart fx:id="leavechart" layoutX="184.0" prefHeight="287.0" prefWidth="358.0">
+                              <BarChart fx:id="leavechart" layoutX="361.0" layoutY="67.0" prefHeight="346.0" prefWidth="447.0">
                                  <xAxis>
                                     <CategoryAxis animated="false" prefHeight="21.0" prefWidth="302.0" side="BOTTOM" />
                                  </xAxis>
@@ -174,15 +174,15 @@
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: lightgrey;">
                            <children>
                               <Group layoutX="4.0" layoutY="25.260417938232422" />
-                              <Button fx:id="revokeleave" layoutX="246.0" layoutY="248.0" mnemonicParsing="false" onAction="#deleteleave" prefHeight="26.0" prefWidth="102.0" text="Revoke Leave" />
-                              <TableView fx:id="leavemodifytable" layoutX="7.0" layoutY="5.0" prefHeight="190.0" prefWidth="580.0">
+                              <Button fx:id="revokeleave" layoutX="329.0" layoutY="373.0" mnemonicParsing="false" onAction="#deleteleave" prefHeight="40.0" prefWidth="180.0" text="Revoke Leave" />
+                              <TableView fx:id="leavemodifytable" layoutX="7.0" layoutY="5.0" prefHeight="340.0" prefWidth="828.0">
                                 <columns>
                                     <TableColumn fx:id="tid" prefWidth="75.0" text="Leave ID" />
-                                  <TableColumn fx:id="MEditTableLeaveType" prefWidth="75.0" text="Leave Type" />
-                                  <TableColumn fx:id="MEditTableLeaveFrom" prefWidth="75.0" text="Leave From" />
-                                    <TableColumn fx:id="MEditTableLeaveTo" prefWidth="75.0" text="Leave To" />
-                                    <TableColumn fx:id="MEditTableNod" prefWidth="108.0" text="Number of Days" />
-                                    <TableColumn fx:id="MEditTableLeaveComments" prefWidth="169.59991455078125" text="Reason" />
+                                  <TableColumn fx:id="MEditTableLeaveType" prefWidth="112.00001525878906" text="Leave Type" />
+                                  <TableColumn fx:id="MEditTableLeaveFrom" prefWidth="87.20001220703125" text="Leave From" />
+                                    <TableColumn fx:id="MEditTableLeaveTo" prefWidth="100.79998779296875" text="Leave To" />
+                                    <TableColumn fx:id="MEditTableNod" prefWidth="106.4000244140625" text="Number of Days" />
+                                    <TableColumn fx:id="MEditTableLeaveComments" prefWidth="344.7999267578125" text="Reason" />
                                 </columns>
                               </TableView>
                            </children>
@@ -193,12 +193,12 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView fx:id="lhtable" prefHeight="311.0" prefWidth="551.0">
+                              <TableView fx:id="lhtable" prefHeight="425.0" prefWidth="838.0">
                                  <columns>
-                                    <TableColumn fx:id="tabcoltype" prefWidth="115.19997835159302" text="Leave Type" />
-                                    <TableColumn fx:id="tabcolfrom" prefWidth="120.00001525878906" text="From Date" />
-                                    <TableColumn fx:id="tabcolto" prefWidth="96.79998779296875" text="To Date" />
-                                    <TableColumn fx:id="tabcolnod" prefWidth="143.20001220703125" text="Number of days" />
+                                    <TableColumn fx:id="tabcoltype" prefWidth="248.7999997138977" text="Leave Type" />
+                                    <TableColumn fx:id="tabcolfrom" prefWidth="148.80001831054688" text="From Date" />
+                                    <TableColumn fx:id="tabcolto" prefWidth="168.79998779296875" text="To Date" />
+                                    <TableColumn fx:id="tabcolnod" prefWidth="269.5999755859375" text="Number of days" />
                                  </columns>
                               </TableView>
                            </children>
@@ -210,24 +210,28 @@
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: lightgrey;">
                            <children>
                               <Group layoutX="4.0" layoutY="25.260417938232422" />
-                              <TableView fx:id="approvetable" layoutX="5.0" layoutY="37.0" prefHeight="128.0" prefWidth="542.0">
+                              <TableView fx:id="approvetable" layoutX="5.0" layoutY="37.0" prefHeight="275.0" prefWidth="829.0">
                                 <columns>
-                                  <TableColumn fx:id="ATblEmployeeID" prefWidth="75.0" text="EMP ID" />
-                                    <TableColumn fx:id="ATblfname" prefWidth="75.0" text="FNAME" />
-                                  <TableColumn fx:id="ATblLeaveType" prefWidth="75.0" text="LeaveType" />
-                                    <TableColumn fx:id="ATblDateFrom" prefWidth="75.0" text="DateFrom" />
-                                    <TableColumn fx:id="ATblDateTo" prefWidth="75.0" text="DateTo" />
-                                    <TableColumn fx:id="ATblNoOfDays" prefWidth="75.0" text="NoOfDays" />
-                                    <TableColumn fx:id="ATblReason" prefWidth="75.0" text="Reason" />
+                                    <TableColumn fx:id="approvetid" prefWidth="75.0" text="Leave ID" />
+                                  <TableColumn fx:id="ATblEmployeeID" prefWidth="93.59997224807739" text="EMP ID" />
+                                    <TableColumn fx:id="ATblfname" prefWidth="95.20005798339844" text="FNAME" />
+                                  <TableColumn fx:id="ATblLeaveType" prefWidth="88.80001831054688" text="LeaveType" />
+                                    <TableColumn fx:id="ATblDateFrom" prefWidth="83.199951171875" text="DateFrom" />
+                                    <TableColumn fx:id="ATblDateTo" prefWidth="78.4000244140625" text="DateTo" />
+                                    <TableColumn fx:id="ATblNoOfDays" prefWidth="90.39990234375" text="NoOfDays" />
+                                    <TableColumn fx:id="ATblReason" prefWidth="300.800048828125" text="Reason" />
                                 </columns>
                               </TableView>
-                              <Text fill="#8e8eed" layoutX="200.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EMPLOYEE LEAVES" wrappingWidth="150.13673400878906">
+                              <Text fill="#8e8eed" layoutX="340.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EMPLOYEE LEAVES" wrappingWidth="171.73670959472656">
                                  <font>
-                                    <Font name="System Bold" size="14.0" />
+                                    <Font name="System Bold" size="18.0" />
                                  </font></Text>
-                              <Text fill="#8e8eed" layoutX="19.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Action :" wrappingWidth="61.5667724609375" />
-                              <JFXComboBox fx:id="ATblComboBoxAction" layoutX="87.0" layoutY="189.0" prefHeight="26.0" prefWidth="133.0" />
-                              <Button fx:id="ATblSubmitButton" layoutX="252.0" layoutY="277.0" mnemonicParsing="false" onAction="#onApprove" prefHeight="26.0" prefWidth="86.0" text="Submit" textFill="#8e8eed">
+                              <Text fill="#8e8eed" layoutX="254.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Action :" wrappingWidth="61.5667724609375">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font></Text>
+                              <JFXComboBox fx:id="ATblComboBoxAction" layoutX="341.0" layoutY="324.0" prefHeight="40.0" prefWidth="180.0" />
+                              <Button fx:id="ATblSubmitButton" layoutX="352.0" layoutY="405.0" mnemonicParsing="false" onAction="#onApprove" prefHeight="40.0" prefWidth="134.0" text="Submit" textFill="#8e8eed">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Button>
@@ -237,14 +241,14 @@
                   </Tab>
               </tabs>
             </TabPane>
-            <AnchorPane prefHeight="58.0" prefWidth="590.0" style="-fx-background-color: #8e8eed; -fx-border-width: 10Px;">
+            <AnchorPane prefHeight="58.0" prefWidth="838.0" style="-fx-background-color: #8e8eed; -fx-border-width: 10Px;">
                <children>
-                  <Text fill="WHITE" layoutX="187.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MANAGER VIEW" wrappingWidth="229.61051177978516">
+                  <Text fill="WHITE" layoutX="323.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MANAGER VIEW" wrappingWidth="191.2105484008789">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Text>
-            <Button fx:id="LogoutBtn" alignment="CENTER" defaultButton="true" layoutX="511.0" layoutY="17.0" mnemonicParsing="false" onAction="#onlogout" prefHeight="40.0" prefWidth="78.0" text="Logout" />
+            <Button fx:id="LogoutBtn" alignment="CENTER" defaultButton="true" layoutX="759.0" layoutY="7.0" mnemonicParsing="false" onAction="#onlogout" prefHeight="40.0" prefWidth="78.0" text="Logout" />
                </children>
             </AnchorPane>
          </children>
