@@ -313,8 +313,8 @@
                   <Font name="System Bold" size="17.0" />
                </font>
             </JFXButton>
-            <JFXButton ellipsisString="" layoutX="689.0" layoutY="59.0" onAction="#onrefresh" prefHeight="26.0" prefWidth="30.0" style="-fx-background-color: #ffffff;" text=" " textFill="#040415" />
             <FontAwesomeIconView fx:id="refreshbutton" glyphName="REFRESH" layoutX="699.0" layoutY="77.0" scaleX="2.0" scaleY="2.0" />
+            <JFXButton layoutX="689.0" layoutY="60.0" onAction="#onrefresh" prefHeight="26.0" prefWidth="28.0" />
          </children>
       </AnchorPane>
    </children>

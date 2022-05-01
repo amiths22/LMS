@@ -96,13 +96,9 @@ public class AdminModel extends DBConnect {
 	
 	public ObservableList<AdminModel> getdataofusers(String query){
 		ObservableList<AdminModel> userlist = FXCollections.observableArrayList();
-		System.out.println("try entered1");
 		try(PreparedStatement ps = conn.prepareStatement(query))
 		{
-			System.out.println("try entered");
             ResultSet rs = ps.executeQuery();
-            System.out.println(ps);
-            
             
             while (rs.next())
             {
@@ -115,7 +111,6 @@ public class AdminModel extends DBConnect {
             	adm.setDepartment(rs.getString("department"));
             	adm.setDesignation(rs.getString("designation"));
             	adm.setDob(rs.getString("dob"));
-            	System.out.println("role = : " + rs.getString("role"));
             	if(rs.getString("role").equalsIgnoreCase("1"))
             	{
             		adm.setRole("Manager");
