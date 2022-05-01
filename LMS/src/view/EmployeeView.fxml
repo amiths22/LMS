@@ -206,22 +206,8 @@
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
                   </Text>
-                  <FontAwesomeIconView fill="WHITE" glyphName="USER" layoutX="28.0" layoutY="32.0" size="20.0">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </FontAwesomeIconView>
-                  <FontAwesomeIconView fill="WHITE" glyphName="USER" layoutX="7.0" layoutY="28.0" size="20.0">
-                  <font>
-                        <Font size="20.0" />
-                     </font>
-                      </FontAwesomeIconView>
-                  <FontAwesomeIconView fill="WHITE" glyphName="USER" layoutX="14.0" layoutY="43.0" size="20.0">
-                  <font>
-                        <Font size="20.0" />
-                     </font>
-                      </FontAwesomeIconView>
                   <Button fx:id="logoutbutton" layoutX="756.0" layoutY="7.0" mnemonicParsing="false" onAction="#onlogout" prefHeight="34.0" prefWidth="74.0" text="Logout" />
+                  <FontAwesomeIconView fill="WHITE" glyphName="USER" layoutX="20.0" layoutY="30.0" scaleX="2.5" scaleY="2.5" scaleZ="2.5" />
                </children>
             </AnchorPane>
          </children>
