@@ -12,5 +12,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="libs/fontawesomefx-8.9.jar"/>
+	<classpathentry kind="lib" path="libs/jfoenix.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
